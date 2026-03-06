@@ -1,4 +1,6 @@
 <resources>
-    <string name="app_name">Hello World V1</string>
+    <string name="app_name">Hello World V2</string>
     <string name="hello_string"> Hello Android World!</string>
+    <string name="subtitle_text">My First App</string>
+    <string name="lebron_james">Lebron James</string>
 </resources>
