@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="md_theme_light_primary">#006494</color>
+    <color name="md_theme_light_onPrimary">#FFFFFF</color>
+    <color name="md_theme_dark_primary">#8FCDFF</color>
+    <color name="md_theme_dark_onPrimary">#003450</color>
+    <color name="md_theme_light_background">#F8FDFF</color>
+    <color name="md_theme_dark_background">#001F31</color>
+</resources>

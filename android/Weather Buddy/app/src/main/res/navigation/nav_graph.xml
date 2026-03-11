@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/mapFragment">
+
+    <fragment
+        android:id="@+id/mapFragment"
+        android:name="com.example.weatherbuddy.ui.map.MapFragment"
+        android:label="Map">
+        <action
+            android:id="@+id/action_mapFragment_to_weatherDetailsFragment"
+            app:destination="@id/weatherDetailsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/weatherDetailsFragment"
+        android:name="com.example.weatherbuddy.ui.weather.WeatherDetailsFragment"
+        android:label="Weather Details">
+        <argument
+            android:name="lat"
+            app:argType="float" />
+        <argument
+            android:name="lon"
+            app:argType="float" />
+    </fragment>
+</navigation>
