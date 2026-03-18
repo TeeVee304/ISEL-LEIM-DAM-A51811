@@ -15,8 +15,7 @@ fun main() {
      */
     do {
         print("\n> ")
-        val input = scanner.nextLine().lowercase().trim() // Normaliza para minúsculas e remove espaços
-        if (input.isEmpty()) continue // Ignora entradas vazias
+        val input = scanner.nextLine().lowercase().trim() // Converte para minúsculas e remove espaços
 
         try {
             /*

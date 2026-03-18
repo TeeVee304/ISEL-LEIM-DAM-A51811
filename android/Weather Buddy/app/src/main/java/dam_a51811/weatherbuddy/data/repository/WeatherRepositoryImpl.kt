@@ -18,7 +18,6 @@ class WeatherRepositoryImpl @Inject constructor(
                     locationName = dto.name,
                     temperatureCelsius = dto.main.temp,
                     weatherCondition = dto.weather.firstOrNull()?.main ?: "Unknown",
-                    iconId = dto.weather.firstOrNull()?.icon ?: "01d",
                     humidityPercent = dto.main.humidity,
                     windSpeedKmH = dto.wind.speed * 3.6 // m/s to km/h
                 )
