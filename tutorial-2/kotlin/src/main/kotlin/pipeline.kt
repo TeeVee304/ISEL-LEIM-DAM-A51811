@@ -19,6 +19,14 @@ class Pipeline {
             println("${index + 1}. ${stage.first}")
         }
     }
+
+    // CHALLENGE: fork() [2%]
+    fun fork(input: List<String>, otherPipeline: Pipeline): Pair<List<String>, List<String>> {
+        val firstFork = this.execute(input)
+        val secondFork = otherPipeline.execute(input)
+
+        return Pair(firstFork, secondFork)
+    }
 }
 
 /* Higher-level function que utiliza "lambda with receiver" de notação A.(B) -> C,
@@ -31,5 +39,43 @@ fun buildPipeline(lambda: Pipeline.() -> Unit): Pipeline {
 }
 
 // ==============================< main >==============================
+fun main() {
+    // Lista indicada no enunciado do Tutorial 2
+    val logs = listOf(
+        " INFO : server started ",
+        " ERROR : disk full ",
+        " DEBUG : checking config ",
+        " ERROR : out of memory ",
+        " INFO : request received ",
+        " ERROR : connection timeout "
+    )
 
+    val pipeline = buildPipeline {
+        // Trim
+        addStage("Trim") { list ->
+            list.map { it.trim() } // trim(): Remove os espaços em branco no início e no fim
+        }
+        // Filter errors
+        addStage("Filter errors") { list ->
+            list.filter { it.contains("ERROR") }
+        }
+        // Uppercase
+        addStage("Uppercase") { list ->
+            list.map { it.uppercase() }
+        }
+        // Add index
+        addStage("Add index") { list ->
+            list.mapIndexed { index, line -> "${index + 1}. $line" }
+            // index recebe a posição do elemento na lista (map)
+            // line recebe a string de texto correspondente
+        }
+    }
+
+    pipeline.describe()
+
+    val exe = pipeline.execute(logs)
+
+    println("Result :")
+    exe.forEach { println(it) }
+}
 
