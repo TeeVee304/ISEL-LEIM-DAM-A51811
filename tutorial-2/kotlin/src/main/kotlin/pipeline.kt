@@ -20,3 +20,16 @@ class Pipeline {
         }
     }
 }
+
+/* Higher-level function que utiliza "lambda with receiver" de notação A.(B) -> C,
+   representando uma função chamada sobre o objeto (receiver) A com o parâmetro B
+   retornando C. */
+fun buildPipeline(lambda: Pipeline.() -> Unit): Pipeline {
+    val pipeline = Pipeline()
+    pipeline.lambda()
+    return pipeline
+}
+
+// ==============================< main >==============================
+
+
