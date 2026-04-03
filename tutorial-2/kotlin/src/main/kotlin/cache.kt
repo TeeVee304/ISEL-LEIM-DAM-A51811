@@ -46,18 +46,17 @@ fun main() {
     println("Size : ${wordCache.size()}")
     println("Frequency of \"kotlin\": ${wordCache.get("kotlin")}")
 
-    // Testing getOrPut
+    // getOrPut()
     println("getOrPut \"kotlin\": ${wordCache.getOrPut("kotlin") { 0 }}")
     println("getOrPut \"java\": ${wordCache.getOrPut("java") { 0 }}")
     println("Size after getOrPut : ${wordCache.size()}")
 
-    // Testing transform
+    // transform()
     println("Transform \"kotlin\" (+1) : ${wordCache.transform("kotlin") { it + 1 }}")
     println("Transform \"cobol\" (+1) : ${wordCache.transform("cobol") { it + 1 }}")
 
-    // Testing snapshot
-    // Note: Standard Map toString formatting is {kotlin=2, scala=1...}
-    // We format it here to perfectly mimic your expected output spaces.
+    // snapshot ()
+    // NOTA: A string formatou-se de forma específica para encaixar no enunciado
     val snapshotStr = wordCache.snapshot().entries.joinToString(", ", "{ ", "}") { "${it.key} =${it.value} " }
     println("Snapshot : $snapshotStr")
 
