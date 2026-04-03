@@ -8,4 +8,3 @@ fun main() {
     println(b.joinToString())
     println(c.joinToString())
 }
-
