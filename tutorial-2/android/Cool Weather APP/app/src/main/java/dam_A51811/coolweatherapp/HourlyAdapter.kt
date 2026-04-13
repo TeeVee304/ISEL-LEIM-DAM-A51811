@@ -7,25 +7,42 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
+/**
+ * Adaptador responsável por processar e apresentar a previsão meteorológica horária numa [RecyclerView].
+ * @property hourlyData
+ */
 class HourlyAdapter(private val hourlyData: Hourly) : RecyclerView.Adapter<HourlyAdapter.ViewHolder>() {
-    /* ViewHolder: Cache que guarda as referências dos elementos visuais de um único item da lista.
-       Ele guarda estas referências para evitar chamar findViewById() sempre que ocorre um scroll,
-       reciclando itens antigos. */
+    /**
+     * Cache que guarda as referências dos elementos visuais de um único item da lista.
+     * Evita chamadas repetidas ao [View.findViewById] sempre que ocorre um scroll,
+     * reciclando as vistas de itens antigos.
+     * @param view Layout raiz do item individual da lista.
+     */
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val timeText: TextView = view.findViewById(R.id.hourly_time)
         val iconImage: ImageView = view.findViewById(R.id.hourly_icon)
         val tempText: TextView = view.findViewById(R.id.hourly_temp)
     }
 
+    /**
+     * Invocado quando a [RecyclerView] necessita de um novo [ViewHolder] para representar um item.
+     * @param parent O [ViewGroup] ao qual a nova [View] será anexada.
+     * @param viewType O tipo de [View] do novo item (não será utilizado, neste caso).
+     * @return Um novo [ViewHolder] contendo o layout "insuflado".
+     */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.hourly_forecast, parent, false)
         return ViewHolder(view)
     }
 
+    /**
+     * Invocado pela [RecyclerView] para injetar os dados na vista de uma posição específica.*
+     * @param holder O [ViewHolder] que deve ser atualizado com os conteúdos do item.
+     * @param position A posição atual do item dentro da lista de dados.
+     */
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val context = holder.itemView.context
 
-        // 1. Parse the time string (e.g., "2026-04-12T14:00")
         val fullTime = hourlyData.time[position]
 
         // Extract just the hour part ("14") and the full HH:mm ("14:00")
@@ -53,12 +70,10 @@ class HourlyAdapter(private val hourlyData: Hourly) : RecyclerView.Adapter<Hourl
                 // Append "day" or "night" dynamically based on the current item's hour!
                 imageName += if (isDayHour) "day" else "night"
             }
-
             val resID = context.resources.getIdentifier(imageName, "drawable", context.packageName)
             if (resID != 0) holder.iconImage.setImageResource(resID)
         }
     }
-
     // Mostramos apenas as próximas 24 horas para não sobrecarregar a lista
     override fun getItemCount() = 24
 }
