@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Cool Weather</string>
+    <string name="localidade">Localidade</string>
+    <string name="temperatura">Cº</string>
+    <string name="tempo">Tempo</string>
+    <string name="high_low">Max:+C° Min:-Cº</string>
+    <string name="ten_day_forecast">PREVISÃO 10 DIAS</string>
+    <string name="precipitation">PRECIPITAÇÃO</string>
+    <string name="precipitation_value">n mm</string>
+    <string name="wind">VENTO</string>
+    <string name="wind_value">n km/h</string>
+    <string name="hourly_forecast">PREVISÃO HORÁRIA</string>
+    <string name="wind_direction">Direção:</string>
+    <string name="pressure">PRESSÃO</string>
+    <string name="pressure_value">n hPa</string>
+    <string name="humidity">HUMIDADE</string>
+    <string name="humidity_value">n %</string>
+</resources>
