@@ -37,7 +37,7 @@ class HourlyAdapter(private val hourlyData: Hourly) : RecyclerView.Adapter<Hourl
         val isDayHour = hourInt in 7..19 // Day is between 07:00 and 19:00
 
         // 2. Set the temperature
-        holder.tempText.text = "${hourlyData.temperature_h[position]}°"
+        holder.tempText.text = "${hourlyData.temperature_2m[position]}°"
 
         // 3. Get the correct image based on the specific hour
         val apiCode = hourlyData.weathercode[position]

@@ -41,8 +41,8 @@ class DailyAdapter(private val dailyData: Daily) : RecyclerView.Adapter<DailyAda
         }
 
         // 2. Temperaturas Max e Min
-        holder.maxTempText.text = "${dailyData.temperature_max[position]}°"
-        holder.minTempText.text = "${dailyData.temperature_min[position]}°"
+        holder.maxTempText.text = "${dailyData.temperature_2m_max[position]}°"
+        holder.minTempText.text = "${dailyData.temperature_2m_min[position]}°"
 
         // 3. Ícone
         val apiCode = dailyData.weathercode[position]

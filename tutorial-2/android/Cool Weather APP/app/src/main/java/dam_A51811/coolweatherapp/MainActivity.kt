@@ -63,10 +63,10 @@ class MainActivity : AppCompatActivity() {
             temperatureTextView.text = "${data.current_weather.temperature} °C"
             windTextView.text = "${data.current_weather.windspeed} km/h"
             windDirectionTextView.text = "${getString(R.string.wind_direction)} ${data.current_weather.winddirection}°"
-            pressureTextView.text = "${data.hourly.pressure[0]} hPa"
+            pressureTextView.text = "${data.hourly.pressure_msl[0]} hPa"
             precipitationTextView.text = "${data.hourly.precipitation[0]} mm"
-            humidityTextView.text = "${data.hourly.humidity[0]} %"
-            maxMinTextView.text = "Max: ${data.daily.temperature_max[0]}° Min: ${data.daily.temperature_min[0]}°"
+            humidityTextView.text = "${data.hourly.relativehumidity_2m[0]} %"
+            maxMinTextView.text = "Max: ${data.daily.temperature_2m_max[0]}° Min: ${data.daily.temperature_2m_min[0]}°"
 
             hourlyRecycler.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this, androidx.recyclerview.widget.LinearLayoutManager.HORIZONTAL, false)
             dailyRecycler.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this, androidx.recyclerview.widget.LinearLayoutManager.VERTICAL, false)
@@ -79,12 +79,11 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    /** Verifica se a aplicação tem as permissões necessárias para aceder à localização do dispositivo. */
     private fun requestLocation() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            // Se já tiver permissão, obtém a localização imediatamente
             getLocationAndWeather()
         } else {
-            // Se não tiver, mostra o popup do sistema a pedir permissão ao utilizador
             ActivityCompat.requestPermissions(
                 this,
                 arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION),
@@ -93,6 +92,14 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Função chamada automaticamente após o utilizador interagir com o pop-up de
+     * permissão de acesso à localização.
+     * @param requestCode O código utilizado no requestPermissions ('100').
+     * @param permissions Lista de permissões solicitadas.
+     * @param grantResults Lista de resultados correspondentes às permissões solicitadas
+     * (PERMISSION_GRANTED ou PERMISSION_DENIED).
+     */
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
@@ -110,47 +117,40 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    /**
-     * Obtém as coordenadas GPS exatas do telemóvel e pede os dados da meteorologia.
-     */
-    @SuppressLint("MissingPermission") // Ignora o aviso porque já verificámos as permissões antes de chamar este método
+    /** Obtém as coordenadas GPS exatas do telemóvel e pede os dados da meteorologia. */
+    @SuppressLint("MissingPermission") // de outra forma não funcionaria (??)
     private fun getLocationAndWeather() {
         fusedLocationClient.lastLocation.addOnSuccessListener { location ->
             val locationTextView = findViewById<TextView>(R.id.location)
 
             if (location != null) {
-                // Sucesso ao obter as coordenadas!
                 locationTextView.text = "Lat: ${String.format("%.2f", location.latitude)}, Lon: ${String.format("%.2f", location.longitude)}"
                 fetchWeatherForLocation(location.latitude, location.longitude)
             } else {
-                // Falha (frequente em emuladores sem histórico de localização)
-                Toast.makeText(this, "Não foi possível obter a localização. A utilizar Lisboa.", Toast.LENGTH_SHORT).show()
-                locationTextView.text = "Lisboa (Defeito)"
+                locationTextView.text = "Lat: 38.72, Lon: -9.14"
                 fetchWeatherForLocation(38.72, -9.14)
             }
         }
     }
 
     /**
-     * Prepara as variáveis auxiliares (como saber se é dia ou noite localmente) 
-     * e diz ao ViewModel para fazer o pedido à API.
+     * Prepara as variáveis de interface com base na hora atual e solicita
+     * ao [ViewModel] que efetue a transferência dos dados meteorológicos.
+     * @param lat Latitude.
+     * @param long Longitude.
      */
     private fun fetchWeatherForLocation(lat: Double, long: Double) {
-        // Lógica simples para definir dia/noite (Dia é considerado entre as 7h e as 19h)
         val hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
-        val isDay = hour in 7..19
+        val isDay = hour in 7..19 // Considera-se dia entre as 7h e as 19h
 
-        // 1. Encontrar o layout principal (CoordinatorLayout)
+        // Alterar fundo consoante o ciclo de dia/noite
         val backgroundLayout = findViewById<androidx.coordinatorlayout.widget.CoordinatorLayout>(R.id.background)
-
-        // 2. Mudar a imagem de fundo consoante seja dia ou noite
         if (isDay) {
             backgroundLayout.setBackgroundResource(R.drawable.sunny_bg)
         } else {
             backgroundLayout.setBackgroundResource(R.drawable.night_bg)
         }
 
-        // Inicia a pesquisa de dados em background através do ViewModel
         viewModel.fetchWeatherData(lat, long, isDay)
     }
 }

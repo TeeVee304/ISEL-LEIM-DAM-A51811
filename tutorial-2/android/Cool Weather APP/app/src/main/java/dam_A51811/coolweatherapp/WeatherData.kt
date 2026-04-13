@@ -20,17 +20,17 @@ data class CurrentWeather(
 // HOURLY FORECAST
 data class Hourly(
     var time: ArrayList<String>,
-    var temperature_h: ArrayList<Double>, // novo tipo <Double>
-    var weathercode: ArrayList<Int>,       // novo tipo <Int>
-    var pressure: ArrayList<Double>,
+    var temperature_2m: ArrayList<Double>, // novo tipo <Double>
+    var weathercode: ArrayList<Int>,      // novo tipo <Int>
+    var pressure_msl: ArrayList<Double>,
     var precipitation: ArrayList<Double>,
-    var humidity: ArrayList<Int>
+    var relativehumidity_2m: ArrayList<Int>
 )
 
 // 10-DAY FORECAST
 data class Daily(
     var time: ArrayList<String>,
     var weathercode: ArrayList<Int>,
-    var temperature_max: ArrayList<Double>,
-    var temperature_min: ArrayList<Double>
+    var temperature_2m_max: ArrayList<Double>,
+    var temperature_2m_min: ArrayList<Double>
 )
