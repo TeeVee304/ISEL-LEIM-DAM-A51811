@@ -1,7 +1,7 @@
 # Tutorial 1 - Hello Kotlin. Hello Android World!
-**Unidade Curricular:** Desenvolvimento de Aplicações Móveis (DAM)
-**Aluno:** Bruno Pereira (51811)
-**Data:** 08/03/2026
+**Unidade Curricular:** Desenvolvimento de Aplicações Móveis (DAM) \\
+**Aluno:** Bruno Pereira (51811) \\
+**Data:** 08/03/2026 \\
 **URL do Repositório:** https://github.com/brunopereira123456789/ISEL-LEIM-DAM-A51811/tree/main/tutorial-1
 
 ---
@@ -11,12 +11,12 @@ O presente trabalho enquadra-se no Tutorial 1 de Desenvolvimento de Aplicações
 
 O tutorial consolida conceitos básicos da linguagem através de exercícios de aplicação matemática e sintática, progredindo posteriormente para o ecossistema e interface gráfica Android.
 
-## 2. System Overview
+## 2. Resumo do Sistema
 A solução desenvolve-se através de duas frentes de trabalho:
 - **Exercícios de Kotlin (Consola):** Consiste em pequenos programas executáveis que demonstram o uso de estruturas de dados (arrays e listas), a materialização de uma interface de linha de comandos interativa (REPL) para efetuar cálculos aritméticos e lógicos, o uso de sequências (`generateSequence`) de aplicação livre, e princípios de Programação Orientada a Objetos com a criação e gestão de um sistema de uma biblioteca.
 - **Aplicações Android:** Engloba a construção e exploração de três aplicações móveis focado na manipulação de eventos, estruturação de componentes em vistas e análise de propriedades de forma exploratória.
 
-## 3. Architecture and Design
+## 3. Arquitetura e Design
 O repositório está subdividido em duas diretorias distintas:
 - `kotlin/`: Estruturado enquanto projeto modular em IntelliJ IDEA de acordo com a hierarquia da ferramenta de compilação adotada (`src/main/kotlin/dam/`). Evidenciam-se opções de design suportadas na programação funcional característica do Kotlin (uso de `when` como expressão avaliativa interativa das opções e manipulação direta de funções iteráveis) bem como modelação do domínio físico usando o encapsulamento orientado a objetos onde instâncias especializadas formam as devidas classes (como `DigitalBook` e `PhysicalBook` expandido via abstração).
 - `android/`: Diretório dedicado a instâncias separadas de projetos Android ("Hello World", "System Info", e "Weather Buddy"). A estruturação interna segue o protótipo comum imposto pelo Android Studio e os seus pacotes de gestão (`Activities` sobre XML, fragmentos e lógica partilhada de acordo correspondendo ao ciclo de inicialização mobile).
