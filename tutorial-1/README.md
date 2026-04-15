@@ -49,7 +49,7 @@ Para arrancar e testar cada um dos protótipos em `android/`:
 4. Conduzir a compilação no ícone *Run* de modo a arrancar no Emulador pretendido ou recurso físico autorizado por USB.
 
 ---
-# Autonomous Software Engineering
+# Engenharia de Software Assistida por IA
 ## 7. Estratégia de Prompting
 As interações com as ferramentas de inteligência artificial foram realizadas de forma iterativa com o intuito de esclarecer dúvidas concretas durante o desenvolvimento. Foram efetuadas perguntas curtas para validar a estrutura dos ciclos `do-while` e blocos `try-catch` nos exercícios em Kotlin, e pontualmente para auxiliar na resolução de erros associados ao compilador Gradle no Android Studio.
 
@@ -64,27 +64,30 @@ O código sugerido pela IA passou sempre por uma fase de teste local antes da in
 | Componente | Desenvolvimento |
 | :--- | :--- |
 | Exercício 1 - Instanciação de Arrays | Humano |
-| Exercício 2 - Calculadora REPL | Assistido por IA |
-| Exercício 3 - Modelação Sequencial | Assistido por IA |
+| Exercício 2 - Calculadora | Humano |
+| Exercício 3 - Modelação Sequencial | Humano |
 | Exercício VL - Gestão de Biblioteca | Humano |
-| Hello World | Humano |
+| Hello World | Assistido por IA |
 | System Info | Assistido por IA |
 | Weather Buddy | IA |
 
-## 11. Ethical and Responsible Use
-Foram cumpridos estritamente os imperativos éticos recomendados, em particular a compreensão integral dos trechos sugeridos no intuito de isolar falsas soluções e adulteração desprovidas de contexto. Assegura-se de igual modo, assunção de compromisso pela propriedade perante cada solução injetada pelo modelo por meio do crivo formativo de adequação técnica sem isenção de autoria académica para cada exercício validado individualmente.
+## 11. Uso Ético e Responsável
+A utilização das ferramentas de IA foi feita de forma estritamente consciente, garantindo a compreensão de todo o código sugerido antes da sua aplicação. As soluções geradas passaram por uma análise crítica com o objetivo de proibir a inserção de código incorreto ou fora de contexto. A responsabilidade pelas decisões de design, funcionalidade dos artefactos e autoria direta da solução final manteve-se inteiramente do lado do aluno.
 
 ---
-# Development Process
-## 12. Version Control and Commit History
-Procedimentos apoiados metodologicamente em Git de modo a proporcionar *snapshots* seccionados no avanço de complexidade sobre ambas as fronteiras linguísticas propostas da diretoria mãe. Desde protótipos singulares de console como materializados nos registos remanescentes do Repositório até interações de adição sucessivas da compilação e dos XML nos ecossistemas de projeto base móveis em Android.
+# Processo de Desenvolvimento
+## 12. Controlo de Versão e Histórico de Commits
+O sistema Git foi selecionado para versionar gradualmente as alterações ao longo do desenvolvimento deste guia. Os commits refletem fielmente a evolução do projeto passo a passo, documentando a resolução inicial dos vários algoritmos em consola na subdiretoria `kotlin/` até às sucessivas adições de layouts gráficos e configuração global das aplicações contidas em `android/`.
 
-## 13. Difficulties and Lessons Learned
-Destacou-se em especial as incongruências subjacentes aos paradigmas declarativos na mutação de dados não triviais que marcam o ecossistema e abstração idiomática presentes na linguagem face a alternativas puramente orientadas. Superou-se em igual destaque as barreiras comuns relativas à curva gradual de introdução perante os manifestos limitadores de configurações, ficheiros complexos e assimetria do IDE do percurso focado nas aplicações de Android. Fomentou o cimentar crucial da interpretação rápida e reestruturação para depuração.
+## 13. Dificuldades e Aprendizagens
+As principais dificuldades e desafios encontrados durante a resolução prática focaram-se em três aspetos específicos:
+- **Layouts e Constraints (Android):** Adaptação ao posicionamento de componentes e gestão de constrangimentos na construção das interfaces gráficas.
+- **API Fetching (Weather Buddy):** Compreensão do ciclo de requisições de rede para obter dados da meteorologia no background e apresentá-los no último ecossistema móvel.
+- **Bitwise Shifts (Kotlin):** Entendimento concetual das operações lógicas de deslocamento de bits (`shl` e `shr`) no desenvolvimento do construto da calculadora (Exercício 2).
 
-## 14. Future Improvements
-Potenciais extensões alavancam o reajuste perante abordagens modernas focadas noutras bibliotecas ricas padronizadas introduzidas na linguagem, no uso do enquadramento de *flows*, rotinas assíncronas dedicadas na verificação interativa e eventual expansão do Android num domínio integral em migração generalista das vistas gráficas de XML para os declarativos de interfaces.
+## 14. Melhorias Futuras
+Uma extensão bastante valiosa envolveria a migração da base das aplicações em Android para implementações declarativas nativas utilizando o Jetpack Compose em oposição à abordagem enraizada em ficheiros XML. Desta forma seria também vantajoso dotar o programa de um leque operacional fundamentando nas chamadas assíncronas do Kotlin via Coroutines.
 
 ---
-## 15. AI Usage Disclosure (Mandatory)
-Na execução destas preposições exploratórias de introdução pontual valeu-se da utilização estrita dos Large Language Models, limitadamente atuando de caráter complementar com intervenção pontual. Envolveu abordagens pragmáticas de elucidações declarativas e desambiguações de documentação formatada pela comunidade para as funções, mantendo e atestando integralmente por responsabilidade central todo o planeamento de controlo estrutural presente nos algoritmos originados.
+## 15. Declaração acerca da Utilização de IA
+O trabalho de laboratório foi desenvolvido e ocasionalmente corroborado com a consulta de modelos linguísticos primários (ex: sugerir blocos alternativos de sintaxe limitadora e corrigir falhas passadas pelo parser de ficheiros de compilação em Android). Afirma-se inteiramente a responsabilidade do utilizador pelas decisões tomadas na constituição da resolução entregue, e total discernimento sobre todas as mecânicas finais introduzidas submetidas sob a sua alçada no repositório.
