@@ -4,11 +4,6 @@
 - **Data:** 08/03/2026
 - **URL do Repositório:** https://github.com/brunopereira123456789/ISEL-LEIM-DAM-A51811/tree/main/tutorial-1
 
-| Unidade Curricular | Desenvolvimento de Aplicações Móveis (DAM) |
-| Aluno | Bruno Pereira (51811) |
-| Data | 08/03/2026 |
-| URL do Repositório | https://github.com/brunopereira123456789/ISEL-LEIM-DAM-A51811/tree/main/tutorial-1 |
-
 ---
 
 ## 1. Introdução
@@ -17,9 +12,9 @@ O presente trabalho enquadra-se no Tutorial 1 de Desenvolvimento de Aplicações
 O tutorial consolida conceitos básicos da linguagem através de exercícios de aplicação matemática e sintática, progredindo posteriormente para o ecossistema e interface gráfica Android.
 
 ## 2. Resumo do Sistema
-A solução desenvolve-se através de duas frentes de trabalho:
-- **Exercícios de Kotlin (Consola):** Consiste em pequenos programas executáveis que demonstram o uso de estruturas de dados (arrays e listas), a materialização de uma interface de linha de comandos interativa (REPL) para efetuar cálculos aritméticos e lógicos, o uso de sequências (`generateSequence`) de aplicação livre, e princípios de Programação Orientada a Objetos com a criação e gestão de um sistema de uma biblioteca.
-- **Aplicações Android:** Engloba a construção e exploração de três aplicações móveis focado na manipulação de eventos, estruturação de componentes em vistas e análise de propriedades de forma exploratória.
+O trabalho foi desenvolvido em duas frentes de trabalho:
+1. Pequenos programas executáveis, desenvolvidos em Kotlin, que demonstram o uso de estruturas de dados (arrays e listas), uma interface de consola interativa para efetuar cálculos aritméticos e lógicos, o uso de sequências (`generateSequence`), e princípios de Programação Orientada a Objetos com a criação e gestão de um sistema de uma biblioteca.
+2. Três aplicações móveis focadas na manipulação de eventos, estruturação de componentes em vistas e análise de propriedades.
 
 ## 3. Arquitetura e Design
 O repositório está subdividido em duas diretorias distintas:
