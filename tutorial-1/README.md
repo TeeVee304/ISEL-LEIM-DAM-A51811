@@ -34,7 +34,7 @@ Os módulos encontram-se estruturados do seguinte modo:
 - Acondiciona isoladamente as diretorias do projeto `Hello World`, `System Info`, no qual se explora a leitura das informações de hardware, e `Weather Buddy`.
 
 ## 5. Testing and Validation
-Os modelos programados com destinação na JVM (em Kotlin) sofreram testes por via de experimentação singular informal no ambiente gráfico IDE atestando as saídas formatadas. Procedeu-se adicionalmente à aferição intencional de divisões de erros zero e de entradas inválidas ao parser na REPL do `exer_2` garantindo contenção pela devida ramificação do `Exception`. Testou-se do mesmo modo a indisponibilidade materializada das unidades em limite da biblioteca no `exer_vl` validando as respostas do domínio. Oarante formal dos executáveis sobre Android valeu-se do ecrã virtual do Emulador interno das ferramentas de engenharia, verificando se cada transição e formatação respondem corretamente aos comportamentos exigidos. 
+Os exercícios em Kotlin foram validados localmente através da execução no IntelliJ IDEA e verificação dos resultados na consola. Na calculadora (`exer_2`), foram testadas operações matemáticas inválidas como a divisão por zero para garantir o correto funcionamento das exceções. Na aplicação de gestão da biblioteca (`exer_vl`), verificou-se com sucesso o limite de cópias disponíveis aquando da requisição excessiva. Por fim, as três aplicações móveis foram testadas através do emulador integrado no Android Studio, confirmando o carregamento apropriado da interface e a correta resposta aos eventos em cada um dos ecrãs explorados.
 
 ## 6. Usage Instructions
 Para executar os exercícios enquadrados na diretoria `kotlin/`:
@@ -49,25 +49,25 @@ Para arrancar e testar cada um dos protótipos em `android/`:
 4. Conduzir a compilação no ícone *Run* de modo a arrancar no Emulador pretendido ou recurso físico autorizado por USB.
 
 ---
-# Autonomous Software Engineering Sections - only for [AC OK, AI OK] sections
-## 7. Prompting Strategy
-As sessões de conversação (*prompting*) decorreram com preceitos de intermitência direcionada validando progressivamente, de modo compartimentado, as construções idiomáticas em Kotlin. Foram usadas queries incisivas para clarificar a abordagem ao input via `do-while` aliado ao controlo imperativo do `try-catch`, estendendo por fim esta mecânica orientativa aquando das incertezas procedimentais inerentes à dependência do compilador de Gradle nas ferramentas móveis durante as integrações android.
+# Autonomous Software Engineering
+## 7. Estratégia de Prompting
+As interações com as ferramentas de inteligência artificial foram realizadas de forma iterativa com o intuito de esclarecer dúvidas concretas durante o desenvolvimento. Foram efetuadas perguntas curtas para validar a estrutura dos ciclos `do-while` e blocos `try-catch` nos exercícios em Kotlin, e pontualmente para auxiliar na resolução de erros associados ao compilador Gradle no Android Studio.
 
-## 8. Autonomous Agent Workflow
-O agente AI manifesta a sua incorporação na aceleração inicial da refatoração descrita de métodos, elucidando potenciais fugas aos bloqueios recursivos bem como proporcionando vias alternativas, mas idiomáticas associadas ao Kotlin moderno. Exibiu também de forma indireta ações determinantes de sintaxe auxiliando as avaliações rápidas para a formulação funcional declarativa em prol das convencionais, simplificando as etapas preliminares ou interceções dos bloqueadores de IDE.
+## 8. Workflow do Agente Autónomo
+As ferramentas de IA demonstraram utilidade primária na aceleração da escrita e formatação do código. Desempenharam um papel prático na identificação rápida de problemas de sintaxe e na recomendação de funções de biblioteca próprias do Kotlin (como a criação simplificada de sequências iteráveis), evadindo cenários de erro e bloqueio da aplicação.
 
-## 9. Verification of AI-Generated Artifacts
-Toda e qualquer solução provida e integrada sobreviveu a testagem empírica, linha a linha e sendo estritamente revista em execução direta na JVM ou Emulador face ao contexto e output ambicionado da lógica definida nas normas submetidas no escopo inicial. Ajustou-se de forma manual todo o enquadramento de formato irregular, dependências estáticas não compatíveis com as diretivas e discrepâncias sobre bibliotecas.
+## 9. Verificação de Artefactos Gerados por IA
+O código sugerido pela IA passou sempre por uma fase de teste local antes da integração. As soluções foram validadas e testadas manualmente tanto no IDE (IntelliJ) como no emulador Android para confirmar a sua correção face aos requisitos. Todos os trechos sofreram os devidos ajustes humanos necessários para corrigir formatações de sintaxe ou dependências inadequadas.
 
-## 10. Human vs AI Contribution
+## 10. Contribuição Humana vs IA
 
-| Componente | Contribuição Humana | Contribuição AI |
-| :--- | :--- | :--- |
-| **Estrutura de Diretórios e Escopo** | Determinação ativa da divisão modular entre ambientes IntelliJ (Kotlin) e Android Studio. | Intervenção suprimida (Nula). |
-| **Exercício 2 (REPL Iterativo)** | Design da limitação sequencial de divisão de instâncias lógicas e contenção global imperativa perante divisão por zero na rotina principal matemática. | Refinamento para parsing, delineação robusta da leitura de comandos pelo construto `trim()` e encurtamento interativo dos matches no percurso. |
-| **Algoritmia Sequencial (Exercício 3)** | Encadeamento e delimitação estrutural face à limitação natural pretendida com adaptação formatada do texto resultante a métricas base de arredondamentos (`.2f`). | Recomendação assertiva sobre blocos dinâmicos usando `generateSequence`, em favor da formatação cíclica não declarativa mitigando recursões. |
-| **POO da Biblioteca (Exercício VL)** | Mapeamento das estruturas internas e do encapsulamento final. Delimitação das métricas de bloqueios logísticos (`PhysicalBook` esgotável, por exemplo). | Refatorização simplificatória de parâmetros internos (`data class` e correlacionados eventuais associadas à tipagem no `Library`). |
-| **Sistema Android Básicos** | Configuração inicial, mapeamento dos views ao respetivo control Kotlin e inicialização interativa dos comportamentos das activities e layouts nos ecrãs móveis exploráveis. | Ajuste pontual e aconselhamentos analíticos à arquitetura sobre bibliotecas dependentes (noções dos scripts `.gradle`). |
+| Componente | Desenvolvimento |
+| :--- | :--- |
+| Estrutura de Diretórios e Escopo | Humano |
+| Exercício 2 (Calculadora REPL) | Híbrido |
+| Algoritmia Sequencial (Exercício 3) | Híbrido |
+| POO da Biblioteca (Exercício VL) | Humano |
+| Aplicações Básicas do Android | Híbrido |
 
 ## 11. Ethical and Responsible Use
 Foram cumpridos estritamente os imperativos éticos recomendados, em particular a compreensão integral dos trechos sugeridos no intuito de isolar falsas soluções e adulteração desprovidas de contexto. Assegura-se de igual modo, assunção de compromisso pela propriedade perante cada solução injetada pelo modelo por meio do crivo formativo de adequação técnica sem isenção de autoria académica para cada exercício validado individualmente.
