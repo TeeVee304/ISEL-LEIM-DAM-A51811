@@ -13,25 +13,25 @@ O tutorial consolida conceitos básicos da linguagem através de exercícios de 
 
 ## 2. Resumo do Sistema
 O trabalho foi desenvolvido em duas frentes de trabalho:
-1. Pequenos programas executáveis, desenvolvidos em Kotlin, que demonstram o uso de estruturas de dados (arrays e listas), uma interface de consola interativa para efetuar cálculos aritméticos e lógicos, o uso de sequências (`generateSequence`), e princípios de Programação Orientada a Objetos com a criação e gestão de um sistema de uma biblioteca.
+1. Pequenos programas executáveis, desenvolvidos em Kotlin, que exploram estruturas de dados (arrays e listas), cálculos aritméticos e lógicos, sequências (`generateSequence`), e princípios de Programação Orientada a Objetos com a criação e gestão de um sistema de uma biblioteca.
 2. Três aplicações móveis focadas na manipulação de eventos, estruturação de componentes em vistas e análise de propriedades.
 
 ## 3. Arquitetura e Design
-O repositório está subdividido em duas diretorias distintas:
-- `kotlin/`: Estruturado enquanto projeto modular em IntelliJ IDEA de acordo com a hierarquia da ferramenta de compilação adotada (`src/main/kotlin/dam/`). Evidenciam-se opções de design suportadas na programação funcional característica do Kotlin (uso de `when` como expressão avaliativa interativa das opções e manipulação direta de funções iteráveis) bem como modelação do domínio físico usando o encapsulamento orientado a objetos onde instâncias especializadas formam as devidas classes (como `DigitalBook` e `PhysicalBook` expandido via abstração).
-- `android/`: Diretório dedicado a instâncias separadas de projetos Android ("Hello World", "System Info", e "Weather Buddy"). A estruturação interna segue o protótipo comum imposto pelo Android Studio e os seus pacotes de gestão (`Activities` sobre XML, fragmentos e lógica partilhada de acordo correspondendo ao ciclo de inicialização mobile).
+O repositório está subdividido em duas diretorias distintas, refletindo a estrutura supracitada:
+- `kotlin/`: Projeto desenvolvido em IntelliJ IDEA, seguindo a hierarquia default (`src/main/kotlin/dam/`).
+- `android/`: Diretoria dedicada a instâncias separadas de projetos Android ("Hello World", "System Info", e "Weather Buddy"). A estrutura interna segue o protótipo comum imposto pelo Android Studio e os seus pacotes de gestão.
 
-## 4. Implementation
+## 4. Implementação
 Os módulos encontram-se estruturados do seguinte modo:
 
-**Dentro da diretoria `kotlin/`:**
+**Diretoria `kotlin/`:**
 - **`dam/exer_1/`**: Centra-se na instanciação e mapeamento posicional de arrays (e listas indiretas) iterados via funções lambda.
-- **`dam/exer_2/`**: Implementação de uma calculadora REPL com avaliação contínua do input por meio do `when`. Oculta conversão iterada e implementa controlo matemático de restrições sensíveis (como validações de divisão por zero) emitindo as exceções requeridas no formato de controlo `try-catch`.
-- **`dam/exer_3/`**: Computação de saltos dinâmicos baseados no amortecimento limitante de ressaltos de uma bola através da limitação recursiva sobre uma *collection* com tipo derivado de `.takeWhile()` para prevenir saturação assintótica dos resultados numéricos.
-- **`dam/exer_vl/`**: Lógica de modulação da biblioteca (`Library`), fornecendo os processos transacionais de inserção de coleções, rotinas de validações logísticas de devolução, interceção recursiva do percurso e esgotamento do limite nas tiragens dos exemplares.
+- **`dam/exer_2/`**: Implementação de uma calculadora com leitura contínua do input por meio do `when`.
+- **`dam/exer_3/`**: Simulação do amortecimento de ressaltos de uma bola através da limitação recursiva sobre uma *collection* com tipo derivado de `.takeWhile()` para prevenir saturação dos resultados numéricos.
+- **`dam/exer_vl/`**: Lógica de gestão de uma biblioteca (`Library`), fornecendo os processos transacionais de inserção de coleções, rotinas de validações logísticas de devolução, interceção recursiva do percurso e esgotamento do limite nas tiragens dos exemplares.
 
-**Dentro da diretoria `android/`:**
-- Acondiciona isoladamente aos diretórios do projeto `Hello World` e de leitura da extração hardware alocado ao ecletismo da interface em `System Info`, culminando na exploração arquitetural introduzida a navegações mais robustas em `Weather Buddy`.
+**Diretoria `android/`:**
+- Acondiciona isoladamente as diretorias do projeto `Hello World`, `System Info`, no qual se explora a leitura das informações de hardware, e `Weather Buddy`.
 
 ## 5. Testing and Validation
 Os modelos programados com destinação na JVM (em Kotlin) sofreram testes por via de experimentação singular informal no ambiente gráfico IDE atestando as saídas formatadas. Procedeu-se adicionalmente à aferição intencional de divisões de erros zero e de entradas inválidas ao parser na REPL do `exer_2` garantindo contenção pela devida ramificação do `Exception`. Testou-se do mesmo modo a indisponibilidade materializada das unidades em limite da biblioteca no `exer_vl` validando as respostas do domínio. Oarante formal dos executáveis sobre Android valeu-se do ecrã virtual do Emulador interno das ferramentas de engenharia, verificando se cada transição e formatação respondem corretamente aos comportamentos exigidos. 
