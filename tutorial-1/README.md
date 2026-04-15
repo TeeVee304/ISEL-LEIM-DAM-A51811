@@ -1,11 +1,14 @@
-# Assignment 1 — Tutorial 1 - Hello Kotlin. Hello Android World!
-Course: Desenvolvimento de Aplicações Móveis (DAM)
-Student(s): Bruno Pereira (51811)
-Date: 08/03/2026
-Repository URL: https://github.com/brunopereira123456789/ISEL-LEIM-DAM-A51811/tree/main/tutorial-1
+# Tutorial 1 - Hello Kotlin. Hello Android World!
+**Unidade Curricular:** Desenvolvimento de Aplicações Móveis (DAM)
+
+**Aluno:** Bruno Pereira (51811)
+
+**Data:** 08/03/2026
+
+**URL do Repositório:** https://github.com/brunopereira123456789/ISEL-LEIM-DAM-A51811/tree/main/tutorial-1
 ---
 
-## 1. Introduction
+## 1. Introdução
 O presente trabalho enquadra-se no Tutorial 1 de Desenvolvimento de Aplicações Móveis (DAM). O objetivo principal compreende a familiarização com a linguagem de programação Kotlin, bem como na introdução ao desenvolvimento de aplicações para Android. 
 
 O tutorial consolida conceitos básicos da linguagem através de exercícios de aplicação matemática e sintática, progredindo posteriormente para o ecossistema e interface gráfica Android.
