@@ -82,12 +82,12 @@ O sistema Git foi selecionado para versionar gradualmente as alterações ao lon
 ## 13. Dificuldades e Aprendizagens
 As principais dificuldades e desafios encontrados durante a resolução prática focaram-se em três aspetos específicos:
 - **Layouts e Constraints (Android):** Adaptação ao posicionamento de componentes e gestão de constrangimentos na construção das interfaces gráficas.
-- **API Fetching (Weather Buddy):** Compreensão do ciclo de requisições de rede para obter dados da meteorologia no background e apresentá-los no último ecossistema móvel.
+- **API Fetching ("Weather Buddy"):** Compreensão do ciclo de requisições de rede para obter dados da meteorologia no background e apresentá-los no último ecossistema móvel.
 - **Bitwise Shifts (Kotlin):** Entendimento concetual das operações lógicas de deslocamento de bits (`shl` e `shr`) no desenvolvimento do construto da calculadora (Exercício 2).
 
 ## 14. Melhorias Futuras
-Uma extensão bastante valiosa envolveria a migração da base das aplicações em Android para implementações declarativas nativas utilizando o Jetpack Compose em oposição à abordagem enraizada em ficheiros XML. Desta forma seria também vantajoso dotar o programa de um leque operacional fundamentando nas chamadas assíncronas do Kotlin via Coroutines.
+Uma extensão que poderia acrescentar riqueza ao trabalho envolveria a migração da base das aplicações em Android para implementações declarativas nativas utilizando o Jetpack Compose em oposição à abordagem enraizada em ficheiros XML. Desta forma seria também vantajoso dotar o programa de um leque operacional fundamentando nas chamadas assíncronas do Kotlin via Coroutines.
 
 ---
 ## 15. Declaração acerca da Utilização de IA
-O trabalho de laboratório foi desenvolvido e ocasionalmente corroborado com a consulta de modelos linguísticos primários (ex: sugerir blocos alternativos de sintaxe limitadora e corrigir falhas passadas pelo parser de ficheiros de compilação em Android). Afirma-se inteiramente a responsabilidade do utilizador pelas decisões tomadas na constituição da resolução entregue, e total discernimento sobre todas as mecânicas finais introduzidas submetidas sob a sua alçada no repositório.
+O trabalho de laboratório foi desenvolvido e ocasionalmente corroborado com a consulta de modelos linguísticos primários. Afirma-se inteiramente a responsabilidade do utilizador pelas decisões tomadas na constituição da resolução entregue, e total discernimento sobre todas as mecânicas finais introduzidas submetidas sob a sua alçada no repositório.
