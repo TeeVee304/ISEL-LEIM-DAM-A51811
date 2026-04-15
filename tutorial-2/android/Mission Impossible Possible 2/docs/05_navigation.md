@@ -1,0 +1,3 @@
+# Navigation
+
+MainActivity → ImageDetailsActivity
