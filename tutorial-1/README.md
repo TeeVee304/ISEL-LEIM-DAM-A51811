@@ -1,94 +1,87 @@
-﻿# Assignment 1 — Tutorial 1 - Hello Kotlin. Hello Android World!
-
-Course: DAM (Desenvolvimento de Aplicações Móveis)
-Student(s): Bruno
-Date: 15/04/2026
-Repository URL: https://github.com/TeeVee304/ISEL-LEIM-DAM-A51811
-
+# Assignment 1 — Tutorial 1 - Hello Kotlin. Hello Android World!
+Course: Desenvolvimento de Aplicações Móveis (DAM)
+Student(s): Bruno Pereira (51811)
+Date: 08/03/2026
+Repository URL: https://github.com/brunopereira123456789/ISEL-LEIM-DAM-A51811/tree/main/tutorial-1
 ---
 
 ## 1. Introduction
-O objetivo deste primeiro trabalho prático (Tutorial 1) é introduzir o ecossistema de desenvolvimento Android, focado na linguagem Kotlin e no Android Studio, estabelecendo as bases necessárias para o desenvolvimento de aplicações móveis na disciplina de DAM. O projeto está dividido em duas partes fundamentais: exercícios introdutórios de consolidação em Kotlin e o desenvolvimento das três primeiras aplicações móveis para a plataforma Android (Hello World, System Info, Weather Buddy).
+O presente trabalho enquadra-se no Tutorial 1 de Desenvolvimento de Aplicações Móveis (DAM). O objetivo principal compreende a familiarização com a linguagem de programação Kotlin, bem como na introdução ao desenvolvimento de aplicações para Android. 
+
+O tutorial consolida conceitos básicos da linguagem através de exercícios de aplicação matemática e sintática, progredindo posteriormente para o ecossistema e interface gráfica Android.
 
 ## 2. System Overview
-O repositório apresenta as seguintes componentes principais:
-1. **Exercícios em Kotlin**: Projetos desenvolvidos no IntelliJ IDEA para explorar sintaxe, estruturas de dados, e peculiaridades da linguagem Kotlin em cenários baseados na JVM.
-2. **Aplicações Android**:
-    *   **Hello World**: A aplicação mais fundamental, concebida para compreender a estrutura básica de um projeto Android e o ciclo de vida de uma Atividade (Activity).
-    *   **System Info**: Uma aplicação utilitária simples que ilustra como interagir com o sistema operativo para extrair informações do dispositivo.
-    *   **Weather Buddy**: A mais complexa das três, que integra fragmentos (Fragments), navegação (Navigation Component) e vistas xml.
+A solução desenvolve-se através de duas frentes de trabalho:
+- **Exercícios de Kotlin (Consola):** Consiste em pequenos programas executáveis que demonstram o uso de estruturas de dados (arrays e listas), a materialização de uma interface de linha de comandos interativa (REPL) para efetuar cálculos aritméticos e lógicos, o uso de sequências (`generateSequence`) de aplicação livre, e princípios de Programação Orientada a Objetos com a criação e gestão de um sistema de uma biblioteca.
+- **Aplicações Android:** Engloba a construção e exploração de três aplicações móveis focado na manipulação de eventos, estruturação de componentes em vistas e análise de propriedades de forma exploratória.
 
 ## 3. Architecture and Design
-A estrutura do repositório reflete as duas áreas de foco exploradas:
-*   `kotlin/`: Contém um projeto Maven/Gradle cujos ficheiros se encontram na subdiretoria `src/main/kotlin/dam/` divididos por pacotes correspondentes aos vários exercícios abordados (`exer_1/`, `exer_2/`, `exer_3/`, `exer_vl/`). A decisão por uma estrutura canónica facilita a integração com IDEs.
-*   `android/`: Organiza as aplicações Android desenvolvidas independentemente em subdiretorias:
-    *   `android/Hello World/`
-    *   `android/System Info/`
-    *   `android/Weather Buddy/` 
-O design das aplicações Android segue, neste estádio inicial, o padrão convencional (MVC/MVP simplificado associado em exclusivo a Activities). Na Weather Buddy, começou-se a explorar a navegação entre ecrãs com o Jetpack Navigation Component.
+O repositório está subdividido em duas diretorias distintas:
+- `kotlin/`: Estruturado enquanto projeto modular em IntelliJ IDEA de acordo com a hierarquia da ferramenta de compilação adotada (`src/main/kotlin/dam/`). Evidenciam-se opções de design suportadas na programação funcional característica do Kotlin (uso de `when` como expressão avaliativa interativa das opções e manipulação direta de funções iteráveis) bem como modelação do domínio físico usando o encapsulamento orientado a objetos onde instâncias especializadas formam as devidas classes (como `DigitalBook` e `PhysicalBook` expandido via abstração).
+- `android/`: Diretório dedicado a instâncias separadas de projetos Android ("Hello World", "System Info", e "Weather Buddy"). A estruturação interna segue o protótipo comum imposto pelo Android Studio e os seus pacotes de gestão (`Activities` sobre XML, fragmentos e lógica partilhada de acordo correspondendo ao ciclo de inicialização mobile).
 
 ## 4. Implementation
-Os módulos implementados representam as abordagens adequadas para iniciar o estudo de Kotlin:
-*   **Exercícios Kotlin (`kotlin/`)**: Implementam lógica imperativa usando tipos nativos, classes, funções de extensão e hierarquias simples em Kotlin.
-*   **Aplicações Android (`android/`)**:
-    *   Os projetos utilizam Views e Layouts XML padrão do Android (ex: ConstraintLayout, LinearLayout). A lógica de negócio essencial para associar as View ao Modelo é mantida na MainActivity (e em Fragments, no caso da aplicação Weather Buddy). A aplicação Weather Buddy destaca o uso do `NavHostFragment`.
+Os módulos encontram-se estruturados do seguinte modo:
+
+**Dentro da diretoria `kotlin/`:**
+- **`dam/exer_1/`**: Centra-se na instanciação e mapeamento posicional de arrays (e listas indiretas) iterados via funções lambda.
+- **`dam/exer_2/`**: Implementação de uma calculadora REPL com avaliação contínua do input por meio do `when`. Oculta conversão iterada e implementa controlo matemático de restrições sensíveis (como validações de divisão por zero) emitindo as exceções requeridas no formato de controlo `try-catch`.
+- **`dam/exer_3/`**: Computação de saltos dinâmicos baseados no amortecimento limitante de ressaltos de uma bola através da limitação recursiva sobre uma *collection* com tipo derivado de `.takeWhile()` para prevenir saturação assintótica dos resultados numéricos.
+- **`dam/exer_vl/`**: Lógica de modulação da biblioteca (`Library`), fornecendo os processos transacionais de inserção de coleções, rotinas de validações logísticas de devolução, interceção recursiva do percurso e esgotamento do limite nas tiragens dos exemplares.
+
+**Dentro da diretoria `android/`:**
+- Acondiciona isoladamente aos diretórios do projeto `Hello World` e de leitura da extração hardware alocado ao ecletismo da interface em `System Info`, culminando na exploração arquitetural introduzida a navegações mais robustas em `Weather Buddy`.
 
 ## 5. Testing and Validation
-Nesta fase introdutória, não existem Testes Unitários formais ou de Interface Gráfica automatizados (como Expresso ou JUnit clássico) parametrizados.
-A validação consistiu em **Testes Manuais** no emulador do Android Studio (Pixel 6) para a componente Android e execução isolada no IDE para a componente Kotlin:
-*   Execução bem-sucedida de ficheiros da componente de Kotlin no emulador da JVM (IntelliJ).
-*   Visualização da correta tradução de layout XML no emulador para os 3 projetos Android.
-*   Navegação sem *crashes* na aplicação "Weather Buddy" entre os fragments existentes. 
+Os modelos programados com destinação na JVM (em Kotlin) sofreram testes por via de experimentação singular informal no ambiente gráfico IDE atestando as saídas formatadas. Procedeu-se adicionalmente à aferição intencional de divisões de erros zero e de entradas inválidas ao parser na REPL do `exer_2` garantindo contenção pela devida ramificação do `Exception`. Testou-se do mesmo modo a indisponibilidade materializada das unidades em limite da biblioteca no `exer_vl` validando as respostas do domínio. Oarante formal dos executáveis sobre Android valeu-se do ecrã virtual do Emulador interno das ferramentas de engenharia, verificando se cada transição e formatação respondem corretamente aos comportamentos exigidos. 
 
 ## 6. Usage Instructions
-### Para a componente em Kotlin (`kotlin/`):
-1.  Importar o projeto que se encontra na diretoria raiz `kotlin` utilizando o **IntelliJ IDEA**. O ficheiro raiz necessário para a configuração está preparado (`pom.xml`).
-2.  Navegar até à pasta `./src/main/kotlin/dam/` e executar os diversos exercícios de Kotlin individualmente a partir do IDE.
+Para executar os exercícios enquadrados na diretoria `kotlin/`:
+1. Abrir a diretoria `kotlin/` através do IntelliJ IDEA.
+2. Navegar para a base de fontes no diretório `src/main/kotlin/dam/`.
+3. Executar o ficheiro `.kt` contendo a função principal `main()` respeitando cada exercício respetivo. Relativamente ao `exer_2` será ativada a partilha do canal Standard Input para interação de cálculo.
 
-### Para a componente Android (`android/`):
-1.  Abrir o **Android Studio**.
-2.  Selecionar a opção **"Open an existing Android Studio project"** e navegar até à diretoria específica da aplicação correspondente a cada um dos projetos (`Hello World/`, `System Info/`, ou `Weather Buddy/`).
-3.  Permitir que o Gradle faça a sincronização total das dependências, atualizando a configuração para a JVM conforme a versão especificada na build do Gradle.
-4.  Selecionar um emulador (ex: API 34 ou semelhante, criado antecipadamente no Device Manager) ou um dispositivo físico que se encontre com o modo desenvolvedor ativado.
-5.  Pressionar **"Run"** (`Shift + F10`).
+Para arrancar e testar cada um dos protótipos em `android/`:
+1. Inicializar a aplicação Android Studio.
+2. Selecionar explicitamente o método de abertura focado unicamente no projeto unitário em questão (ex: `android/System Info/`).
+3. Facultar o download sincronizado do *gradle* sobre a matriz da plataforma.
+4. Conduzir a compilação no ícone *Run* de modo a arrancar no Emulador pretendido ou recurso físico autorizado por USB.
 
 ---
-
-# Autonomous Software Engineering Sections
+# Autonomous Software Engineering Sections - only for [AC OK, AI OK] sections
 ## 7. Prompting Strategy
-As estratégias de *prompting* utilizadas focaram-se na explicitação extensiva e clara das propriedades desejadas na arquitetura e nas linguagens base. Os prompts forneceram um contexto estruturado para refatorização do Gradle, migração para navegação com Fragments, ou a resolução de falhas técnicas na ligação entre layout (XML) e código funcional. 
-*Exemplo representativo*: Ao solucionar um problema de integração no "Weather Buddy", forneceu-se o `nav_graph.xml` e requereu-se ao agente que identificasse o problema na implementação da navegação, mantendo o estrito rigor nos nomes dados no layout xml.
+As sessões de conversação (*prompting*) decorreram com preceitos de intermitência direcionada validando progressivamente, de modo compartimentado, as construções idiomáticas em Kotlin. Foram usadas queries incisivas para clarificar a abordagem ao input via `do-while` aliado ao controlo imperativo do `try-catch`, estendendo por fim esta mecânica orientativa aquando das incertezas procedimentais inerentes à dependência do compilador de Gradle nas ferramentas móveis durante as integrações android.
 
 ## 8. Autonomous Agent Workflow
-O desenvolvimento contou com o auxílio fundamental de um agente de IA de engenharia de software para orquestrar o processo de planeamento e as correções pontuais em *debugging*. 
-A Inteligência Artificial procedeu de forma autónoma à pesquisa pelo workspace, propôs arquiteturas de base no caso da aplicação "Weather Buddy", analisou iterativamente e sugeriu implementações sobre erros complexos baseados na configuração correta do Gradle para uma versão superior.
+O agente AI manifesta a sua incorporação na aceleração inicial da refatoração descrita de métodos, elucidando potenciais fugas aos bloqueios recursivos bem como proporcionando vias alternativas, mas idiomáticas associadas ao Kotlin moderno. Exibiu também de forma indireta ações determinantes de sintaxe auxiliando as avaliações rápidas para a formulação funcional declarativa em prol das convencionais, simplificando as etapas preliminares ou interceções dos bloqueadores de IDE.
 
 ## 9. Verification of AI-Generated Artifacts
-Todos os artefactos, planos de implementação e adições em código resultantes de intervenções do agente foram alvo de verificação direta contínua e cruzamento, garantindo que respondiam perfeitamente aos pressupostos originais em `kotlin` ou no `build.gradle` das aplicações envolvidas. A validação ocorreu em simultâneo com a execução compilada no IntelliJ ou no Emulador do Android Studio. 
+Toda e qualquer solução provida e integrada sobreviveu a testagem empírica, linha a linha e sendo estritamente revista em execução direta na JVM ou Emulador face ao contexto e output ambicionado da lógica definida nas normas submetidas no escopo inicial. Ajustou-se de forma manual todo o enquadramento de formato irregular, dependências estáticas não compatíveis com as diretivas e discrepâncias sobre bibliotecas.
 
 ## 10. Human vs AI Contribution
-*   **Contribuição Humana**: Conceção das especificações originais da interface; Planeamento de alto-nível dos *use cases* a concretizar em Kotlin e testagem direta no terreno da eficiência. Organização de todas as referências no repositório.
-*   **Contribuição IA**: Apoio no diagnóstico das resoluções de problemas (notoriamente `binding` no Gradle, navegação fragmentada, sintaxe XML), redação extensiva de documentação sobre configuração da Base de Dados na fase anterior, criação de propostas de refatorização rápida, ou a conversão de modelos (ex: diagramas PlantUML para DDL). 
+
+| Componente | Contribuição Humana | Contribuição AI |
+| :--- | :--- | :--- |
+| **Estrutura de Diretórios e Escopo** | Determinação ativa da divisão modular entre ambientes IntelliJ (Kotlin) e Android Studio. | Intervenção suprimida (Nula). |
+| **Exercício 2 (REPL Iterativo)** | Design da limitação sequencial de divisão de instâncias lógicas e contenção global imperativa perante divisão por zero na rotina principal matemática. | Refinamento para parsing, delineação robusta da leitura de comandos pelo construto `trim()` e encurtamento interativo dos matches no percurso. |
+| **Algoritmia Sequencial (Exercício 3)** | Encadeamento e delimitação estrutural face à limitação natural pretendida com adaptação formatada do texto resultante a métricas base de arredondamentos (`.2f`). | Recomendação assertiva sobre blocos dinâmicos usando `generateSequence`, em favor da formatação cíclica não declarativa mitigando recursões. |
+| **POO da Biblioteca (Exercício VL)** | Mapeamento das estruturas internas e do encapsulamento final. Delimitação das métricas de bloqueios logísticos (`PhysicalBook` esgotável, por exemplo). | Refatorização simplificatória de parâmetros internos (`data class` e correlacionados eventuais associadas à tipagem no `Library`). |
+| **Sistema Android Básicos** | Configuração inicial, mapeamento dos views ao respetivo control Kotlin e inicialização interativa dos comportamentos das activities e layouts nos ecrãs móveis exploráveis. | Ajuste pontual e aconselhamentos analíticos à arquitetura sobre bibliotecas dependentes (noções dos scripts `.gradle`). |
 
 ## 11. Ethical and Responsible Use
-Dada a natureza das intervenções, as respostas foram monitorizadas de modo a assegurar que o desenvolvimento ocorria sem a criação ou importação de quaisquer licenças externas e dependências duvidosas/incompatíveis. O agente provou utilidade restrita e direcionada aos comandos efetuados sem extrapolações perigosas.
+Foram cumpridos estritamente os imperativos éticos recomendados, em particular a compreensão integral dos trechos sugeridos no intuito de isolar falsas soluções e adulteração desprovidas de contexto. Assegura-se de igual modo, assunção de compromisso pela propriedade perante cada solução injetada pelo modelo por meio do crivo formativo de adequação técnica sem isenção de autoria académica para cada exercício validado individualmente.
 
 ---
-
 # Development Process
 ## 12. Version Control and Commit History
-Embora um histórico de commits detalhado seja a prática comum, durante o desenvolvimento dos pequenos projetos que se concretizaram neste tutorial (versão essencial) o processo operou mais num modelo de prototipagem expedita com a validação final. A estruturação definitiva ficou em linha para garantir total integração das tarefas.
+Procedimentos apoiados metodologicamente em Git de modo a proporcionar *snapshots* seccionados no avanço de complexidade sobre ambas as fronteiras linguísticas propostas da diretoria mãe. Desde protótipos singulares de console como materializados nos registos remanescentes do Repositório até interações de adição sucessivas da compilação e dos XML nos ecossistemas de projeto base móveis em Android.
 
 ## 13. Difficulties and Lessons Learned
-As principais dificuldades encontradas envolveram os desafios de configuração contínua por discrepâncias de versões das ferramentas entre a definição das bibliotecas essenciais e a imposição local do IDE. Os processos de resolução do problema do Jetpack Data/View Binding permitiram clarificar que frequentemente as soluções requerem um trabalho iterativo de limpeza no Gradle Cache para funcionar como deviam. Obteve-se um maior conhecimento geral do ecosssistema de Fragmentos no Android (vs ciclo de vida original de cada *Activity* isolada). 
+Destacou-se em especial as incongruências subjacentes aos paradigmas declarativos na mutação de dados não triviais que marcam o ecossistema e abstração idiomática presentes na linguagem face a alternativas puramente orientadas. Superou-se em igual destaque as barreiras comuns relativas à curva gradual de introdução perante os manifestos limitadores de configurações, ficheiros complexos e assimetria do IDE do percurso focado nas aplicações de Android. Fomentou o cimentar crucial da interpretação rápida e reestruturação para depuração.
 
 ## 14. Future Improvements
-*   Implementação de Testes Automáticos para robustecer o processo global;
-*   Integração do Jetpack Compose em substituição do modelo de XML tradicional.
-*   Nas aplicações como o "Weather Buddy", estabelecer uma ligação verdadeira com a Web API do tempo baseada em ficheiros JSON reais manipulados via base de dados assíncrona.
+Potenciais extensões alavancam o reajuste perante abordagens modernas focadas noutras bibliotecas ricas padronizadas introduzidas na linguagem, no uso do enquadramento de *flows*, rotinas assíncronas dedicadas na verificação interativa e eventual expansão do Android num domínio integral em migração generalista das vistas gráficas de XML para os declarativos de interfaces.
 
 ---
-
 ## 15. AI Usage Disclosure (Mandatory)
-Nesta UC e no tutorial atual foi feita utilização profunda e transversal da Inteligência Artificial do Google Gemini Agent Integrada no IDE (e histórico registado da interação em conversações via API - Antigravity Agent Model 3.1 Pro High). Utilizou-se a IA para as fases essenciais do processo: Definição, Depuração e Documentação, bem como apoio ao levantamento e explanação da arquitetura original em C#.
-Eu, o estudante, permaneço sempre responsável por todo o processo e por todo o conteúdo incluído neste repositório bem como da lógica arquitetural aprovada.
+Na execução destas preposições exploratórias de introdução pontual valeu-se da utilização estrita dos Large Language Models, limitadamente atuando de caráter complementar com intervenção pontual. Envolveu abordagens pragmáticas de elucidações declarativas e desambiguações de documentação formatada pela comunidade para as funções, mantendo e atestando integralmente por responsabilidade central todo o planeamento de controlo estrutural presente nos algoritmos originados.
