@@ -63,11 +63,13 @@ O código sugerido pela IA passou sempre por uma fase de teste local antes da in
 
 | Componente | Desenvolvimento |
 | :--- | :--- |
-| Estrutura de Diretórios e Escopo | Humano |
-| Exercício 2 (Calculadora REPL) | Híbrido |
-| Algoritmia Sequencial (Exercício 3) | Híbrido |
-| POO da Biblioteca (Exercício VL) | Humano |
-| Aplicações Básicas do Android | Híbrido |
+| Exercício 1 - Instanciação de Arrays | Humano |
+| Exercício 2 - Calculadora REPL | Assistido por IA |
+| Exercício 3 - Modelação Sequencial | Assistido por IA |
+| Exercício VL - Gestão de Biblioteca | Humano |
+| Hello World | Humano |
+| System Info | Assistido por IA |
+| Weather Buddy | IA |
 
 ## 11. Ethical and Responsible Use
 Foram cumpridos estritamente os imperativos éticos recomendados, em particular a compreensão integral dos trechos sugeridos no intuito de isolar falsas soluções e adulteração desprovidas de contexto. Assegura-se de igual modo, assunção de compromisso pela propriedade perante cada solução injetada pelo modelo por meio do crivo formativo de adequação técnica sem isenção de autoria académica para cada exercício validado individualmente.
