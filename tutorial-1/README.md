@@ -4,6 +4,11 @@
 - **Data:** 08/03/2026
 - **URL do Repositório:** https://github.com/brunopereira123456789/ISEL-LEIM-DAM-A51811/tree/main/tutorial-1
 
+| Unidade Curricular | Desenvolvimento de Aplicações Móveis (DAM) |
+| Aluno | Bruno Pereira (51811) |
+| Data | 08/03/2026 |
+| URL do Repositório | https://github.com/brunopereira123456789/ISEL-LEIM-DAM-A51811/tree/main/tutorial-1 |
+
 ---
 
 ## 1. Introdução
