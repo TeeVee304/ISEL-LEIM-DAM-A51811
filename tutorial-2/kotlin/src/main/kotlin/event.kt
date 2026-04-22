@@ -2,7 +2,7 @@ import kotlin.math.roundToLong
 
 /* NOTA: Classes 'sealed' são sempre abstratas */
 sealed class Event {
-    abstract val username: String // que possa ser utilizada nas extended functions
+    abstract val username: String // para que possa ser utilizada nas extended functions
     // NOTA: construtor na sealed class não funciona nesta situação
     class Login(override val username: String, val timestamp: Long): Event()
     class Purchase(override val username: String, val amount: Double, val timestamp: Long): Event()

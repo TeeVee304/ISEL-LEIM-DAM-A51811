@@ -11,7 +11,7 @@ import kotlin.concurrent.thread
 
 /**
  * Estende [AndroidViewModel] (em vez de [ViewModel]) para permitir o acesso ao contexto
- * da aplicação, necessário para ler os recursos XML.
+ * da aplicação, que será necessário para ler os recursos XML.
  *
  * @param application A instância da aplicação utilizada para aceder aos recursos.
  */

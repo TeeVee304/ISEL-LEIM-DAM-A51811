@@ -1,5 +1,6 @@
 import kotlin.math.sqrt
 
+// Torna-se uma 'data class' para suportar component1 e component2 por default (!!)
 data class Vec2(val x: Double, val y: Double) : Comparable<Vec2> {
     // Adição {+}
     operator fun plus(other: Vec2): Vec2 = Vec2(this.x + other.x, this.y + other.y)
