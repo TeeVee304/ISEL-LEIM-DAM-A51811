@@ -1,4 +1,4 @@
-package dam_A51811.coolweatherapp
+package dam_A51811.coolweatherapp.ui
 
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +8,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import java.text.SimpleDateFormat
 import java.util.Locale
+
+import dam_A51811.coolweatherapp.R
+import dam_A51811.coolweatherapp.data.Daily
 
 // O Adapter recebe os dados diários
 class DailyAdapter(private val dailyData: Daily) : RecyclerView.Adapter<DailyAdapter.ViewHolder>() {
@@ -27,12 +30,12 @@ class DailyAdapter(private val dailyData: Daily) : RecyclerView.Adapter<DailyAda
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val context = holder.itemView.context
 
-        // 1. Formatar ("2026-04-12" para "Monday")
+        // 1. Format the date (From "2026-04-12" to "Monday" or "Segunda-feira" based on device language)
         try {
             val parseFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
             val date = parseFormat.parse(dailyData.time[position])
 
-            // Usar Locale.getDefault() para respeitar as language settings do telemóvel
+            // USE Locale.getDefault() to respect the phone's language settings
             val displayFormat = SimpleDateFormat("EEEE", Locale.getDefault())
 
             holder.dayText.text = displayFormat.format(date!!).replaceFirstChar { it.uppercase() }

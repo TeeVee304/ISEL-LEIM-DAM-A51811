@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="weather_descriptions">
+        <item>Céu Limpo</item>
+        <item>Céu Pouco Nublado</item>
+        <item>Parcialmente Nublado</item>
+        <item>Encoberto</item>
+        <item>Nevoeiro</item>
+        <item>Nevoeiro com Geada</item>
+        <item>Chuvisco Ligeiro</item>
+        <item>Chuvisco Moderado</item>
+        <item>Chuvisco Intenso</item>
+        <item>Chuvisco Gelado Ligeiro</item>
+        <item>Chuvisco Gelado Intenso</item>
+        <item>Chuva Ligeira</item>
+        <item>Chuva Moderada</item>
+        <item>Chuva Forte</item>
+        <item>Granizo Ligeiro</item>
+        <item>Granizo Forte</item>
+        <item>Queda de Neve Ligeira</item>
+        <item>Queda de Neve Moderada</item>
+        <item>Queda de Neve Forte</item>
+        <item>Granizo Fino</item>
+        <item>Aguaceiros Ligeiros</item>
+        <item>Aguaceiros Moderados</item>
+        <item>Aguaceiros Fortes</item>
+        <item>Aguaceiros de Neve Ligeiros</item>
+        <item>Aguaceiros de Neve Fortes</item>
+        <item>Trovoada</item>
+        <item>Trovoada com Granizo Ligeiro</item>
+        <item>Trovoada com Granizo Forte</item>
+    </string-array>
+</resources>
