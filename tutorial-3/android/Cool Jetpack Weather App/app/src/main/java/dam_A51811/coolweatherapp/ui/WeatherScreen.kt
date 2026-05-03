@@ -54,7 +54,7 @@ fun WeatherUI(weatherViewModel: WeatherViewModel = viewModel()) {
         weatherViewModel.fetchWeather()
     }
 
-    val day = false // Can be derived dynamically later
+    val day = true
     val apiCode = weatherUIState.weathercode
 
     val codes = context.resources.getIntArray(R.array.weather_codes)
