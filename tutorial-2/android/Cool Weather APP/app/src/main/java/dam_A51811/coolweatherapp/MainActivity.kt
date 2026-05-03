@@ -19,6 +19,9 @@ import java.util.Calendar
  * Responsável por gerir a interface do utilizador, solicitar permissões de localização
  * e observar os dados do [ViewModel]. */
 class MainActivity : AppCompatActivity() {
+    private val LATITUDE = 38.72
+    private val LONGITUDE = -9.14
+
     // NOTA: Utilizamos o 'lateinit' para garantir que as variáveis nunca são nulas
     private lateinit var viewModel: ViewModel
     /* Obtém a localização GPS do utilizador.
@@ -108,11 +111,11 @@ class MainActivity : AppCompatActivity() {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 getLocationAndWeather()
             } else {
-                // Se a permissão foi recusada, avisa o utilizador e usa Lisboa como defeito
+                // Se a permissão foi recusada, avisa o utilizador e usa Lisboa por default
                 Toast.makeText(this, "Permissão de GPS recusada. A utilizar Lisboa.", Toast.LENGTH_LONG).show()
                 val locationTextView = findViewById<TextView>(R.id.location)
                 locationTextView.text = "Lisbon (Default)"
-                fetchWeatherForLocation(38.72, -9.14)
+                fetchWeatherForLocation(LATITUDE, LONGITUDE)
             }
         }
     }
@@ -127,8 +130,8 @@ class MainActivity : AppCompatActivity() {
                 locationTextView.text = "Lat: ${String.format("%.2f", location.latitude)}, Lon: ${String.format("%.2f", location.longitude)}"
                 fetchWeatherForLocation(location.latitude, location.longitude)
             } else {
-                locationTextView.text = "Lat: 38.72, Lon: -9.14"
-                fetchWeatherForLocation(38.72, -9.14)
+                locationTextView.text = "Lat: ${LATITUDE}, Lon: ${LONGITUDE}"
+                fetchWeatherForLocation(LATITUDE, LONGITUDE)
             }
         }
     }
