@@ -65,16 +65,22 @@ fun WeatherUI(weatherViewModel: WeatherViewModel = viewModel()) {
     var wImage = if (index != -1) images[index] else "clear_"
     val currentDescription = if (index != -1) descriptions[index] else "Unknown"
 
+    val hourString = weatherUIState.time.substringAfter("T", "12:00").substringBefore(":")
+    val hourInt = hourString.toIntOrNull() ?: 12
+    val isDay = hourInt in 7..19
+
     if (wImage.endsWith("_")) {
-        wImage += if (day) "day" else "night"
+        wImage += if (isDay) "day" else "night"
     }
 
     val wIcon = context.resources.getIdentifier(wImage, "drawable", context.packageName)
     val finalIcon = if (wIcon != 0) wIcon else android.R.drawable.ic_menu_help
 
+    val bgRes = if (isDay) R.drawable.sunny_bg else R.drawable.night_bg
+
     Box(modifier = Modifier.fillMaxSize()) {
         Image(
-            painter = painterResource(id = R.drawable.blue),
+            painter = painterResource(id = bgRes), // background dinâmico (!!)
             contentDescription = "Background",
             contentScale = ContentScale.Crop,
             modifier = Modifier.fillMaxSize()
