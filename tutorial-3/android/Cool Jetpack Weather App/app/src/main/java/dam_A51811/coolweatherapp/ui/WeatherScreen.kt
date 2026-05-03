@@ -36,26 +36,25 @@ import androidx.compose.ui.layout.ContentScale
 import dam_A51811.coolweatherapp.R
 
 /**
- * O contentor principal da interface da aplicação de meteorologia.
- * 
- * Observa o [WeatherUIState] fornecido pelo [WeatherViewModel], desencadeia automaticamente
- * o download dos dados aquando do seu carregamento, e resolve as strings localizadas e os ícones para o estado atual.
- * Também gere a transição entre os layouts Portrait (Retrato) e Landscape (Paisagem) com base na orientação do ecrã.
+ * Contentor principal da interface.
+ *
+ * Observa o [WeatherUIState] fornecido pelo [WeatherViewModel],
+ * desencadeia automaticamente o download dos dados aquando do seu carregamento,
+ * e resolve as strings localizadas e os ícones para o estado atual.
  *
  * @param weatherViewModel O [WeatherViewModel] que fornece o estado reativo.
  */
 @Composable
 fun WeatherUI(weatherViewModel: WeatherViewModel = viewModel()) {
-    val weatherUIState by weatherViewModel.uiState.collectAsState()
-    val configuration = LocalConfiguration.current
-    val context = LocalContext.current
+    val weatherUIState by weatherViewModel.uiState.collectAsState() // "Observa" estado da UI ao vivo
+    val configuration = LocalConfiguration.current                  // Obtém orientação de tela
+    val context = LocalContext.current                              // Obtém contexto da aplicação
 
-    // Auto-fetch on start
     LaunchedEffect(Unit) {
         weatherViewModel.fetchWeather()
     }
 
-    val day = true // Can be derived dynamically later
+    val day = false // Can be derived dynamically later
     val apiCode = weatherUIState.weathercode
 
     val codes = context.resources.getIntArray(R.array.weather_codes)
@@ -109,10 +108,10 @@ fun WeatherUI(weatherViewModel: WeatherViewModel = viewModel()) {
 }
 
 /**
- * O layout Vertical (Portrait) da aplicação.
+ * Layout Portrait da aplicação.
  *
- * @param state O estado atual da UI contendo todas as métricas.
- * @param wIcon O ID do recurso drawable resolvido para o ícone meteorológico atual.
+ * @param state Estado atual da UI.
+ * @param wIcon ID do recurso drawable resolvido para o ícone meteorológico atual.
  * @param onLatitudeChange Callback invocado quando o campo da latitude é alterado.
  * @param onLongitudeChange Callback invocado quando o campo da longitude é alterado.
  * @param onUpdateButtonClick Callback invocado quando o botão 'Update' é clicado.
@@ -169,11 +168,10 @@ fun PortraitWeatherUI(
 }
 
 /**
- * O layout Horizontal (Landscape) da aplicação.
- * Divide o ecrã em duas colunas para otimizar o espaço disponível.
+ * Layout Landscape da aplicação.
  *
- * @param state O estado atual da UI contendo todas as métricas.
- * @param wIcon O ID do recurso drawable resolvido para o ícone meteorológico atual.
+ * @param state Estado atual da UI.
+ * @param wIcon ID do recurso drawable resolvido para o ícone meteorológico atual.
  * @param onLatitudeChange Callback invocado quando o campo da latitude é alterado.
  * @param onLongitudeChange Callback invocado quando o campo da longitude é alterado.
  * @param onUpdateButtonClick Callback invocado quando o botão 'Update' é clicado.
@@ -230,8 +228,8 @@ fun LandscapeWeatherUI(
 /**
  * Renderiza a secção de input permitindo ao utilizador modificar a latitude e a longitude.
  *
- * @param latitude O valor atual da latitude em string.
- * @param longitude O valor atual da longitude em string.
+ * @param latitude Valor atual da latitude.
+ * @param longitude Valor atual da longitude.
  * @param onLatitudeChange Callback para as alterações de latitude.
  * @param onLongitudeChange Callback para as alterações de longitude.
  * @param onUpdateButtonClick Callback para a ação de atualizar.
@@ -286,8 +284,8 @@ fun WeatherInputSection(
 /**
  * Mostra o cabeçalho principal do tempo atual, incluindo a hora, o ícone, a temperatura e a descrição.
  *
- * @param state O estado atual do tempo.
- * @param wIcon O ID do recurso drawable resolvido para o tempo atual.
+ * @param state Estado atual do tempo.
+ * @param wIcon ID do recurso drawable resolvido para o tempo atual.
  */
 @Composable
 fun CurrentWeatherHeader(state: WeatherUIState, wIcon: Int) {
@@ -305,9 +303,9 @@ fun CurrentWeatherHeader(state: WeatherUIState, wIcon: Int) {
 }
 
 /**
- * Uma linha de scroll horizontal que mostra a previsão para as próximas 24 horas.
+ * Linha de scroll horizontal que mostra a previsão para as próximas 24 horas.
  *
- * @param hourlyForecast Uma lista de objetos [HourlyForecastItem].
+ * @param hourlyForecast Lista de objetos [HourlyForecastItem].
  */
 @Composable
 fun HourlyForecastRow(hourlyForecast: List<HourlyForecastItem>) {
@@ -348,10 +346,10 @@ fun HourlyForecastRow(hourlyForecast: List<HourlyForecastItem>) {
 }
 
 /**
- * Uma coluna vertical que exibe a previsão a 7 dias.
+ * Coluna vertical que exibe a previsão a 7 dias.
  * Efetua o parsing das strings de datas brutas ISO 8601 para nomes de dias formatados.
  *
- * @param dailyForecast Uma lista de objetos [DailyForecastItem].
+ * @param dailyForecast Lista de objetos [DailyForecastItem].
  */
 @Composable
 fun DailyForecastColumn(dailyForecast: List<DailyForecastItem>) {
@@ -407,10 +405,9 @@ fun DailyForecastColumn(dailyForecast: List<DailyForecastItem>) {
 }
 
 /**
- * Mostra uma grelha 2x2 contendo as métricas detalhadas como Precipitação,
- * Vento, Pressão e Humidade.
+ * Grelha 2x2 que contém a Precipitação, o Vento, a Pressão e a Humidade.
  *
- * @param state O estado atual do tempo.
+ * @param state Estado atual do tempo.
  */
 @Composable
 fun WeatherDetailsGrid(state: WeatherUIState) {
@@ -428,12 +425,12 @@ fun WeatherDetailsGrid(state: WeatherUIState) {
 }
 
 /**
- * Um componente de cartão reutilizável para mostrar métricas individuais detalhadas.
+ * Componente de cartão reutilizável.
  *
- * @param modifier O modifier a ser aplicado ao cartão.
- * @param title O título da métrica (ex: "Humidade").
- * @param value O valor primário a exibir.
- * @param subtitle Um valor secundário opcional (ex: direção do vento).
+ * @param modifier Modifier a ser aplicado ao cartão.
+ * @param title Título da métrica (ex.: "Humidade").
+ * @param value Valor primário a apresentar.
+ * @param subtitle Valor secundário opcional (ex.: direção do vento).
  */
 @Composable
 fun WeatherDetailCard(modifier: Modifier = Modifier, title: String, value: String, subtitle: String? = null) {

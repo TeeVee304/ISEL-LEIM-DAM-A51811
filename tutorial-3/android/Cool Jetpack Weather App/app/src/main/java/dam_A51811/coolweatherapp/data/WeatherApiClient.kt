@@ -8,28 +8,25 @@ import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 
 /**
- * Um objeto Singleton responsável por gerir os pedidos de rede à API do Open-Meteo.
- * 
- * Utiliza o cliente HTTP Ktor para obter de forma assíncrona as previsões meteorológicas e
- * fazer o parsing contínuo das respostas JSON para objetos [WeatherData] através da biblioteca `kotlinx.serialization`.
+ * Singleton responsável pela gestão de pedidos HTTP para a API Open-Meteo.
  */
 object WeatherApiClient {
     private val client = HttpClient {
         install(ContentNegotiation) {
             json(Json {
-                prettyPrint = true
-                isLenient = true
-                ignoreUnknownKeys = true
-            }) // Ignores extra JSON fields
+                prettyPrint = true       // Formato JSON
+                isLenient = true         // Aceitar JSON desformatado
+                ignoreUnknownKeys = true // Ignorar propriedades desconhecidas
+            })
         }
     }
 
     /**
-     * Obtém os dados meteorológicos atuais, horários e diários da API Open-Meteo para uma dada localização.
+     * Obtém os dados meteorológicos da API Open-Meteo para uma dada localização.
      *
-     * @param lat A latitude geográfica da localização pretendida.
-     * @param lon A longitude geográfica da localização pretendida.
-     * @return Um objeto [WeatherData] mapeado contendo a previsão caso o pedido seja bem-sucedido,
+     * @param lat Latitude da localização pretendida.
+     * @param lon Longitude da localização pretendida.
+     * @return Objeto [WeatherData] que contém a previsão caso o pedido seja bem-sucedido,
      *         ou `null` se o pedido de rede ou o parsing do JSON falharem.
      */
     suspend fun getWeather(lat: Float, lon: Float): WeatherData? {

@@ -3,14 +3,14 @@ package dam_A51811.coolweatherapp.data
 import kotlinx.serialization.Serializable
 
 /**
- * Representa a resposta JSON principal devolvida pela API do Open-Meteo.
+ * Representa a resposta JSON devolvida pela API do Open-Meteo.
  *
- * @property latitude A latitude geográfica solicitada.
- * @property longitude A longitude geográfica solicitada.
- * @property timezone O fuso horário da localização (ex: "auto").
- * @property current_weather As condições meteorológicas atuais.
- * @property hourly As matrizes de dados da previsão a 24 horas.
- * @property daily As matrizes de dados da previsão a 7 dias.
+ * @property latitude Latitude geográfica solicitada.
+ * @property longitude Longitude geográfica solicitada.
+ * @property timezone Fuso horário da localização (ex.: "auto").
+ * @property current_weather Condições meteorológicas atuais.
+ * @property hourly Matrizes de dados da previsão a 24 horas.
+ * @property daily Matrizes de dados da previsão a 7 dias.
  */
 @Serializable
 data class WeatherData(
@@ -25,11 +25,11 @@ data class WeatherData(
 /**
  * Representa o estado atual do tempo fornecido pela API Open-Meteo.
  *
- * @property temperature A temperatura atual em graus Celsius.
- * @property windspeed A velocidade atual do vento em km/h.
- * @property winddirection A direção atual do vento em graus (0-360).
- * @property weathercode O código meteorológico WMO que representa o estado de tempo atual.
- * @property time A marca de tempo (timestamp) da observação meteorológica atual.
+ * @property temperature Temperatura atual em graus Celsius.
+ * @property windspeed Velocidade atual do vento em km/h.
+ * @property winddirection Direção atual do vento em graus.
+ * @property weathercode Código WMO que representa o estado de tempo atual.
+ * @property time Timestamp da observação meteorológica atual.
  */
 @Serializable
 data class CurrentWeather(
@@ -42,14 +42,14 @@ data class CurrentWeather(
 
 // HOURLY FORECAST
 /**
- * Representa a previsão meteorológica horária (matrizes de dados para cada hora).
+ * Previsão meteorológica horária.
  *
- * @property time Uma matriz de marcas de tempo ISO 8601 para cada hora prevista.
- * @property temperature_2m Uma matriz de temperaturas em graus Celsius a 2m acima do solo.
- * @property weathercode Uma matriz de códigos meteorológicos WMO.
- * @property pressure_msl Uma matriz de valores de pressão média ao nível do mar em hPa.
- * @property precipitation Uma matriz de quantidades de precipitação em milímetros.
- * @property relativehumidity_2m Uma matriz de percentagens de humidade relativa a 2m.
+ * @property time Matriz de timestamps ISO 8601 para cada hora prevista.
+ * @property temperature_2m Matriz de temperaturas em graus Celsius a 2m acima do solo.
+ * @property weathercode Matriz de códigos WMO.
+ * @property pressure_msl Matriz de valores de pressão média ao nível do mar em hPa.
+ * @property precipitation Matriz de quantidades de precipitação em milímetros.
+ * @property relativehumidity_2m Matriz de percentagens de humidade relativa a 2m.
  */
 @Serializable
 data class Hourly(
@@ -63,12 +63,12 @@ data class Hourly(
 
 // 10-DAY FORECAST
 /**
- * Representa a previsão meteorológica diária (ex: 7 dias) (matrizes de dados para cada dia).
+ * Previsão meteorológica diária (ex.: 7 dias).
  *
- * @property time Uma matriz de marcas de tempo ISO 8601 para cada dia previsto.
- * @property weathercode Uma matriz de códigos meteorológicos WMO indicando a condição mais severa para o dia.
- * @property temperature_2m_max Uma matriz de temperaturas máximas diárias em graus Celsius.
- * @property temperature_2m_min Uma matriz de temperaturas mínimas diárias em graus Celsius.
+ * @property time Matriz de timestamps ISO 8601 para cada dia previsto.
+ * @property weathercode Matriz de códigos WMO indicando a condição mais severa para o dia.
+ * @property temperature_2m_max Matriz de temperaturas máximas diárias em graus Celsius.
+ * @property temperature_2m_min Matriz de temperaturas mínimas diárias em graus Celsius.
  */
 @Serializable
 data class Daily(

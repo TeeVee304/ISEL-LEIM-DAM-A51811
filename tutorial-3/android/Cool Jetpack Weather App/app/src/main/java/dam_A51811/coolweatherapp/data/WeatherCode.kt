@@ -1,15 +1,11 @@
 package dam_A51811.coolweatherapp.data
 
 /**
- * Enum que representa os códigos meteorológicos padrão da WMO (World Meteorological Organization).
+ * Códigos meteorológicos da WMO (World Meteorological Organization) em formato ENUM.
  *
- * Cada código mapeia para uma descrição textual padronizada e o nome base associado para a imagem
- * (Nota: Os nomes das imagens neste enum poderão ser legados. Atualmente, a aplicação privilegia
- * a leitura das descrições localizadas e imagens diretamente do ficheiro arrays.xml para a UI em Compose).
- *
- * @property code O código numérico meteorológico da WMO.
+ * @property code O código numérico da WMO.
  * @property description A descrição textual da condição meteorológica.
- * @property image O nome base em texto do recurso (drawable) que representa a condição meteorológica.
+ * @property image O nome do recurso (drawable) que representa a condição meteorológica.
  */
 enum class WMO_WeatherCode(val code: Int, val description: String, val image: String) {
     CLEAR_SKY(0, "Clear sky", "sunny_"),
