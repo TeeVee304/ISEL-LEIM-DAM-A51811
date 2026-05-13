@@ -1,4 +1,4 @@
-package dam_A51811.filmroulette.data.model
+package dam_A51811.filmroulette.data.local
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
@@ -10,8 +10,6 @@ import androidx.room.PrimaryKey
     indices = [Index(value = ["email"], unique = true)]
 )
 data class User(
-    /* autogenerate: Faz com que a base de dados crie e atribua automaticamente
-       um ID único e sequencial a cada novo registo. */
     @PrimaryKey(autoGenerate = true)
     val id: Long = 0,
 
