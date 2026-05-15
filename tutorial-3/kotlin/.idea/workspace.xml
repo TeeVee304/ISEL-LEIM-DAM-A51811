@@ -5,20 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3aade9d3-8bee-4ad2-a0ab-96790e03fea4" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../../projeto/app/src/main/java/dam_A51811/filmroulette/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../../projeto/app/src/main/kotlin/dam_A51811/filmroulette/MainActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../projeto/app/src/main/java/dam_A51811/filmroulette/data/local/AppDatabase.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../../projeto/app/src/main/kotlin/dam_A51811/filmroulette/data/local/AppDatabase.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../projeto/app/src/main/java/dam_A51811/filmroulette/data/model/Added.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../../projeto/app/src/main/kotlin/dam_A51811/filmroulette/data/model/Added.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../projeto/app/src/main/java/dam_A51811/filmroulette/data/model/Genre.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../../projeto/app/src/main/kotlin/dam_A51811/filmroulette/data/model/Genre.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../projeto/app/src/main/java/dam_A51811/filmroulette/data/model/List.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../projeto/app/src/main/java/dam_A51811/filmroulette/data/model/Movie.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../../projeto/app/src/main/kotlin/dam_A51811/filmroulette/data/model/Movie.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../projeto/app/src/main/java/dam_A51811/filmroulette/data/model/Platform.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../../projeto/app/src/main/kotlin/dam_A51811/filmroulette/data/model/Platform.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../projeto/app/src/main/java/dam_A51811/filmroulette/data/model/Rating.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../../projeto/app/src/main/kotlin/dam_A51811/filmroulette/data/model/Rating.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../projeto/app/src/main/java/dam_A51811/filmroulette/data/model/User.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../../projeto/app/src/main/kotlin/dam_A51811/filmroulette/data/model/User.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../projeto/app/src/main/java/dam_A51811/filmroulette/data/ui/group/GroupSessionViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../../projeto/app/src/main/kotlin/dam_A51811/filmroulette/data/ui/group/GroupSessionViewModel.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../projeto/app/src/main/java/dam_A51811/filmroulette/data/ui/profile/FeedbackViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../../projeto/app/src/main/kotlin/dam_A51811/filmroulette/data/ui/profile/FeedbackViewModel.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../projeto/app/src/main/java/dam_A51811/filmroulette/data/ui/roulette/RouletteViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../../projeto/app/src/main/kotlin/dam_A51811/filmroulette/data/ui/roulette/RouletteViewModel.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../projeto/app/src/main/java/dam_A51811/filmroulette/data/ui/watchlist/WatchlistViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../../projeto/app/src/main/kotlin/dam_A51811/filmroulette/data/ui/watchlist/WatchlistViewModel.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../projeto/gradle/libs.versions.toml" beforeDir="false" afterPath="$PROJECT_DIR$/../../projeto/gradle/libs.versions.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/Cool Jetpack Weather App/.idea/deploymentTargetSelector.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../android/Cool Jetpack Weather App/.idea/deploymentTargetSelector.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../android/Cool Jetpack Weather App/app/src/main/java/dam_A51811/coolweatherapp/ui/WeatherScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../android/Cool Jetpack Weather App/app/src/main/java/dam_A51811/coolweatherapp/ui/WeatherScreen.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -87,6 +76,7 @@
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/bruno/OneDrive/Documentos/Semestre 6/DAM/ISEL-LEIM-DAM-A51811/tutorial-3/kotlin&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -116,6 +106,8 @@
       <workItem from="1777828092456" duration="5867000" />
       <workItem from="1777836340982" duration="3542000" />
       <workItem from="1778168956099" duration="23000" />
+      <workItem from="1778662738155" duration="1267000" />
+      <workItem from="1778757760224" duration="61000" />
     </task>
     <servers />
   </component>

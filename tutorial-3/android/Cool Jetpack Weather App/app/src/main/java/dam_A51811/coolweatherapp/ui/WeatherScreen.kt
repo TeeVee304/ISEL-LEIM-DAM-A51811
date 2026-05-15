@@ -24,8 +24,6 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import dam_A51811.coolweatherapp.data.WMO_WeatherCode
-import dam_A51811.coolweatherapp.data.getWeatherCodeMap
 import dam_A51811.coolweatherapp.viewmodel.WeatherViewModel
 import java.text.SimpleDateFormat
 import java.util.Locale
@@ -204,7 +202,7 @@ fun LandscapeWeatherUI(
                 WeatherDetailsGrid(state = state)
             }
         }
-        
+
         LazyColumn(modifier = Modifier.weight(1f)) {
             item {
                 WeatherInputSection(
@@ -329,7 +327,7 @@ fun HourlyForecastRow(hourlyForecast: List<HourlyForecastItem>) {
         items(hourlyForecast) { item ->
             val index = codes.indexOf(item.weathercode)
             var wImage = if (index != -1) images[index] else "clear_"
-            
+
             if (wImage.endsWith("_")) {
                 wImage += if (item.isDay) "day" else "night"
             }
