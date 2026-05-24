@@ -1,6 +1,8 @@
 package dam
 
 import kotlinx.coroutines.runBlocking
+import org.json.JSONObject
+import org.json.JSONException
 
 /**
  * Main entry point for the LLM Assistant application
@@ -30,6 +32,7 @@ fun main() = runBlocking {
 
     // Display a welcome message
     println("💬 Type your questions and press Enter to chat with the AI.")
+    println("💬 Prefix your input with '/sentiment ' or '/s ' to perform sentiment analysis.")
     println("💬 Press Ctrl+D (Unix/Mac) or Ctrl+Z (Windows) to exit.\n")
 
     // Main interaction loop
@@ -46,10 +49,61 @@ fun main() = runBlocking {
             continue
         }
 
+        // Determine if it is a sentiment analysis task
+        val isSentiment = input.startsWith("/sentiment ") || input.startsWith("/s ")
+        val textToProcess = when {
+            input.startsWith("/sentiment ") -> input.removePrefix("/sentiment ").trim()
+            input.startsWith("/s ") -> input.removePrefix("/s ").trim()
+            else -> input.trim()
+        }
+
+        if (textToProcess.isBlank()) {
+            println("⚠️ Please enter text after the prefix for sentiment analysis.")
+            continue
+        }
+
         // Process input
         try {
-            val output = assistant.processInput(input)
-            println("\n🤖 Answer: $output\n\n")
+            if (isSentiment) {
+                val output = assistant.analyzeSentiment(textToProcess)
+                println("\n🤖 Sentiment Analysis JSON:")
+                println(output)
+                
+                // Show a user-friendly summary of the sentiment rating
+                try {
+                    val json = JSONObject(output)
+                    val rating = when {
+                        json.has("rating") -> json.getInt("rating")
+                        json.has(" rating ") -> json.getInt(" rating ")
+                        else -> -1
+                    }
+                    val justification = when {
+                        json.has("justification") -> json.getString("justification")
+                        json.has(" justification ") -> json.getString(" justification ")
+                        else -> "No justification provided."
+                    }
+                    
+                    val ratingText = when (rating) {
+                        1 -> "🔴 1 - Very Negative"
+                        2 -> "🟠 2 - Negative"
+                        3 -> "🟡 3 - Slightly Negative"
+                        4 -> "⚪ 4 - Neutral"
+                        5 -> "🟢 5 - Slightly Positive"
+                        6 -> "🔵 6 - Positive"
+                        7 -> "🟣 7 - Very Positive"
+                        else -> "Unknown rating ($rating)"
+                    }
+                    println("\n📊 Summary:")
+                    println("   Rating: $ratingText")
+                    println("   Justification: $justification")
+                } catch (e: Exception) {
+                    // Ignore parsing errors for the summary, the JSON was already printed
+                }
+                println("\n")
+            } else {
+                val output = assistant.processInput(textToProcess)
+                println("\n🤖 Answer: $output\n\n")
+            }
         } catch (e: Exception) {
             println("\n❌ Error communicating with AI: ${e.message}")
             println("   Please check your internet connection and API keys.\n")

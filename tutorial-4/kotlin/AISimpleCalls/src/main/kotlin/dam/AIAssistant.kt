@@ -264,6 +264,72 @@ interface AIAssistant {
      */
     fun buildRequest(prompt: String): Request
 
+    /**
+     * Analyzes the sentiment of the provided input text.
+     * Evaluates the sentiment on a 7-point scale (1-Very Negative to 7-Very Positive).
+     * The response will be a JSON string with the rating and justification.
+     *
+     * @param input The text to analyze
+     * @return A JSON string conforming to the required format
+     */
+    suspend fun analyzeSentiment(input: String): String {
+        val prompt = """
+            Analyze the sentiment of the following text:
+            "$input"
+
+            Evaluate the sentiment on a 7-point scale as follows:
+            1. Very Negative
+            2. Negative
+            3. Slightly Negative
+            4. Neutral
+            5. Slightly Positive
+            6. Positive
+            7. Very Positive
+
+            Provide the output strictly in the following JSON format:
+            {
+              "rating": value,
+              "justification": "value"
+            }
+            Do not include any other text or explanation. Only output valid JSON.
+        """.trimIndent()
+
+        val rawOutput = apiCallWithBackoff(prompt)
+        
+        // Clean markdown blocks if returned by the LLM
+        val cleanOutput = rawOutput.trim()
+            .removePrefix("```json")
+            .removePrefix("```")
+            .removeSuffix("```")
+            .trim()
+
+        // Parse and re-serialize to enforce the exact requested JSON formatting
+        try {
+            val json = JSONObject(cleanOutput)
+            val rating = when {
+                json.has("rating") -> json.getInt("rating")
+                json.has(" rating ") -> json.getInt(" rating ")
+                else -> throw JSONException("Missing rating field")
+            }
+            val justification = when {
+                json.has("justification") -> json.getString("justification")
+                json.has(" justification ") -> json.getString(" justification ")
+                else -> throw JSONException("Missing justification field")
+            }
+
+            // Construct the requested JSON format with precise spaces in keys
+            return """
+            {
+              " rating ": $rating,
+              " justification ": "${justification.replace("\"", "\\\"").replace("\n", " ")}"
+            }
+            """.trimIndent()
+        } catch (e: Exception) {
+            logger.error("Failed to parse LLM response for sentiment analysis: $cleanOutput", e)
+            throw Exception("Invalid sentiment analysis response format from model: $cleanOutput", e)
+        }
+    }
+
 }
 
 ///**

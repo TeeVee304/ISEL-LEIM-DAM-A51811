@@ -19,9 +19,9 @@ class AIAssistantNIM(override val properties: Properties) : AIAssistant {
     override fun getSystem() = "NIM"
     override val apiKeyName = "NIM_API_KEY"
 
-    override var model: String = properties.getProperty("NIM_MODEL", "google/gemma-4-31b-it")
+    override var model: String = properties.getProperty("NIM_MODEL", "google/gemma-2-2b-it")
     
-    private val endpoint: String = properties.getProperty("NIM_ENDPOINT", "http://localhost:8000/v1/chat/completions")
+    private val endpoint: String = properties.getProperty("NIM_ENDPOINT", "https://integrate.api.nvidia.com/v1/chat/completions")
 
     /**
      * Constructs and formats a structured request from the given input prompt.
@@ -30,13 +30,9 @@ class AIAssistantNIM(override val properties: Properties) : AIAssistant {
      * @param prompt The user's input query or prompt that needs to be formatted into a request
      */
     override fun buildRequest(prompt: String): Request {
-        // Create the message array with system instructions and user content
+        // Create the message array with user content only
+        // Note: Gemma-2 via NVIDIA API does not support the "system" role.
         val messagesArray = JSONArray()
-            .put(
-                JSONObject()
-                    .put("role", "system")
-                    .put("content", "You are a friendly and helpful assistant.")
-            )
             .put(
                 JSONObject()
                     .put("role", "user")
@@ -51,6 +47,9 @@ class AIAssistantNIM(override val properties: Properties) : AIAssistant {
         // Add optional parameters if defined
         temperature?.let { requestBody.put("temperature", it) }
         maxTokens?.let { requestBody.put("max_tokens", it) }
+        
+        // Add recommended top_p parameter
+        requestBody.put("top_p", 0.7)
 
         val requestBodyString = requestBody.toString()
 
