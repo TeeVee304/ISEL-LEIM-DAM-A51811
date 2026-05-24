@@ -50,6 +50,20 @@ interface AIAssistant {
      */
     var model: String
 
+    /**
+     * The temperature value for the AI model, affecting creativity vs determinism.
+     * Retrieved from the AI_TEMPERATURE property.
+     */
+    val temperature: Double?
+        get() = properties.getProperty("AI_TEMPERATURE")?.toDoubleOrNull()
+
+    /**
+     * The maximum number of tokens to generate in the response.
+     * Retrieved from the AI_MAX_TOKENS property.
+     */
+    val maxTokens: Int?
+        get() = properties.getProperty("AI_MAX_TOKENS")?.toIntOrNull()
+
 
     /**
      * Provides an instance of OkHttpClient used for making HTTP requests.

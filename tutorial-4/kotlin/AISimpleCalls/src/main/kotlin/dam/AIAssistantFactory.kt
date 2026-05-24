@@ -16,12 +16,13 @@ class AIAssistantFactory {
          */
         fun createAssistant(properties: Properties): AIAssistant {
             // Determine which assistant to create based on configuration
-            return when (properties.getProperty("AI_LLM", "OPENAI")) {
-                "OPENAI" -> AIAssistantOpenAI(properties)
+            return when (properties.getProperty("AI_LLM", "GEMINI")) {
+                //"OPENAI" -> AIAssistantOpenAI(properties)
                 "GEMINI" -> AIAssistantGemini(properties)
-                "OPENAI-CLASSES" -> AIAssistantOpenAIClasses(properties)
+                //"OPENAI-CLASSES" -> AIAssistantOpenAIClasses(properties)
                 "GEMINI-CLASSES" -> AIAssistantGeminiClasses(properties)
-                else -> throw IllegalArgumentException("Invalid AI model type specified in configuration. Valid values are 'OPENAI', 'GEMINI', 'OPENAI-CLASSES', or 'GEMINI-CLASSES'.")
+                "NIM" -> AIAssistantNIM(properties)
+                else -> AIAssistantGemini(properties)
             }
         }
     }

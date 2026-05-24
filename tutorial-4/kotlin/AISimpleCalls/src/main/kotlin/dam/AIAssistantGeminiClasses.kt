@@ -45,11 +45,11 @@ class AIAssistantGeminiClasses(override val properties: Properties) : AIAssistan
     )
 
     data class GenerationConfig(
-        val temperature: Double? = 0.4,      // Default reasonable balance
-        val topK: Int? = 40,                 // Limits selection to top K most likely tokens
-        val topP: Double? = 0.95,            // Nucleus sampling - covers 95% of probability mass
-        val maxOutputTokens: Int? = 800,     // Controls response length
-        val candidateCount: Int? = 1         // Number of alternative responses to generate
+        val temperature: Double? = null,
+        val topK: Int? = null,
+        val topP: Double? = null,
+        val maxOutputTokens: Int? = null,
+        val candidateCount: Int? = null
     )
 
 
@@ -71,11 +71,12 @@ class AIAssistantGeminiClasses(override val properties: Properties) : AIAssistan
             parts = listOf(part)
         )
         val geminiRequest = GeminiRequest(
-            contents = listOf(content)
-            , generationConfig = GenerationConfig(
-                temperature = 0.7,
-                maxOutputTokens = 800
-        ))
+            contents = listOf(content),
+            generationConfig = GenerationConfig(
+                temperature = temperature,
+                maxOutputTokens = maxTokens
+            )
+        )
 
         // Convert to JSON string using Gson
         val requestBody = gson.toJson(geminiRequest)

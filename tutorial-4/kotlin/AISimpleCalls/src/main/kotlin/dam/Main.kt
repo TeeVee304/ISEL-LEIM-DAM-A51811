@@ -23,7 +23,10 @@ fun main() = runBlocking {
     println()
 
     // Write system and model
-    println("✨ Using: ${assistant.getSystem()} ${assistant.model}\n")
+    println("✨ Using: ${assistant.getSystem()} ${assistant.model}")
+    assistant.temperature?.let { println("✨ Temperature: $it") }
+    assistant.maxTokens?.let { println("✨ Max Tokens: $it") }
+    println()
 
     // Display a welcome message
     println("💬 Type your questions and press Enter to chat with the AI.")

@@ -59,14 +59,19 @@ class AIAssistantOpenAI(override val properties: Properties) : AIAssistant {
         val requestBody = JSONObject()
             .put("model", model)  // Specify which model to use
             .put("messages", messagesArray)
-            .toString()  // Convert to JSON string
+
+        // Add optional parameters if defined
+        temperature?.let { requestBody.put("temperature", it) }
+        maxTokens?.let { requestBody.put("max_tokens", it) }
+
+        val requestBodyString = requestBody.toString()  // Convert to JSON string
 
         // Configure the HTTP request with proper headers and authentication
         val request = Request.Builder()
             .url("https://api.openai.com/v1/chat/completions")  // OpenAI chat endpoint
             .addHeader("Authorization", "Bearer $apiKey")  // API key authentication
             .addHeader("Content-Type", "application/json")  // Specify content type
-            .post(requestBody.toRequestBody("application/json".toMediaTypeOrNull()))  // Set the request body
+            .post(requestBodyString.toRequestBody("application/json".toMediaTypeOrNull()))  // Set the request body
             .build()
         return request
     }

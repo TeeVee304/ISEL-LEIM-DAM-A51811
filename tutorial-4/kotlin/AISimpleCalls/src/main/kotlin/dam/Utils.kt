@@ -39,18 +39,16 @@ private fun loadProperties(): Properties {
         FileInputStream(configFile).use { inputStream ->
             properties.load(inputStream)
 
-            // Check if we have at least one API key
-            if (properties.getProperty("OPENAI_API_KEY").isNullOrBlank() &&
-                properties.getProperty("GEMINI_API_KEY").isNullOrBlank()
-            ) {
-                println("⚠️ No API keys found in configuration file")
-                println("⚠️ Please add at least one API key to $configFilePath")
+            // Check if we have Gemini API key (OpenAI is currently disabled)
+            if (properties.getProperty("GEMINI_API_KEY").isNullOrBlank()) {
+                println("⚠️ No GEMINI_API_KEY found in configuration file")
+                println("⚠️ Please add your Gemini API key to $configFilePath")
             } else {
-                val apiKeys = listOf("OPENAI_API_KEY", "GEMINI_API_KEY").filter {
+                val apiKeys = listOf("GEMINI_API_KEY" /*, "OPENAI_API_KEY" */).filter {
                     properties.getProperty(it)?.isNotBlank() == true
                 }.toList()
 
-                println("✅ Found ${apiKeys.size} API key(s) in configuration: $apiKeys")
+                println("✅ Found Gemini API key in configuration.")
             }
         }
     } catch (e: Exception) {

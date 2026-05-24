@@ -48,13 +48,22 @@ class AIAssistantGemini(override val properties: Properties) : AIAssistant {
         // Build the complete request body with model selection and content
         val requestBody = JSONObject()
             .put("contents", messagesArray)
-            .toString()  // Convert to JSON string
+
+        // Add generation configuration if temperature or maxTokens are defined
+        if (temperature != null || maxTokens != null) {
+            val generationConfig = JSONObject()
+            temperature?.let { generationConfig.put("temperature", it) }
+            maxTokens?.let { generationConfig.put("maxOutputTokens", it) }
+            requestBody.put("generationConfig", generationConfig)
+        }
+
+        val requestBodyString = requestBody.toString()  // Convert to JSON string
 
         // Configure the HTTP request with proper headers and authentication
         val request = Request.Builder()
             .url("https://generativelanguage.googleapis.com/v1/models/$model:generateContent?key=$apiKey")  // Gemini API endpoint
             .addHeader("Content-Type", "application/json")  // Specify content type
-            .post(requestBody.toRequestBody("application/json".toMediaTypeOrNull()))  // Set the request body
+            .post(requestBodyString.toRequestBody("application/json".toMediaTypeOrNull()))  // Set the request body
             .build()
         return request
     }
