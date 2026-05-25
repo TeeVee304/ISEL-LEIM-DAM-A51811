@@ -73,7 +73,7 @@ class SignInActivity : AppCompatActivity() {
                 .createSignInIntentBuilder()
                 .setAvailableProviders(providers)
                 .setLogo(R.mipmap.ic_launcher)
-                .setTheme(R.style.AppTheme) // Use the custom theme
+                .setTheme(R.style.AppThemeNoActionBar) // Use the custom theme
                 .build()
 
             signInLauncher.launch(signInIntent)
@@ -94,7 +94,8 @@ class SignInActivity : AppCompatActivity() {
             Toast.makeText(
                 this,
                 "There was an error signing in",
-                Toast.LENGTH_LONG).show()
+                Toast.LENGTH_LONG
+            ).show()
 
             val response = result.idpResponse
             if (response == null) {

@@ -39,9 +39,6 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
 
-    kotlinOptions {
-        jvmTarget = "17"
-    }
 
     lint {
         disable += "NotificationPermission"
@@ -60,7 +57,7 @@ dependencies {
     implementation("com.google.android.gms:play-services-auth:21.3.0")
 
     // Firebase - Using BoM to manage versions
-    implementation(platform("com.google.firebase:firebase-bom:33.13.0"))
+    implementation(platform("com.google.firebase:firebase-bom:34.13.0"))
     implementation("com.google.firebase:firebase-database")
     implementation("com.google.firebase:firebase-storage")
     implementation("com.google.firebase:firebase-auth")
@@ -76,3 +73,8 @@ dependencies {
     androidTestImplementation("androidx.test:runner:1.6.2")
     androidTestImplementation("androidx.test:rules:1.6.1")
 }
+
+kotlin {
+    jvmToolchain(17)
+}
+
