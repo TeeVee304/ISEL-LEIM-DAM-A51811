@@ -2,9 +2,13 @@ package com.notes.notesproxmlviews;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
@@ -27,10 +31,24 @@ public class NoteAdapter extends FirestoreRecyclerAdapter<Note, NoteAdapter.Note
         holder.contentTextView.setText(note.content);
         holder.timestampTextView.setText(Utility.timestampToString(note.timestamp));
 
+        if (note.image != null && !note.image.isEmpty()) {
+            try {
+                byte[] decodedString = Base64.decode(note.image, Base64.DEFAULT);
+                Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                holder.noteImageView.setImageBitmap(decodedByte);
+                holder.noteImageCardView.setVisibility(View.VISIBLE);
+            } catch (Exception e) {
+                holder.noteImageCardView.setVisibility(View.GONE);
+            }
+        } else {
+            holder.noteImageCardView.setVisibility(View.GONE);
+        }
+
         holder.itemView.setOnClickListener((v)->{
             Intent intent = new Intent(context, NoteDetailsActivity.class);
             intent.putExtra("title",note.title);
             intent.putExtra("content",note.content);
+            intent.putExtra("image",note.image);
             String docId = this.getSnapshots().getSnapshot(position).getId();
             intent.putExtra("docId",docId);
             context.startActivity(intent);
@@ -47,12 +65,16 @@ public class NoteAdapter extends FirestoreRecyclerAdapter<Note, NoteAdapter.Note
 
     class NoteViewHolder extends RecyclerView.ViewHolder{
         TextView titleTextView,contentTextView,timestampTextView;
+        ImageView noteImageView;
+        View noteImageCardView;
 
         public NoteViewHolder(@NonNull View itemView) {
             super(itemView);
             titleTextView = itemView.findViewById(R.id.note_title_text_view);
             contentTextView = itemView.findViewById(R.id.note_content_text_view);
             timestampTextView = itemView.findViewById(R.id.note_timestamp_text_view);
+            noteImageView = itemView.findViewById(R.id.note_image_view);
+            noteImageCardView = itemView.findViewById(R.id.note_image_card_view);
         }
     }
 }
