@@ -9,7 +9,7 @@ import dam_A51811.filmroulette.data.local.MovieListCrossRef
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-interface MovieListDao {
+interface MovieListDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertList(movieList: MovieList): Long
 

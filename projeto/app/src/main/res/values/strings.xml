@@ -1,3 +1,78 @@
 <resources>
     <string name="app_name">Film Roulette</string>
+    <string name="app_logo">FilmRoulette</string>
+
+    <!-- Navigation -->
+    <string name="nav_roulette">Roulette</string>
+    <string name="nav_filters">Filters</string>
+    <string name="nav_groups">Groups</string>
+    <string name="nav_watchlist">Watchlist</string>
+
+    <!-- Accessibility / Content Descriptions -->
+    <string name="desc_menu">Menu</string>
+    <string name="desc_profile">Profile</string>
+    <string name="desc_dislike">Dislike</string>
+    <string name="desc_like">Like</string>
+    <string name="desc_swipe">Swipe</string>
+    <string name="desc_selected">Selected</string>
+    <string name="desc_copy_code">Copy code</string>
+    <string name="desc_share">Share</string>
+    <string name="desc_add_person">Add person</string>
+
+    <!-- General UI -->
+    <string name="coming_soon">Coming soon</string>
+    <string name="error_title">ERROR OCCURRED</string>
+    <string name="error_no_movies">No movies found matching these filters.</string>
+    <string name="error_unexpected">An unexpected error occurred.</string>
+    <string name="btn_retry">RETRY</string>
+    <string name="duration_mins_format">%1$d MINS</string>
+    <string name="label_swipe">SWIPE</string>
+    <string name="tap_poster_synopsis">Tap poster to reveal synopsis</string>
+
+    <!-- Filters Screen -->
+    <string name="banner_title">Your tonight\'s ritual.</string>
+    <string name="banner_subtitle">Skip the scrolling. Let the projector decide your next cinematic journey based on your mood and time.</string>
+    <string name="time_section_title">Available Time</string>
+    <string name="time_minutes_format">%1$d min</string>
+    <string name="time_quick_pick_format">%1$dm</string>
+    <string name="time_quick_pick_plus">150m+</string>
+    <string name="genres_section_title">Favourite Genres</string>
+    <string name="platforms_section_title">Active Platforms</string>
+    <string name="cta_ai_match">AI Match Tuning</string>
+    <string name="cta_ai_match_subtitle">Personalized roulette based on your mood</string>
+    <string name="btn_start_roulette">START THE ROULETTE</string>
+
+    <!-- Genres -->
+    <string name="genre_scifi">Sci-Fi</string>
+    <string name="genre_neonoir">Neo-Noir</string>
+    <string name="genre_cyberpunk">Cyberpunk</string>
+    <string name="genre_psychological_thriller">Psychological Thriller</string>
+    <string name="genre_documentary">Documentary</string>
+    <string name="genre_horror">Horror</string>
+    <string name="genre_independent_cinema">Independent Cinema</string>
+    <string name="genre_animation">Animation</string>
+
+    <!-- Platforms -->
+    <string name="platform_netflix">Netflix</string>
+    <string name="platform_disneyplus">Disney+</string>
+    <string name="platform_max">Max</string>
+    <string name="platform_primevideo">Prime Video</string>
+
+    <!-- Group Session Screen -->
+    <string name="group_session_title">Group Session</string>
+    <string name="group_session_subtitle">Host a synchronized screening or pick the perfect movie with friends using collective filters.</string>
+    <string name="group_session_invite_title">INVITE FRIENDS</string>
+    <string name="group_session_or_share_link">OR SHARE LINK</string>
+    <string name="group_session_copy_link">Copy Session Link</string>
+    <string name="group_session_joined_title">Joined Friends</string>
+    <string name="group_session_active_members_format">%1$d Active Members</string>
+    <string name="group_session_combine">Combine Filters</string>
+    <string name="group_session_syncing_preferences_format">Syncing preferences with %1$d friends</string>
+    <string name="group_session_combine_subtitle">We\'ll find the intersection of everyone\'s favourite genres and moods.</string>
+    <string name="group_session_live">LIVE</string>
+    <string name="group_session_status_host">Host</string>
+    <string name="group_session_status_ready">Ready</string>
+    <string name="group_session_status_filtering">Filtering…</string>
+    <string name="group_session_waiting">Waiting…</string>
+    <string name="group_session_member_you">You</string>
 </resources>

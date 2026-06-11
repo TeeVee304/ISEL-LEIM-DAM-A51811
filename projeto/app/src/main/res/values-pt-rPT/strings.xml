@@ -1,0 +1,78 @@
+<resources>
+    <string name="app_name">Film Roulette</string>
+    <string name="app_logo">FilmRoulette</string>
+
+    <!-- Navigation -->
+    <string name="nav_roulette">Roleta</string>
+    <string name="nav_filters">Filtros</string>
+    <string name="nav_groups">Grupos</string>
+    <string name="nav_watchlist">Lista para Ver</string>
+
+    <!-- Accessibility / Content Descriptions -->
+    <string name="desc_menu">Menu</string>
+    <string name="desc_profile">Perfil</string>
+    <string name="desc_dislike">Não Gosto</string>
+    <string name="desc_like">Gosto</string>
+    <string name="desc_swipe">Deslizar</string>
+    <string name="desc_selected">Selecionado</string>
+    <string name="desc_copy_code">Copiar código</string>
+    <string name="desc_share">Partilhar</string>
+    <string name="desc_add_person">Adicionar pessoa</string>
+
+    <!-- General UI -->
+    <string name="coming_soon">Brevemente</string>
+    <string name="error_title">OCORREU UM ERRO</string>
+    <string name="error_no_movies">Não foram encontrados filmes que correspondam a estes filtros.</string>
+    <string name="error_unexpected">Ocorreu um erro inesperado.</string>
+    <string name="btn_retry">TENTAR NOVAMENTE</string>
+    <string name="duration_mins_format">%1$d MIN</string>
+    <string name="label_swipe">DESLIZAR</string>
+    <string name="tap_poster_synopsis">Toque no póster para ver a sinopse</string>
+
+    <!-- Filters Screen -->
+    <string name="banner_title">O seu ritual de hoje.</string>
+    <string name="banner_subtitle">Evite a indecisão. Deixe que o projetor decida a sua próxima viagem cinematográfica com base no seu estado de espírito e tempo disponível.</string>
+    <string name="time_section_title">Tempo Disponível</string>
+    <string name="time_minutes_format">%1$d min</string>
+    <string name="time_quick_pick_format">%1$dm</string>
+    <string name="time_quick_pick_plus">150m+</string>
+    <string name="genres_section_title">Géneros Favoritos</string>
+    <string name="platforms_section_title">Plataformas Ativas</string>
+    <string name="cta_ai_match">Ajuste Inteligente</string>
+    <string name="cta_ai_match_subtitle">Roleta personalizada com base no seu humor</string>
+    <string name="btn_start_roulette">INICIAR A ROLETA</string>
+
+    <!-- Genres -->
+    <string name="genre_scifi">Ficção Científica</string>
+    <string name="genre_neonoir">Neo-Noir</string>
+    <string name="genre_cyberpunk">Cyberpunk</string>
+    <string name="genre_psychological_thriller">Thriller Psicológico</string>
+    <string name="genre_documentary">Documentário</string>
+    <string name="genre_horror">Terror</string>
+    <string name="genre_independent_cinema">Cinema Independente</string>
+    <string name="genre_animation">Animação</string>
+
+    <!-- Platforms -->
+    <string name="platform_netflix">Netflix</string>
+    <string name="platform_disneyplus">Disney+</string>
+    <string name="platform_max">Max</string>
+    <string name="platform_primevideo">Prime Video</string>
+
+    <!-- Group Session Screen -->
+    <string name="group_session_title">Sessão de Grupo</string>
+    <string name="group_session_subtitle">Organize uma sessão sincronizada ou escolha o filme perfeito com amigos usando filtros conjuntos.</string>
+    <string name="group_session_invite_title">CONVIDAR AMIGOS</string>
+    <string name="group_session_or_share_link">OU PARTILHAR LINK</string>
+    <string name="group_session_copy_link">Copiar Link da Sessão</string>
+    <string name="group_session_joined_title">Amigos no Grupo</string>
+    <string name="group_session_active_members_format">%1$d Membros Ativos</string>
+    <string name="group_session_combine">Combinar Filtros</string>
+    <string name="group_session_syncing_preferences_format">A sincronizar preferências com %1$d amigos</string>
+    <string name="group_session_combine_subtitle">Encontraremos a interseção dos géneros e moods favoritos de todos.</string>
+    <string name="group_session_live">EM DIRETO</string>
+    <string name="group_session_status_host">Anfitrião</string>
+    <string name="group_session_status_ready">Pronto</string>
+    <string name="group_session_status_filtering">A filtrar…</string>
+    <string name="group_session_waiting">A aguardar…</string>
+    <string name="group_session_member_you">Tu</string>
+</resources>

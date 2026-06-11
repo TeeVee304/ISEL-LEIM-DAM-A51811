@@ -8,7 +8,7 @@ import dam_A51811.filmroulette.data.local.Rating
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-interface RatingDao {
+interface RatingDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(rating: Rating)
 

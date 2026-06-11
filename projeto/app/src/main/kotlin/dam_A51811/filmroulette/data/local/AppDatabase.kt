@@ -5,11 +5,11 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import dam_A51811.filmroulette.data.local.dao.MovieDao
-import dam_A51811.filmroulette.data.local.dao.MovieListDao
-import dam_A51811.filmroulette.data.local.dao.PlatformDao
-import dam_A51811.filmroulette.data.local.dao.RatingDao
-import dam_A51811.filmroulette.data.local.dao.UserDao
+import dam_A51811.filmroulette.data.local.dao.MovieDAO
+import dam_A51811.filmroulette.data.local.dao.MovieListDAO
+import dam_A51811.filmroulette.data.local.dao.PlatformDAO
+import dam_A51811.filmroulette.data.local.dao.RatingDAO
+import dam_A51811.filmroulette.data.local.dao.UserDAO
 
 /**
  * Room database for the FilmRoulette application.
@@ -44,11 +44,11 @@ import dam_A51811.filmroulette.data.local.dao.UserDao
 @TypeConverters(GenreConverter::class)
 abstract class AppDatabase : RoomDatabase() {
 
-    abstract fun movieDao(): MovieDao
-    abstract fun platformDao(): PlatformDao
-    abstract fun userDao(): UserDao
-    abstract fun ratingDao(): RatingDao
-    abstract fun movieListDao(): MovieListDao
+    abstract fun movieDao(): MovieDAO
+    abstract fun platformDao(): PlatformDAO
+    abstract fun userDao(): UserDAO
+    abstract fun ratingDao(): RatingDAO
+    abstract fun movieListDao(): MovieListDAO
 
     companion object {
         @Volatile

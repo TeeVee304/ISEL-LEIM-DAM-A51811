@@ -8,7 +8,7 @@ import dam_A51811.filmroulette.data.local.Platform
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-interface PlatformDao {
+interface PlatformDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(platform: Platform)
 

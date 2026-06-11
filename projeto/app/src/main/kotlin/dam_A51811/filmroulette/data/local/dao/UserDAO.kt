@@ -5,10 +5,9 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import dam_A51811.filmroulette.data.local.User
-import kotlinx.coroutines.flow.Flow
 
 @Dao
-interface UserDao {
+interface UserDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(user: User): Long
 
