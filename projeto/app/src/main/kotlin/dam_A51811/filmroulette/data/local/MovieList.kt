@@ -6,7 +6,8 @@ import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 
 /**
- * Room entity representing a named list of movies created by a user.
+ * Room entity representing a named list of movies created by a user,
+ * with a configurable [visibility] level.
  *
  * Named [MovieList] to avoid collision with [kotlin.collections.List].
  *
@@ -14,6 +15,11 @@ import androidx.room.PrimaryKey
  * junction table (N:M relationship with [Movie]).
  *
  * Deleting the owning [User] cascades and removes all their lists.
+ *
+ * ### Firebase note
+ * When Firebase is introduced, store this as a Firestore document
+ * under `/users/{userId}/movie_lists/{listId}`. The [visibility]
+ * field drives Firestore Security Rules for read access.
  */
 @Entity(
     tableName = "movie_lists",
@@ -42,5 +48,16 @@ data class MovieList(
      * Use [System.currentTimeMillis] at insertion time.
      */
     @ColumnInfo(name = "created_at")
-    val createdAt: Long
+    val createdAt: Long,
+
+    /**
+     * Visibility level stored as a String (e.g. "PRIVATE", "FRIENDS_ONLY", "PUBLIC").
+     *
+     * Use [dam_A51811.filmroulette.data.utils.VisibilityMapper] to convert
+     * to/from the [dam_A51811.filmroulette.data.model.Visibility] domain enum.
+     *
+     * Default is "PRIVATE" so that a new list is never accidentally exposed.
+     */
+    @ColumnInfo(name = "visibility")
+    val visibility: String = "PRIVATE"
 )
