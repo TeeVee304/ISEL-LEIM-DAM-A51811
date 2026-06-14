@@ -7,6 +7,7 @@
     <string name="nav_filters">Filters</string>
     <string name="nav_groups">Groups</string>
     <string name="nav_watchlist">Watchlist</string>
+    <string name="nav_ai_guide">AI Guide</string>
 
     <!-- Accessibility / Content Descriptions -->
     <string name="desc_menu">Menu</string>
@@ -75,4 +76,29 @@
     <string name="group_session_status_filtering">Filtering…</string>
     <string name="group_session_waiting">Waiting…</string>
     <string name="group_session_member_you">You</string>
+
+    <!-- Profile & Friends -->
+    <string name="nav_profile">Profile</string>
+    <string name="profile_title">Profile</string>
+    <string name="profile_member_since">Member since %1$s</string>
+    <string name="profile_sign_out">Sign Out</string>
+    <string name="friends_section_title">My Friends</string>
+    <string name="friends_empty">Your friends list is empty. Add friends to start group sessions!</string>
+    <string name="friends_remove">Remove</string>
+    <string name="friends_add_title">Add Friend</string>
+    <string name="friends_add_hint">Friend\'s Email Address</string>
+    <string name="friends_add_button">Send Request</string>
+    <string name="friends_requests_title">Friend Requests</string>
+    <string name="friends_requests_received">Received</string>
+    <string name="friends_requests_sent">Sent</string>
+    <string name="friends_requests_empty_received">No received requests.</string>
+    <string name="friends_requests_empty_sent">No sent requests.</string>
+    <string name="friends_accept">Accept</string>
+    <string name="friends_decline">Decline</string>
+    <string name="friends_cancel">Cancel</string>
+    <string name="friends_error_self">You cannot add yourself.</string>
+    <string name="friends_error_not_found">User not found in the system.</string>
+    <string name="friends_error_already_friends">You are already friends with this user.</string>
+    <string name="friends_error_already_requested">A friend request is already pending.</string>
+    <string name="friends_success_sent">Friend request sent successfully!</string>
 </resources>

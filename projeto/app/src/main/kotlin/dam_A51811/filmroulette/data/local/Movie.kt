@@ -35,6 +35,20 @@ data class Movie(
     val avgRating: Double,
 
     /**
+     * Data de lançamento no formato ISO 8601 ("YYYY-MM-DD").
+     * Corresponde ao campo `release_date` da API TMDb.
+     */
+    @ColumnInfo(name = "release_date")
+    val releaseDate: String?,
+
+    /**
+     * Código ISO 639-1 do idioma original (e.g. "en", "pt", "fr").
+     * Corresponde ao campo `original_language` da API TMDb.
+     */
+    @ColumnInfo(name = "original_language")
+    val originalLanguage: String?,
+
+    /**
      * Géneros cinematográficos da obra.
      *
      * Armazenado como uma String com valores separados por vírgula na base de dados (ver [GenreConverter]).

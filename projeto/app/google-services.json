@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "828304945602",
+    "project_id": "filmroulette-a0cd5",
+    "storage_bucket": "filmroulette-a0cd5.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:828304945602:android:04c6c2ee5dc7ca5642e65b",
+        "android_client_info": {
+          "package_name": "dam_A51811.filmroulette"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBkWWiGsv46n8wSbWHGC43PcsFLjtlfoFA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

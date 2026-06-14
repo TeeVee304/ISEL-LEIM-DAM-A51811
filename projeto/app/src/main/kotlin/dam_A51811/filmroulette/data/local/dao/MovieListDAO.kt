@@ -11,10 +11,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface MovieListDAO {
 
-    // ─────────────────────────────────────────────────────
-    // Write operations
-    // ─────────────────────────────────────────────────────
-
+    // =====< ESCRITA >=====
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertList(movieList: MovieList): Long
 
@@ -30,18 +27,12 @@ interface MovieListDAO {
     @Query("UPDATE movie_lists SET visibility = :visibility WHERE id = :listId")
     suspend fun updateVisibility(listId: Long, visibility: String)
 
-    // ─────────────────────────────────────────────────────
-    // Queries – owner view (all own lists regardless of visibility)
-    // ─────────────────────────────────────────────────────
-
+    // =====> QUERIES - Vista do Utilizador >=====
     /** All lists belonging to [userId], ordered by creation date descending. */
     @Query("SELECT * FROM movie_lists WHERE user_id = :userId ORDER BY created_at DESC")
     fun getUserLists(userId: Long): Flow<List<MovieList>>
 
-    // ─────────────────────────────────────────────────────
-    // Queries – friend view (FRIENDS_ONLY + PUBLIC of a specific user)
-    // ─────────────────────────────────────────────────────
-
+    // =====< QUERIES - Vista de Amigos >======
     /**
      * Lists of [ownerId] that a **friend** can see:
      * those with visibility PUBLIC or FRIENDS_ONLY.
@@ -57,10 +48,7 @@ interface MovieListDAO {
     """)
     fun getFriendVisibleLists(ownerId: Long): Flow<List<MovieList>>
 
-    // ─────────────────────────────────────────────────────
-    // Queries – public view (PUBLIC only, for non-friends)
-    // ─────────────────────────────────────────────────────
-
+    // ======< QUERIES - Vista Pública >=====
     /** Lists of [ownerId] that any user (or anonymous viewer) can see. */
     @Query("""
         SELECT * FROM movie_lists

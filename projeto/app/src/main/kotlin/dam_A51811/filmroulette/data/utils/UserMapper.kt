@@ -16,6 +16,7 @@ object UserMapper {
         id           = this.id,
         username     = this.username,
         email        = this.email,
-        registryDate = this.registryDate
+        registryDate = this.registryDate,
+        avatarUrl    = this.avatarUrl
     )
 }

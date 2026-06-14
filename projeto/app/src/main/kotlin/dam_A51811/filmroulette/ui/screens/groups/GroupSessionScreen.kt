@@ -81,7 +81,7 @@ fun GroupSessionScreen(modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
             .fillMaxSize()
-            .background(Color(0xFF131313))
+            .background(MaterialTheme.colorScheme.background)
             .verticalScroll(rememberScrollState())
             .padding(top = 80.dp, bottom = 120.dp, start = 20.dp, end = 20.dp),
         verticalArrangement = Arrangement.spacedBy(28.dp),
@@ -98,14 +98,14 @@ fun GroupSessionScreen(modifier: Modifier = Modifier) {
                     fontFamily = SplineSans,
                     fontWeight = FontWeight.Bold,
                     fontSize = 28.sp,
-                    color = Color.White,
+                    color = MaterialTheme.colorScheme.onBackground,
                 )
                 LiveBadge()
             }
             Text(
                 text = stringResource(id = R.string.group_session_subtitle),
                 style = MaterialTheme.typography.bodyMedium,
-                color = Color.White.copy(alpha = 0.55f),
+                color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.55f),
             )
         }
 
@@ -131,8 +131,8 @@ fun GroupSessionScreen(modifier: Modifier = Modifier) {
                         modifier = Modifier
                             .weight(1f)
                             .clip(RoundedCornerShape(12.dp))
-                            .background(Color(0xFF0E0E0E))
-                            .border(1.dp, Color.White.copy(alpha = 0.10f), RoundedCornerShape(12.dp))
+                            .background(MaterialTheme.colorScheme.surfaceVariant)
+                            .border(1.dp, MaterialTheme.colorScheme.onSurface.copy(alpha = 0.12f), RoundedCornerShape(12.dp))
                             .padding(horizontal = 16.dp, vertical = 14.dp),
                         contentAlignment = Alignment.CenterStart,
                     ) {
@@ -147,7 +147,7 @@ fun GroupSessionScreen(modifier: Modifier = Modifier) {
                                 fontWeight = FontWeight.Bold,
                                 fontSize = 22.sp,
                                 letterSpacing = 3.sp,
-                                color = Color.White,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant,
                             )
                             IconButton(onClick = { /* copy */ }, modifier = Modifier.size(24.dp)) {
                                 Icon(
@@ -178,13 +178,13 @@ fun GroupSessionScreen(modifier: Modifier = Modifier) {
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.spacedBy(12.dp),
                 ) {
-                    HorizontalDivider(modifier = Modifier.weight(1f), color = Color.White.copy(alpha = 0.10f))
+                    HorizontalDivider(modifier = Modifier.weight(1f), color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.12f))
                     Text(
                         text = stringResource(id = R.string.group_session_or_share_link),
                         style = MaterialTheme.typography.labelMedium,
-                        color = Color.White.copy(alpha = 0.40f),
+                        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.50f),
                     )
-                    HorizontalDivider(modifier = Modifier.weight(1f), color = Color.White.copy(alpha = 0.10f))
+                    HorizontalDivider(modifier = Modifier.weight(1f), color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.12f))
                 }
 
                 // Link button
@@ -194,8 +194,8 @@ fun GroupSessionScreen(modifier: Modifier = Modifier) {
                         .fillMaxWidth()
                         .height(50.dp),
                     shape = RoundedCornerShape(12.dp),
-                    border = androidx.compose.foundation.BorderStroke(1.dp, Color.White.copy(alpha = 0.12f)),
-                    colors = ButtonDefaults.outlinedButtonColors(contentColor = Color.White),
+                    border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.onSurface.copy(alpha = 0.15f)),
+                    colors = ButtonDefaults.outlinedButtonColors(contentColor = MaterialTheme.colorScheme.onSurface),
                 ) {
                     Icon(Icons.Default.Link, null, tint = MaterialTheme.colorScheme.primary)
                     Spacer(Modifier.width(8.dp))
@@ -216,12 +216,12 @@ fun GroupSessionScreen(modifier: Modifier = Modifier) {
                     fontFamily = SplineSans,
                     fontWeight = FontWeight.Bold,
                     fontSize = 20.sp,
-                    color = Color.White,
+                    color = MaterialTheme.colorScheme.onBackground,
                 )
                 Text(
                     text = stringResource(id = R.string.group_session_active_members_format, previewMembers.size + 1),
                     style = MaterialTheme.typography.labelMedium,
-                    color = Color.White.copy(alpha = 0.45f),
+                    color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.45f),
                 )
             }
 
@@ -274,7 +274,7 @@ fun GroupSessionScreen(modifier: Modifier = Modifier) {
                 Text(
                     text = stringResource(id = R.string.group_session_syncing_preferences_format, previewMembers.size + 1),
                     style = MaterialTheme.typography.labelMedium,
-                    color = Color.White.copy(alpha = 0.75f),
+                    color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.85f),
                 )
             }
         }
@@ -282,7 +282,7 @@ fun GroupSessionScreen(modifier: Modifier = Modifier) {
         Text(
             text = stringResource(id = R.string.group_session_combine_subtitle),
             style = MaterialTheme.typography.labelMedium,
-            color = Color.White.copy(alpha = 0.40f),
+            color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.40f),
             textAlign = TextAlign.Center,
             modifier = Modifier.fillMaxWidth(),
         )
@@ -307,8 +307,8 @@ private fun LiveBadge() {
     Row(
         modifier = Modifier
             .clip(CircleShape)
-            .background(Color.White.copy(alpha = 0.07f))
-            .border(1.dp, Color.White.copy(alpha = 0.10f), CircleShape)
+            .background(MaterialTheme.colorScheme.onSurface.copy(alpha = 0.07f))
+            .border(1.dp, MaterialTheme.colorScheme.onSurface.copy(alpha = 0.10f), CircleShape)
             .padding(horizontal = 12.dp, vertical = 6.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(6.dp),
@@ -333,8 +333,8 @@ private fun MemberCard(member: Member, modifier: Modifier = Modifier) {
     Box(
         modifier = modifier
             .clip(RoundedCornerShape(16.dp))
-            .background(Color.White.copy(alpha = 0.04f))
-            .border(1.dp, Color.White.copy(alpha = 0.08f), RoundedCornerShape(16.dp))
+            .background(MaterialTheme.colorScheme.onSurface.copy(alpha = 0.04f))
+            .border(1.dp, MaterialTheme.colorScheme.onSurface.copy(alpha = 0.08f), RoundedCornerShape(16.dp))
             .padding(14.dp),
     ) {
         Row(
@@ -356,11 +356,11 @@ private fun MemberCard(member: Member, modifier: Modifier = Modifier) {
                         modifier = Modifier
                             .fillMaxSize()
                             .clip(CircleShape)
-                            .border(
-                                width = if (member.isHost) 2.dp else 1.dp,
-                                color = if (member.isHost) NeonRed else Color.White.copy(alpha = 0.20f),
-                                shape = CircleShape,
-                            ),
+                             .border(
+                                 width = if (member.isHost) 2.dp else 1.dp,
+                                 color = if (member.isHost) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.20f),
+                                 shape = CircleShape,
+                             ),
                     )
                 } else {
                     // Fallback avatar (initials placeholder)
@@ -388,12 +388,12 @@ private fun MemberCard(member: Member, modifier: Modifier = Modifier) {
                 Text(
                     text = displayName,
                     style = MaterialTheme.typography.labelLarge,
-                    color = Color.White,
+                    color = MaterialTheme.colorScheme.onSurface,
                 )
                 Text(
                     text = displayStatus,
                     style = MaterialTheme.typography.labelMedium,
-                    color = if (member.isHost) MaterialTheme.colorScheme.primary else Color.White.copy(alpha = 0.50f),
+                    color = if (member.isHost) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.50f),
                 )
             }
         }
@@ -403,7 +403,7 @@ private fun MemberCard(member: Member, modifier: Modifier = Modifier) {
             Icon(
                 Icons.Filled.Stars,
                 contentDescription = null,
-                tint = Color.White.copy(alpha = 0.07f),
+                tint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.07f),
                 modifier = Modifier
                     .size(60.dp)
                     .align(Alignment.TopEnd),
@@ -417,7 +417,7 @@ private fun WaitingCard(modifier: Modifier = Modifier) {
     Box(
         modifier = modifier
             .clip(RoundedCornerShape(16.dp))
-            .border(1.dp, Color.White.copy(alpha = 0.15f), RoundedCornerShape(16.dp))
+            .border(1.dp, MaterialTheme.colorScheme.onSurface.copy(alpha = 0.15f), RoundedCornerShape(16.dp))
             .padding(14.dp),
     ) {
         Row(
@@ -428,20 +428,20 @@ private fun WaitingCard(modifier: Modifier = Modifier) {
                 modifier = Modifier
                     .size(48.dp)
                     .clip(CircleShape)
-                    .border(1.dp, Color.White.copy(alpha = 0.20f), CircleShape),
+                    .border(1.dp, MaterialTheme.colorScheme.onSurface.copy(alpha = 0.20f), CircleShape),
                 contentAlignment = Alignment.Center,
             ) {
                 Icon(
                     Icons.Default.PersonAdd,
                     contentDescription = stringResource(id = R.string.desc_add_person),
-                    tint = Color.White.copy(alpha = 0.40f),
+                    tint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.40f),
                     modifier = Modifier.size(22.dp),
                 )
             }
             Text(
                 text = stringResource(id = R.string.group_session_waiting),
                 style = MaterialTheme.typography.labelLarge,
-                color = Color.White.copy(alpha = 0.35f),
+                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.35f),
             )
         }
     }

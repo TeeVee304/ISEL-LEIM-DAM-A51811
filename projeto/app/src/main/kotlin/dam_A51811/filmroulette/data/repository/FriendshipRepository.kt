@@ -57,4 +57,19 @@ interface FriendshipRepository {
      * Lightweight — does not load full [User] objects.
      */
     suspend fun getFriendIds(userId: Long): List<Long>
+
+    /**
+     * Gets or creates a local Room user matching [email].
+     */
+    suspend fun getOrCreateUser(email: String, username: String? = null, avatarUrl: String? = null): User
+
+    /**
+     * Finds a local Room user by their [email].
+     */
+    suspend fun getUserByEmail(email: String): User?
+
+    /**
+     * Finds a local Room user by their [id].
+     */
+    suspend fun getUserById(id: Long): User?
 }

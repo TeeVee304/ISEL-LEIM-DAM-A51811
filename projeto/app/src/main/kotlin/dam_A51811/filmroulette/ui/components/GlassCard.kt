@@ -5,18 +5,17 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
 /**
  * Glassmorphism-style card used throughout FilmRoulette.
  *
- * Renders a near-transparent dark surface with a subtle white border,
- * matching the `.glass-panel` CSS class from the design system.
+ * Renders a near-transparent surface adapting to the light/dark theme with a subtle border.
  */
 @Composable
 fun GlassCard(
@@ -27,10 +26,10 @@ fun GlassCard(
     Box(
         modifier = modifier
             .clip(RoundedCornerShape(cornerRadius))
-            .background(Color(0xFF131313).copy(alpha = 0.70f))
+            .background(MaterialTheme.colorScheme.surface.copy(alpha = 0.70f))
             .border(
                 width = 1.dp,
-                color = Color.White.copy(alpha = 0.10f),
+                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.15f),
                 shape = RoundedCornerShape(cornerRadius),
             ),
         content = content,

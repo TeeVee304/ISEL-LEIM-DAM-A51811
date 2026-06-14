@@ -2,12 +2,14 @@ package dam_A51811.filmroulette.ui.screens.roulette
 
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
@@ -22,6 +24,8 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.AutoAwesome
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.KeyboardDoubleArrowLeft
@@ -32,6 +36,7 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -57,30 +62,34 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import dam_A51811.filmroulette.R
 import dam_A51811.filmroulette.data.model.Genre
+import dam_A51811.filmroulette.data.ui.aiguide.AiGuideViewModel
 import dam_A51811.filmroulette.data.ui.roulette.RouletteUiState
 import dam_A51811.filmroulette.data.ui.roulette.RouletteViewModel
 import dam_A51811.filmroulette.ui.components.GlassCard
+import dam_A51811.filmroulette.ui.screens.aiguide.AiMovieSheet
 import dam_A51811.filmroulette.ui.theme.NeonRed
 import dam_A51811.filmroulette.ui.theme.SplineSans
 
 @Composable
 fun RouletteScreen(
     viewModel: RouletteViewModel,
+    aiGuideViewModel: AiGuideViewModel,
     modifier: Modifier = Modifier
 ) {
     val uiState by viewModel.uiState.collectAsState()
     var showSynopsis by remember { mutableStateOf(false) }
+    var showAiSheet by remember { mutableStateOf(false) }
 
     LaunchedEffect(Unit) {
-        if (viewModel.uiState.value is RouletteUiState.Loading) {
-            viewModel.loadRecommendations(240, emptyList())
+        if (viewModel.uiState.value is RouletteUiState.Idle) {
+            viewModel.loadRecommendations(maxDuration = 240, genres = emptyList())
         }
     }
 
     Box(
         modifier = modifier
             .fillMaxSize()
-            .background(Color(0xFF131313)),
+            .background(MaterialTheme.colorScheme.background),
     ) {
         Box(
             modifier = Modifier
@@ -97,6 +106,7 @@ fun RouletteScreen(
         )
 
         when (val state = uiState) {
+            is RouletteUiState.Idle,
             is RouletteUiState.Loading -> {
                 Box(
                     modifier = Modifier.fillMaxSize(),
@@ -133,7 +143,7 @@ fun RouletteScreen(
                             Text(
                                 text = errorMessage,
                                 style = MaterialTheme.typography.bodyMedium,
-                                color = Color.White.copy(alpha = 0.70f),
+                                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.70f),
                                 textAlign = TextAlign.Center
                             )
                             Button(
@@ -156,32 +166,21 @@ fun RouletteScreen(
             is RouletteUiState.Success -> {
                 val movie = state.movies[state.currentIndex]
 
-                Column(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .verticalScroll(rememberScrollState())
-                        .padding(top = 80.dp, bottom = 120.dp, start = 24.dp, end = 24.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                ) {
-                    Box(
+                Box(modifier = Modifier.fillMaxSize()) {
+                    Column(
                         modifier = Modifier
-                            .width(1.dp)
-                            .height(40.dp)
-                            .background(
-                                Brush.verticalGradient(
-                                    colors = listOf(NeonRed.copy(alpha = 0.60f), Color.Transparent),
-                                )
-                            )
-                    )
-
-                    Spacer(Modifier.height(8.dp))
+                            .fillMaxSize()
+                            .verticalScroll(rememberScrollState())
+                            .padding(top = 64.dp, bottom = 120.dp, start = 24.dp, end = 24.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                    ) {
 
                     Box(
                         modifier = Modifier
                             .fillMaxWidth()
                             .aspectRatio(2f / 3f)
                             .clip(RoundedCornerShape(20.dp))
-                            .border(1.dp, Color.White.copy(alpha = 0.12f), RoundedCornerShape(20.dp))
+                            .border(1.dp, MaterialTheme.colorScheme.onSurface.copy(alpha = 0.15f), RoundedCornerShape(20.dp))
                             .pointerInput(Unit) {
                                 detectTapGestures { showSynopsis = !showSynopsis }
                             },
@@ -231,6 +230,17 @@ fun RouletteScreen(
                                 modifier = Modifier.padding(20.dp),
                             )
                         }
+
+                        // Language Flag
+                        if (!movie.originalLanguage.isNullOrBlank()) {
+                            Box(
+                                modifier = Modifier
+                                    .align(Alignment.BottomEnd)
+                                    .padding(12.dp)
+                            ) {
+                                LanguageFlagChip(movie.originalLanguage)
+                            }
+                        }
                     }
 
                     Spacer(Modifier.height(28.dp))
@@ -241,7 +251,7 @@ fun RouletteScreen(
                         fontWeight = FontWeight.Bold,
                         fontSize = 26.sp,
                         letterSpacing = 1.sp,
-                        color = Color.White,
+                        color = MaterialTheme.colorScheme.onBackground,
                         textAlign = TextAlign.Center,
                     )
 
@@ -251,10 +261,19 @@ fun RouletteScreen(
                         horizontalArrangement = Arrangement.Center,
                         verticalAlignment = Alignment.CenterVertically,
                     ) {
+                        if (!movie.releaseDate.isNullOrBlank()) {
+                            Text(
+                                text = movie.releaseDate.take(4),
+                                style = MaterialTheme.typography.labelLarge,
+                                color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.60f),
+                            )
+                            MetaDot()
+                        }
                         Text(
                             text = stringResource(id = R.string.duration_mins_format, movie.duration),
                             style = MaterialTheme.typography.labelLarge,
-                            color = Color.White.copy(alpha = 0.55f),
+
+                            color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.60f),
                         )
                         MetaDot()
                         Icon(
@@ -268,6 +287,32 @@ fun RouletteScreen(
                             text = String.format("%.1f", movie.avgRating),
                             style = MaterialTheme.typography.labelLarge,
                             color = MaterialTheme.colorScheme.secondary,
+                        )
+                    }
+
+                    Spacer(Modifier.height(12.dp))
+
+                    // ── AI Insights shortcut ──────────────────────────────
+                    OutlinedButton(
+                        onClick = { showAiSheet = true },
+                        shape  = RoundedCornerShape(20.dp),
+                        border = BorderStroke(1.dp, Color(0xFF9C6FFF).copy(alpha = 0.60f)),
+                        contentPadding = PaddingValues(horizontal = 16.dp, vertical = 6.dp)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Filled.AutoAwesome,
+                            contentDescription = null,
+                            tint = Color(0xFF9C6FFF),
+                            modifier = Modifier.size(14.dp)
+                        )
+                        Spacer(Modifier.width(6.dp))
+                        Text(
+                            "AI INSIGHTS",
+                            fontFamily = SplineSans,
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 10.sp,
+                            letterSpacing = 1.5.sp,
+                            color = Color(0xFF9C6FFF)
                         )
                     }
 
@@ -299,7 +344,7 @@ fun RouletteScreen(
                             Icon(
                                 Icons.Default.KeyboardDoubleArrowLeft,
                                 contentDescription = stringResource(id = R.string.desc_swipe),
-                                tint = Color.White.copy(alpha = 0.30f),
+                                tint = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.40f),
                                 modifier = Modifier.size(18.dp),
                             )
                             Text(
@@ -308,7 +353,7 @@ fun RouletteScreen(
                                 fontWeight = FontWeight.Black,
                                 fontSize = 7.sp,
                                 letterSpacing = 2.sp,
-                                color = Color.White.copy(alpha = 0.25f),
+                                color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.40f),
                             )
                         }
 
@@ -335,10 +380,40 @@ fun RouletteScreen(
                     Text(
                         text = stringResource(id = R.string.tap_poster_synopsis),
                         style = MaterialTheme.typography.labelMedium,
-                        color = Color.White.copy(alpha = 0.25f),
+                        color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.40f),
                     )
                 }
+
+                if (state.currentIndex > 0) {
+                    IconButton(
+                        onClick = { viewModel.previousMovie() },
+                        modifier = Modifier
+                            .align(Alignment.TopStart)
+                            .padding(top = 16.dp, start = 12.dp)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.ArrowBack,
+                            contentDescription = "Previous movie",
+                            tint = MaterialTheme.colorScheme.onBackground
+                        )
+                    }
+                }
             }
+        }
+    }
+}
+
+    // ── AI Movie Sheet (opened from AI Insights button) ───────────────────
+    if (showAiSheet) {
+        val successState = uiState
+        val movieTitle = if (successState is RouletteUiState.Success)
+            successState.movies[successState.currentIndex].title else ""
+        if (movieTitle.isNotEmpty()) {
+            AiMovieSheet(
+                movieTitle   = movieTitle,
+                viewModel    = aiGuideViewModel,
+                onDismiss    = { showAiSheet = false }
+            )
         }
     }
 }
@@ -368,7 +443,7 @@ private fun MetaDot() {
             .padding(horizontal = 8.dp)
             .size(4.dp)
             .clip(CircleShape)
-            .background(Color.White.copy(alpha = 0.20f)),
+            .background(MaterialTheme.colorScheme.onBackground.copy(alpha = 0.25f)),
     )
 }
 
@@ -387,8 +462,8 @@ private fun ReactionButton(onClick: () -> Unit, icon: @Composable () -> Unit) {
             .size(64.dp)
             .scale(scale)
             .clip(CircleShape)
-            .background(Color.White.copy(alpha = 0.05f))
-            .border(1.dp, Color.White.copy(alpha = 0.12f), CircleShape)
+            .background(MaterialTheme.colorScheme.onSurface.copy(alpha = 0.05f))
+            .border(1.dp, MaterialTheme.colorScheme.onSurface.copy(alpha = 0.15f), CircleShape)
             .pointerInput(Unit) {
                 detectTapGestures(
                     onPress = {
@@ -400,5 +475,43 @@ private fun ReactionButton(onClick: () -> Unit, icon: @Composable () -> Unit) {
             },
     ) {
         icon()
+    }
+}
+
+@Composable
+private fun LanguageFlagChip(languageCode: String) {
+    val flag = when (languageCode.lowercase()) {
+        "en" -> "🇬🇧"
+        "pt" -> "🇵🇹"
+        "fr" -> "🇫🇷"
+        "ja" -> "🇯🇵"
+        "es" -> "🇪🇸"
+        "ko" -> "🇰🇷"
+        "de" -> "🇩🇪"
+        "it" -> "🇮🇹"
+        "zh" -> "🇨🇳"
+        "hi" -> "🇮🇳"
+        "ru" -> "🇷🇺"
+        "ar" -> "🇸🇦"
+        "bn" -> "🇧🇩"
+        "ta" -> "🇮🇳"
+        "te" -> "🇮🇳"
+        else -> "🌐"
+    }
+    
+    Box(
+        modifier = Modifier
+            .clip(RoundedCornerShape(12.dp))
+            .background(Color.Black.copy(alpha = 0.6f))
+            .border(0.5.dp, Color.White.copy(alpha = 0.2f), RoundedCornerShape(12.dp))
+            .padding(horizontal = 8.dp, vertical = 4.dp),
+        contentAlignment = Alignment.Center
+    ) {
+        Text(
+            text = "${languageCode.uppercase()} $flag",
+            style = MaterialTheme.typography.labelMedium,
+            color = Color.White,
+            fontWeight = FontWeight.Bold
+        )
     }
 }

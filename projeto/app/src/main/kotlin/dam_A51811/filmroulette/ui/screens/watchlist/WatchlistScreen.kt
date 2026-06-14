@@ -30,7 +30,7 @@ fun WatchlistScreen(modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
             .fillMaxSize()
-            .background(Color(0xFF131313))
+            .background(MaterialTheme.colorScheme.background)
             .padding(top = 80.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
@@ -38,7 +38,7 @@ fun WatchlistScreen(modifier: Modifier = Modifier) {
         Icon(
             Icons.Outlined.Bookmarks,
             contentDescription = null,
-            tint = Color.White.copy(alpha = 0.18f),
+            tint = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.18f),
             modifier = Modifier.size(80.dp),
         )
         Spacer(Modifier.height(20.dp))
@@ -47,13 +47,13 @@ fun WatchlistScreen(modifier: Modifier = Modifier) {
             fontFamily = SplineSans,
             fontWeight = FontWeight.Bold,
             fontSize = 24.sp,
-            color = Color.White.copy(alpha = 0.35f),
+            color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.35f),
         )
         Spacer(Modifier.height(8.dp))
         Text(
             text = stringResource(id = R.string.coming_soon),
             style = MaterialTheme.typography.bodyMedium,
-            color = Color.White.copy(alpha = 0.25f),
+            color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.25f),
         )
     }
 }

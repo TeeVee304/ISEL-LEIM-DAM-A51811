@@ -11,8 +11,15 @@ interface TmdbApiService {
     suspend fun discoverMovies(
         @Query("with_genres") genreIds: String?,
         @Query("with_runtime.lte") maxRuntime: Int?,
-        @Query("with_watch_providers") providerIds: String?,
-        @Query("watch_region") watchRegion: String? = "PT"
+        @Query("with_watch_providers", encoded = true) providerIds: String?,
+        @Query("watch_region") watchRegion: String? = "PT",
+        @Query("with_original_language", encoded = true) languages: String? = null,
+        @Query("primary_release_date.gte") releaseDateGte: String? = null,
+        @Query("primary_release_date.lte") releaseDateLte: String? = null,
+        @Query("include_adult") includeAdult: Boolean = false,
+        @Query("page") page: Int = 1,
+        @Query("vote_count.gte") minVoteCount: Int? = null,
+        @Query("vote_average.gte") minVoteAverage: Double? = null
     ): TmdbDiscoverResponse
 
     @GET("movie/{movie_id}")

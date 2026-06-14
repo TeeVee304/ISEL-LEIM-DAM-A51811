@@ -48,7 +48,7 @@ import dam_A51811.filmroulette.data.local.dao.UserDAO
         MovieListCrossRef::class,
         Friendship::class        // ← NEW
     ],
-    version = 2,                 // bumped from 1 → 2
+    version = 3,                 // bumped from 2 → 3 (added release_date, original_language to movies)
     exportSchema = false
 )
 @TypeConverters(GenreConverter::class)

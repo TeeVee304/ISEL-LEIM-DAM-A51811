@@ -4,14 +4,19 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AutoAwesome
 import androidx.compose.material.icons.filled.Bookmarks
 import androidx.compose.material.icons.filled.Group
 import androidx.compose.material.icons.filled.MovieFilter
 import androidx.compose.material.icons.filled.Tune
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.outlined.AutoAwesome
 import androidx.compose.material.icons.outlined.Bookmarks
 import androidx.compose.material.icons.outlined.Group
 import androidx.compose.material.icons.outlined.MovieFilter
 import androidx.compose.material.icons.outlined.Tune
+import androidx.compose.material.icons.outlined.Person
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
@@ -44,12 +49,13 @@ private val navItems = listOf(
     NavItem(Screen.Filters,   Icons.Filled.Tune,          Icons.Outlined.Tune,          R.string.nav_filters),
     NavItem(Screen.Groups,    Icons.Filled.Group,          Icons.Outlined.Group,         R.string.nav_groups),
     NavItem(Screen.Watchlist, Icons.Filled.Bookmarks,      Icons.Outlined.Bookmarks,     R.string.nav_watchlist),
+    NavItem(Screen.Profile,   Icons.Filled.Person,         Icons.Outlined.Person,        R.string.nav_profile),
 )
 
 /**
  * Bottom navigation bar shared across all top-level screens.
  *
- * Active item glows in neon red; inactive items are shown at reduced opacity.
+ * Active item glows in neon red; inactive items adapt to the theme color scheme.
  */
 @Composable
 fun FilmRouletteBottomBar(
@@ -64,9 +70,9 @@ fun FilmRouletteBottomBar(
                 ambientColor = NeonRed.copy(alpha = 0.15f),
                 spotColor   = NeonRed.copy(alpha = 0.10f),
             )
-            .background(Color(0xFF121212).copy(alpha = 0.85f)),
-        containerColor      = Color(0xFF121212).copy(alpha = 0.85f),
-        contentColor        = Color.White,
+            .background(MaterialTheme.colorScheme.surface.copy(alpha = 0.85f)),
+        containerColor      = MaterialTheme.colorScheme.surface.copy(alpha = 0.85f),
+        contentColor        = MaterialTheme.colorScheme.onSurface,
         windowInsets        = WindowInsets.navigationBars,
         tonalElevation      = 0.dp,
     ) {
@@ -95,8 +101,8 @@ fun FilmRouletteBottomBar(
                 colors = NavigationBarItemDefaults.colors(
                     selectedIconColor   = NeonRed,
                     selectedTextColor   = NeonRed,
-                    unselectedIconColor = Color.White.copy(alpha = 0.50f),
-                    unselectedTextColor = Color.White.copy(alpha = 0.50f),
+                    unselectedIconColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.50f),
+                    unselectedTextColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.50f),
                     indicatorColor      = Color.Transparent,
                 ),
             )

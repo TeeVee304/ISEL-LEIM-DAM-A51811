@@ -23,5 +23,8 @@ data class User(
     val passwordHash: String,
 
     @ColumnInfo(name = "registry_date")
-    val registryDate: Long
+    val registryDate: Long,
+
+    @ColumnInfo(name = "avatar_url")
+    val avatarUrl: String? = null
 )

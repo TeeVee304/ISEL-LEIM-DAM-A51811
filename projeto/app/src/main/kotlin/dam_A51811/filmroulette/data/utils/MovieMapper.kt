@@ -9,10 +9,12 @@ object MovieMapper {
         return dam_A51811.filmroulette.data.local.Movie(
             id = this.id,
             title = this.title,
-            duration = this.runtime ?: 120,
+            duration = this.runtime ?: 0,
             synopsys = this.overview ?: "",
             imgUrl = posterPathUrl,
             avgRating = this.voteAverage,
+            releaseDate = this.releaseDate,
+            originalLanguage = this.originalLanguage,
             genres = mappedGenres
         )
     }
@@ -25,6 +27,8 @@ object MovieMapper {
             synopsys = this.synopsys,
             imgUrl = this.imgUrl,
             avgRating = this.avgRating,
+            releaseDate = this.releaseDate,
+            originalLanguage = this.originalLanguage,
             genres = this.genres
         )
     }

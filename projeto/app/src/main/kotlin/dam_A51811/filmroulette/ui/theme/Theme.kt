@@ -2,7 +2,10 @@ package dam_A51811.filmroulette.ui.theme
 
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
+import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.foundation.isSystemInDarkTheme
+import dam_A51811.filmroulette.data.repository.ThemePreference
 
 private val FilmRouletteDarkColorScheme = darkColorScheme(
     primary              = Primary,
@@ -42,15 +45,66 @@ private val FilmRouletteDarkColorScheme = darkColorScheme(
     surfaceTint          = Primary,
 )
 
+private val FilmRouletteLightColorScheme = lightColorScheme(
+    primary              = LightPrimary,
+    onPrimary            = LightOnPrimary,
+    primaryContainer     = LightPrimaryContainer,
+    onPrimaryContainer   = LightOnPrimaryContainer,
+    inversePrimary       = InversePrimary,
+
+    secondary            = LightSecondary,
+    onSecondary          = LightOnSecondary,
+    secondaryContainer   = LightSecondaryContainer,
+    onSecondaryContainer = LightOnSecondaryContainer,
+
+    tertiary             = LightTertiary,
+    onTertiary           = LightOnTertiary,
+    tertiaryContainer    = LightTertiaryContainer,
+    onTertiaryContainer  = LightOnTertiaryContainer,
+
+    error                = LightError,
+    onError              = LightOnError,
+    errorContainer       = LightErrorContainer,
+    onErrorContainer     = LightOnErrorContainer,
+
+    background           = LightBackground,
+    onBackground         = LightOnBackground,
+
+    surface              = LightSurface,
+    onSurface            = LightOnSurface,
+    surfaceVariant       = LightSurfaceVariant,
+    onSurfaceVariant     = LightOnSurfaceVariant,
+    inverseSurface       = LightInverseSurface,
+    inverseOnSurface     = LightInverseOnSurface,
+
+    outline              = LightOutline,
+    outlineVariant       = LightOutlineVariant,
+
+    surfaceTint          = LightPrimary,
+)
+
 /**
  * Top-level theme composable for the entire FilmRoulette app.
- *
- * Always renders in dark mode — no light variant is provided.
  */
 @Composable
-fun FilmRouletteTheme(content: @Composable () -> Unit) {
+fun FilmRouletteTheme(
+    themePreference: ThemePreference = ThemePreference.SYSTEM,
+    content: @Composable () -> Unit
+) {
+    val darkTheme = when (themePreference) {
+        ThemePreference.LIGHT -> false
+        ThemePreference.DARK -> true
+        ThemePreference.SYSTEM -> isSystemInDarkTheme()
+    }
+
+    val colorScheme = if (darkTheme) {
+        FilmRouletteDarkColorScheme
+    } else {
+        FilmRouletteLightColorScheme
+    }
+
     MaterialTheme(
-        colorScheme = FilmRouletteDarkColorScheme,
+        colorScheme = colorScheme,
         typography  = FilmRouletteTypography,
         content     = content,
     )

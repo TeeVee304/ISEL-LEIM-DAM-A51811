@@ -9,11 +9,13 @@ data class TmdbMovieDto(
     @SerializedName("poster_path") val posterPath: String?,
     @SerializedName("vote_average") val voteAverage: Double,
     @SerializedName("genre_ids") val genreIds: List<Int>?,
-    @SerializedName("release_date") val releaseDate: String?
+    @SerializedName("release_date") val releaseDate: String?,
+    @SerializedName("original_language") val originalLanguage: String?
 )
 
 data class TmdbDiscoverResponse(
-    @SerializedName("results") val results: List<TmdbMovieDto>
+    @SerializedName("results") val results: List<TmdbMovieDto>,
+    @SerializedName("total_pages") val totalPages: Int = 1
 )
 
 data class TmdbGenreDto(
@@ -29,5 +31,6 @@ data class TmdbMovieDetailsDto(
     @SerializedName("vote_average") val voteAverage: Double,
     @SerializedName("genres") val genres: List<TmdbGenreDto>?,
     @SerializedName("release_date") val releaseDate: String?,
-    @SerializedName("runtime") val runtime: Int?
+    @SerializedName("runtime") val runtime: Int?,
+    @SerializedName("original_language") val originalLanguage: String?
 )

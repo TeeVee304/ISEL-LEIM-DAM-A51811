@@ -12,6 +12,8 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
@@ -35,16 +37,18 @@ import dam_A51811.filmroulette.ui.theme.SplineSans
 /**
  * The app-wide top bar rendered on every screen.
  *
- * Styled to match the HTML mockup: dark translucent background, bold italic red logo,
+ * Styled to match the HTML mockup: translucent background adapting to themes, bold italic red logo,
  * hamburger icon on the left, and a circular user avatar on the right.
  *
  * @param avatarUrl URL of the current user's avatar image (optional).
  * @param onMenuClick Callback for the hamburger icon.
+ * @param onSettingsClick Callback for the settings icon.
  */
 @Composable
 fun FilmRouletteTopBar(
     avatarUrl: String? = null,
     onMenuClick: () -> Unit = {},
+    onSettingsClick: () -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
     Row(
@@ -52,7 +56,7 @@ fun FilmRouletteTopBar(
             .fillMaxWidth()
             .height(64.dp)
             .shadow(elevation = 8.dp, ambientColor = Color.Black, spotColor = Color.Black)
-            .background(Color.Black.copy(alpha = 0.70f))
+            .background(MaterialTheme.colorScheme.surface.copy(alpha = 0.85f))
             .padding(horizontal = 16.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween,
@@ -62,7 +66,7 @@ fun FilmRouletteTopBar(
             Icon(
                 imageVector = Icons.Default.Menu,
                 contentDescription = stringResource(id = R.string.desc_menu),
-                tint = Color.White.copy(alpha = 0.70f),
+                tint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.70f),
             )
         }
 
@@ -77,26 +81,29 @@ fun FilmRouletteTopBar(
             color = NeonRed,
         )
 
-        // ── Right: avatar ─────────────────────────────────────────────────
-        Spacer(modifier = Modifier.width(8.dp))
-        if (avatarUrl != null) {
-            AsyncImage(
-                model = avatarUrl,
-                contentDescription = stringResource(id = R.string.desc_profile),
-                contentScale = ContentScale.Crop,
-                modifier = Modifier
-                    .size(36.dp)
-                    .clip(CircleShape)
-                    .background(Color.White.copy(alpha = 0.10f)),
-            )
-        } else {
-            // Placeholder circle when no avatar is available
-            Spacer(
-                modifier = Modifier
-                    .size(36.dp)
-                    .clip(CircleShape)
-                    .background(Color.White.copy(alpha = 0.10f)),
-            )
+        // ── Right: avatar & settings ──────────────────────────────────────
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            if (avatarUrl != null) {
+                AsyncImage(
+                    model = avatarUrl,
+                    contentDescription = stringResource(id = R.string.desc_profile),
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier
+                        .size(36.dp)
+                        .clip(CircleShape)
+                        .background(MaterialTheme.colorScheme.onSurface.copy(alpha = 0.10f)),
+                )
+            }
+            
+            Spacer(modifier = Modifier.width(8.dp))
+            
+            IconButton(onClick = onSettingsClick) {
+                Icon(
+                    imageVector = Icons.Default.Settings,
+                    contentDescription = "Settings",
+                    tint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.70f),
+                )
+            }
         }
     }
 }

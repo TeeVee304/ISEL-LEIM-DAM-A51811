@@ -6,7 +6,7 @@
     <string name="nav_roulette">Roleta</string>
     <string name="nav_filters">Filtros</string>
     <string name="nav_groups">Grupos</string>
-    <string name="nav_watchlist">Lista para Ver</string>
+    <string name="nav_watchlist">Listas</string>
 
     <!-- Accessibility / Content Descriptions -->
     <string name="desc_menu">Menu</string>
@@ -75,4 +75,29 @@
     <string name="group_session_status_filtering">A filtrar…</string>
     <string name="group_session_waiting">A aguardar…</string>
     <string name="group_session_member_you">Tu</string>
+
+    <!-- Profile & Friends -->
+    <string name="nav_profile">Perfil</string>
+    <string name="profile_title">Perfil</string>
+    <string name="profile_member_since">Membro desde %1$s</string>
+    <string name="profile_sign_out">Sair</string>
+    <string name="friends_section_title">Os Meus Amigos</string>
+    <string name="friends_empty">A tua lista de amigos está vazia. Adiciona amigos para iniciar sessões de grupo!</string>
+    <string name="friends_remove">Remover</string>
+    <string name="friends_add_title">Adicionar Amigo</string>
+    <string name="friends_add_hint">Endereço de Email do Amigo</string>
+    <string name="friends_add_button">Enviar Pedido</string>
+    <string name="friends_requests_title">Pedidos de Amizade</string>
+    <string name="friends_requests_received">Recebidos</string>
+    <string name="friends_requests_sent">Enviados</string>
+    <string name="friends_requests_empty_received">Sem pedidos recebidos.</string>
+    <string name="friends_requests_empty_sent">Sem pedidos enviados.</string>
+    <string name="friends_accept">Aceitar</string>
+    <string name="friends_decline">Recusar</string>
+    <string name="friends_cancel">Cancelar</string>
+    <string name="friends_error_self">Não te podes adicionar a ti próprio.</string>
+    <string name="friends_error_not_found">Utilizador não encontrado no sistema.</string>
+    <string name="friends_error_already_friends">Já és amigo deste utilizador.</string>
+    <string name="friends_error_already_requested">Já existe um pedido de amizade pendente.</string>
+    <string name="friends_success_sent">Pedido de amizade enviado com sucesso!</string>
 </resources>

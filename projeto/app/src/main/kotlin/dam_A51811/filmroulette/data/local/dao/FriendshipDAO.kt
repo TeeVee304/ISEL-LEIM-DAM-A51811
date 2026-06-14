@@ -11,24 +11,11 @@ import kotlinx.coroutines.flow.Flow
 
 /**
  * DAO for managing bilateral friendships.
- *
- * ### Canonical ordering
- * Every method that inserts or queries a friendship normalises the pair of IDs
- * so that `user_id_1 = min(a, b)` and `user_id_2 = max(a, b)`.
- * This prevents duplicate rows and keeps all queries simple.
- *
- * ### Lifecycle
- * 1. User A calls [sendFriendRequest] → row inserted with status PENDING.
- * 2. User B calls [acceptFriendRequest] → status updated to ACCEPTED.
- * 3. Either user calls [removeFriendOrRequest] → row deleted.
  */
 @Dao
 interface FriendshipDAO {
 
-    // ─────────────────────────────────────────────────────
-    // Write operations
-    // ─────────────────────────────────────────────────────
-
+    // =====< ESCRITA >=====
     /**
      * Inserts a new friendship row with status [FriendshipStatus.PENDING].
      *
@@ -62,12 +49,9 @@ interface FriendshipDAO {
     """)
     suspend fun removeFriendOrRequest(userId1: Long, userId2: Long)
 
-    // ─────────────────────────────────────────────────────
-    // Read operations
-    // ─────────────────────────────────────────────────────
-
+    // // =====< LEITURA >=====
     /**
-     * Returns all **accepted** friends of [userId] as [User] objects.
+     * Returns all accepted friends of [userId] as [User] objects.
      *
      * The JOIN covers both directions of the canonical pair so the caller
      * does not need to think about ordering.
@@ -82,7 +66,7 @@ interface FriendshipDAO {
     fun getFriends(userId: Long): Flow<List<User>>
 
     /**
-     * Returns all **pending** requests where [userId] is involved,
+     * Returns all pending requests where [userId] is involved,
      * together with the full [Friendship] row so the UI can tell
      * whether the current user sent or received each request.
      */
