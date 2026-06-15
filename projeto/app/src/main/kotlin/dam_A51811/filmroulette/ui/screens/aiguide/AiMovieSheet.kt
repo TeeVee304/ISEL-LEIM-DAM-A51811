@@ -25,6 +25,8 @@ import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberModalBottomSheetState
+import androidx.compose.ui.res.stringResource
+import dam_A51811.filmroulette.R
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -35,17 +37,18 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import dam_A51811.filmroulette.data.ui.aiguide.AiGuideUiState
-import dam_A51811.filmroulette.data.ui.aiguide.AiGuideViewModel
+import dam_A51811.filmroulette.ui.screens.aiguide.AiGuideUiState
+import dam_A51811.filmroulette.ui.screens.aiguide.AiGuideViewModel
 import dam_A51811.filmroulette.ui.theme.NeonRed
 import dam_A51811.filmroulette.ui.theme.SplineSans
 
+
 /**
- * A [ModalBottomSheet] that automatically fetches and displays the AI
- * description of [movieTitle] as soon as it is composed.
+ * Displays a bottom sheet containing AI-generated insights for a specific movie.
  *
- * Used directly from [dam_A51811.filmroulette.ui.screens.roulette.RouletteScreen]
- * via the "AI Insights" shortcut button.
+ * @param movieTitle The title of the movie to describe.
+ * @param viewModel The ViewModel handling AI operations.
+ * @param onDismiss Callback invoked when the bottom sheet is dismissed.
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -57,7 +60,7 @@ fun AiMovieSheet(
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
     val state by viewModel.describeState.collectAsState()
 
-    // Trigger description automatically when the sheet opens
+    
     LaunchedEffect(movieTitle) {
         viewModel.describeMovie(movieTitle)
     }
@@ -80,7 +83,7 @@ fun AiMovieSheet(
                 .padding(bottom = 32.dp)
                 .animateContentSize()
         ) {
-            // Handle bar
+            
             Box(
                 modifier = Modifier
                     .width(40.dp)
@@ -91,7 +94,7 @@ fun AiMovieSheet(
 
             Spacer(Modifier.height(20.dp))
 
-            // Title row
+            
             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 Icon(
                     Icons.Filled.AutoAwesome,
@@ -101,7 +104,7 @@ fun AiMovieSheet(
                 )
                 Column {
                     Text(
-                        text = "AI INSIGHTS",
+                        text = stringResource(R.string.roulette_ai_insights),
                         fontFamily = SplineSans,
                         fontWeight = FontWeight.Black,
                         fontSize = 11.sp,
@@ -133,7 +136,7 @@ fun AiMovieSheet(
                     ) {
                         CircularProgressIndicator(color = Color(0xFF9C6FFF), strokeWidth = 2.dp)
                         Text(
-                            "Consulting the AI…",
+                            stringResource(R.string.consulting_ai),
                             style = MaterialTheme.typography.labelMedium,
                             color = Color.White.copy(alpha = 0.45f)
                         )
@@ -152,13 +155,13 @@ fun AiMovieSheet(
                 is AiGuideUiState.Error -> {
                     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                         Text(
-                            "Could not load AI insights.",
+                            stringResource(R.string.error_load_ai_insights),
                             style = MaterialTheme.typography.bodyMedium,
                             color = NeonRed
                         )
                         Text(s.message, style = MaterialTheme.typography.bodySmall, color = Color.White.copy(alpha = 0.55f))
                         TextButton(onClick = { viewModel.describeMovie(movieTitle) }) {
-                            Text("Retry", color = Color(0xFF9C6FFF))
+                            Text(stringResource(R.string.btn_retry), color = Color(0xFF9C6FFF))
                         }
                     }
                 }

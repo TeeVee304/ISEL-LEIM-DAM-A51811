@@ -9,28 +9,29 @@ import dam_A51811.filmroulette.data.local.FriendshipStatus
 import dam_A51811.filmroulette.data.local.User
 import kotlinx.coroutines.flow.Flow
 
+
 /**
- * DAO for managing bilateral friendships.
+ * Data Access Object for managing friendships and friend requests between users.
  */
 @Dao
 interface FriendshipDAO {
 
-    // =====< ESCRITA >=====
+    
+    
     /**
-     * Inserts a new friendship row with status [FriendshipStatus.PENDING].
+     * Inserts a new friendship record. Ignores conflicts if the friendship already exists.
      *
-     * The caller must ensure [Friendship.userId1] < [Friendship.userId2].
-     * Use the repository helper [dam_A51811.filmroulette.data.repository.FriendshipRepository]
-     * which enforces this automatically.
+     * @param friendship The friendship entity to insert.
      */
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertFriendship(friendship: Friendship)
 
+    
     /**
-     * Marks an existing PENDING request as ACCEPTED.
+     * Accepts a pending friend request by updating its status to accepted.
      *
-     * @param userId1 The smaller of the two user IDs.
-     * @param userId2 The larger of the two user IDs.
+     * @param userId1 The first user's ID in the friendship.
+     * @param userId2 The second user's ID in the friendship.
      */
     @Query("""
         UPDATE friendships
@@ -39,9 +40,12 @@ interface FriendshipDAO {
     """)
     suspend fun acceptFriendRequest(userId1: Long, userId2: Long)
 
+    
     /**
-     * Deletes a friendship row (regardless of status).
-     * Used both for declining a PENDING request and for unfriending.
+     * Removes an existing friendship or a pending friend request.
+     *
+     * @param userId1 The first user's ID in the friendship.
+     * @param userId2 The second user's ID in the friendship.
      */
     @Query("""
         DELETE FROM friendships
@@ -49,12 +53,13 @@ interface FriendshipDAO {
     """)
     suspend fun removeFriendOrRequest(userId1: Long, userId2: Long)
 
-    // // =====< LEITURA >=====
+    
+    
     /**
-     * Returns all accepted friends of [userId] as [User] objects.
+     * Retrieves a stream of all accepted friends for a specific user.
      *
-     * The JOIN covers both directions of the canonical pair so the caller
-     * does not need to think about ordering.
+     * @param userId The ID of the user whose friends are to be retrieved.
+     * @return A flow emitting the list of accepted friends as User entities.
      */
     @Query("""
         SELECT u.* FROM users u
@@ -65,10 +70,12 @@ interface FriendshipDAO {
     """)
     fun getFriends(userId: Long): Flow<List<User>>
 
+    
     /**
-     * Returns all pending requests where [userId] is involved,
-     * together with the full [Friendship] row so the UI can tell
-     * whether the current user sent or received each request.
+     * Retrieves a stream of pending friend requests involving a specific user.
+     *
+     * @param userId The ID of the user whose pending requests are to be retrieved.
+     * @return A flow emitting the list of pending friendships.
      */
     @Query("""
         SELECT * FROM friendships
@@ -77,9 +84,13 @@ interface FriendshipDAO {
     """)
     fun getPendingRequests(userId: Long): Flow<List<Friendship>>
 
+    
     /**
-     * Returns the single [Friendship] row between the two users, if any.
-     * Useful for checking the current status (PENDING / ACCEPTED / null).
+     * Retrieves a specific friendship between two users if it exists.
+     *
+     * @param userId1 The first user's ID.
+     * @param userId2 The second user's ID.
+     * @return The friendship entity, or null if no such friendship exists.
      */
     @Query("""
         SELECT * FROM friendships
@@ -88,9 +99,12 @@ interface FriendshipDAO {
     """)
     suspend fun getFriendship(userId1: Long, userId2: Long): Friendship?
 
+    
     /**
-     * Returns all friend IDs of [userId] with ACCEPTED status.
-     * Lightweight query used by visibility checks to avoid loading full [User] objects.
+     * Retrieves the IDs of all accepted friends for a specific user.
+     *
+     * @param userId The ID of the user whose friend IDs are to be retrieved.
+     * @return A list containing the IDs of the accepted friends.
      */
     @Query("""
         SELECT CASE

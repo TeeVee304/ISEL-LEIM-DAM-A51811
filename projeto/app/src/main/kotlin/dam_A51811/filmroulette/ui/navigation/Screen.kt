@@ -13,7 +13,15 @@ import androidx.compose.material.icons.outlined.Tune
 import androidx.compose.material.icons.outlined.Person
 import androidx.compose.ui.graphics.vector.ImageVector
 
-/** Represents a top-level destination in the bottom navigation bar. */
+
+/**
+ * Represents a screen within the application's navigation graph.
+ *
+ * @param route The unique route identifier for the screen.
+ * @param label The display label for the screen.
+ * @param selectedIcon The icon to display when the screen is selected.
+ * @param unselectedIcon The icon to display when the screen is not selected.
+ */
 sealed class Screen(
     val route: String,
     val label: String,
@@ -23,7 +31,7 @@ sealed class Screen(
     data object Roulette : Screen(
         route = "roulette",
         label = "Roulette",
-        selectedIcon   = Icons.Filled.Bookmarks,   // replaced in BottomNavBar with custom painter
+        selectedIcon   = Icons.Filled.Bookmarks,   
         unselectedIcon = Icons.Outlined.Bookmarks,
     )
 
@@ -65,26 +73,29 @@ sealed class Screen(
     data object Settings : Screen(
         route = "settings",
         label = "Settings",
-        selectedIcon   = Icons.Filled.AutoAwesome, // Not used in bottom bar
+        selectedIcon   = Icons.Filled.AutoAwesome, 
         unselectedIcon = Icons.Outlined.AutoAwesome,
     )
 
     data object Login : Screen(
         route = "login",
         label = "Login",
-        selectedIcon   = Icons.Filled.AutoAwesome, // Not used in bottom bar
+        selectedIcon   = Icons.Filled.AutoAwesome, 
         unselectedIcon = Icons.Outlined.AutoAwesome,
     )
 
     data object Register : Screen(
         route = "register",
         label = "Register",
-        selectedIcon   = Icons.Filled.AutoAwesome, // Not used in bottom bar
+        selectedIcon   = Icons.Filled.AutoAwesome, 
         unselectedIcon = Icons.Outlined.AutoAwesome,
     )
 }
 
-/** All bottom-nav destinations in display order. */
+
+/**
+ * A list of screens that are displayed in the bottom navigation bar.
+ */
 val bottomNavScreens = listOf(
     Screen.Roulette,
     Screen.Filters,

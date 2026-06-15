@@ -2,7 +2,16 @@ package dam_A51811.filmroulette.data.utils
 
 import dam_A51811.filmroulette.data.model.Genre
 
+/**
+ * Utility object for mapping between TMDB genre IDs and internal [Genre] enum.
+ */
 object GenreMapper {
+    /**
+     * Converts a TMDB genre ID to the corresponding [Genre] enum value.
+     *
+     * @param id The TMDB genre integer ID.
+     * @return The matched [Genre], or [Genre.OTHER] if no match is found.
+     */
     fun fromTmdbId(id: Int): Genre {
         return when (id) {
             28 -> Genre.ACTION
@@ -28,6 +37,12 @@ object GenreMapper {
         }
     }
 
+    /**
+     * Converts a [Genre] enum value to the corresponding TMDB genre ID.
+     *
+     * @param genre The internal [Genre] enum value.
+     * @return The integer TMDB genre ID, or null if it maps to [Genre.OTHER] or has no specific ID.
+     */
     fun toTmdbId(genre: Genre): Int? {
         return when (genre) {
             Genre.ACTION -> 28

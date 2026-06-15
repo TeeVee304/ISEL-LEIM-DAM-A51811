@@ -9,20 +9,25 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.navArgument
+import androidx.navigation.navDeepLink
 import dam_A51811.filmroulette.FilmRouletteApplication
-import dam_A51811.filmroulette.data.ui.aiguide.AiGuideViewModel
-import dam_A51811.filmroulette.data.ui.roulette.RouletteViewModel
+import dam_A51811.filmroulette.ui.screens.aiguide.AiGuideViewModel
+import dam_A51811.filmroulette.ui.screens.roulette.RouletteViewModel
 import dam_A51811.filmroulette.ui.components.FilmRouletteBottomBar
 import dam_A51811.filmroulette.ui.components.FilmRouletteTopBar
 import dam_A51811.filmroulette.ui.screens.aiguide.AiGuideScreen
 import dam_A51811.filmroulette.ui.screens.filters.FiltersScreen
 import dam_A51811.filmroulette.ui.screens.groups.GroupSessionScreen
+import dam_A51811.filmroulette.ui.screens.groups.GroupSessionViewModel
 import dam_A51811.filmroulette.ui.screens.roulette.RouletteScreen
 import dam_A51811.filmroulette.ui.screens.settings.SettingsScreen
 import dam_A51811.filmroulette.ui.screens.settings.SettingsViewModel
 import dam_A51811.filmroulette.ui.screens.watchlist.WatchlistScreen
+import dam_A51811.filmroulette.ui.screens.watchlist.WatchlistViewModel
 import dam_A51811.filmroulette.ui.screens.auth.AuthViewModel
 import dam_A51811.filmroulette.ui.screens.auth.LoginScreen
 import dam_A51811.filmroulette.ui.screens.auth.RegisterScreen
@@ -30,16 +35,19 @@ import dam_A51811.filmroulette.ui.screens.profile.ProfileScreen
 import dam_A51811.filmroulette.ui.screens.profile.ProfileViewModel
 import androidx.compose.runtime.collectAsState
 
+
 /**
- * Root composable — sets up the [Scaffold] with the shared [FilmRouletteTopBar]
- * and [FilmRouletteBottomBar], then hosts the navigation graph for all four
- * top-level destinations.
+ * Sets up the main navigation graph for the application.
+ * Manages the authentication state and switches between the authentication flow and the main app flow.
  */
 @Composable
 fun FilmRouletteApp() {
     val context = LocalContext.current.applicationContext as FilmRouletteApplication
     val authViewModel: AuthViewModel = viewModel(
-        factory = AuthViewModel.Factory(context.authRepository)
+        factory = AuthViewModel.Factory(
+            authRepository = context.authRepository,
+            watchlistRepository = context.watchlistRepository
+        )
     )
     val currentUser by context.authRepository.currentUserFlow.collectAsState(
         initial = context.authRepository.getCurrentUser()
@@ -78,12 +86,27 @@ fun FilmRouletteApp() {
         val settingsViewModel: SettingsViewModel = viewModel(
             factory = SettingsViewModel.Factory(context.settingsRepository)
         )
+        val watchlistViewModel: WatchlistViewModel = viewModel(
+            factory = WatchlistViewModel.Factory(
+                watchlistRepository = context.watchlistRepository,
+                authRepository = context.authRepository,
+                friendshipRepository = context.friendshipRepository
+            )
+        )
+        val groupSessionViewModel: GroupSessionViewModel = viewModel(
+            factory = GroupSessionViewModel.Factory(
+                repository = context.groupSessionRepository,
+                authRepository = context.authRepository,
+                movieRepository = context.movieRepository,
+                friendshipRepository = context.friendshipRepository
+            )
+        )
 
         Scaffold(
             topBar = {
                 FilmRouletteTopBar(
                     avatarUrl = null,
-                    onMenuClick = { /* open drawer in a later iteration */ },
+                    onExitClick = { authViewModel.logout() },
                     onSettingsClick = { navController.navigate(Screen.Settings.route) }
                 )
             },
@@ -106,10 +129,16 @@ fun FilmRouletteApp() {
                 modifier         = Modifier.padding(innerPadding),
             ) {
                 composable(Screen.Roulette.route) {
-                    RouletteScreen(viewModel = rouletteViewModel, aiGuideViewModel = aiGuideViewModel)
+                    RouletteScreen(
+                        viewModel = rouletteViewModel, 
+                        aiGuideViewModel = aiGuideViewModel,
+                        watchlistViewModel = watchlistViewModel,
+                        groupSessionViewModel = groupSessionViewModel
+                    )
                 }
                 composable(Screen.Filters.route) {
                     FiltersScreen(
+                        groupSessionViewModel = groupSessionViewModel,
                         onStartRoulette = { duration, genres, languages, dateGte, dateLte, providerIds ->
                             rouletteViewModel.loadRecommendations(duration, genres, languages, dateGte, dateLte, providerIds)
                             navController.navigate(Screen.Roulette.route) {
@@ -120,11 +149,30 @@ fun FilmRouletteApp() {
                         },
                     )
                 }
-                composable(Screen.Groups.route) {
-                    GroupSessionScreen()
+                composable(
+                    route = Screen.Groups.route + "?sessionId={sessionId}",
+                    deepLinks = listOf(navDeepLink { uriPattern = "https://filmroulette.com/join/{sessionId}" }),
+                    arguments = listOf(navArgument("sessionId") { nullable = true })
+                ) { backStackEntry ->
+                    val sessionId = backStackEntry.arguments?.getString("sessionId")
+                    LaunchedEffect(sessionId) {
+                        if (sessionId != null) {
+                            groupSessionViewModel.joinSession(sessionId)
+                        }
+                    }
+                    GroupSessionScreen(
+                        viewModel = groupSessionViewModel,
+                        onNavigateToRoulette = {
+                            navController.navigate(Screen.Roulette.route) {
+                                popUpTo(navController.graph.startDestinationId) { saveState = true }
+                                launchSingleTop = true
+                                restoreState = true
+                            }
+                        }
+                    )
                 }
                 composable(Screen.Watchlist.route) {
-                    WatchlistScreen()
+                    WatchlistScreen(viewModel = watchlistViewModel)
                 }
                 composable(Screen.Profile.route) {
                     val profileViewModel: ProfileViewModel = viewModel(

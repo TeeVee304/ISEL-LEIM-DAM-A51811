@@ -3,27 +3,28 @@ package dam_A51811.filmroulette.data.local
 import androidx.room.TypeConverter
 import dam_A51811.filmroulette.data.model.Genre
 
+
 /**
- * Room [TypeConverter] for `List<Genre>`.
- *
- * Converts between a list of [Genre] enum constants and a comma-separated [String]
- * for storage in the database. Registered on [AppDatabase] via `@TypeConverters(GenreConverter::class)`.
- *
- * Example stored value: `"ACTION,COMEDY,THRILLER"`
+ * Provides type conversion between a list of [Genre] and a string representation
+ * for storage in the local database.
  */
 class GenreConverter {
 
     /**
-     * Converts a [List] of [Genre] values to a comma-separated String for storage.
-     * An empty list is stored as an empty string.
+     * Converts a list of [Genre] into a comma-separated string.
+     *
+     * @param genres The list of genres to be converted.
+     * @return A string containing the comma-separated names of the genres.
      */
     @TypeConverter
     fun fromGenres(genres: List<Genre>): String =
         genres.joinToString(separator = ",") { it.name }
 
     /**
-     * Converts a stored comma-separated String back to a [List] of [Genre] values.
-     * Unrecognised values are mapped to [Genre.OTHER]. An empty string yields an empty list.
+     * Converts a comma-separated string into a list of [Genre].
+     *
+     * @param value The string containing comma-separated genre names.
+     * @return A list of genres parsed from the string.
      */
     @TypeConverter
     fun toGenres(value: String): List<Genre> =

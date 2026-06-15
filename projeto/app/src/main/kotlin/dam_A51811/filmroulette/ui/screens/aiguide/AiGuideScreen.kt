@@ -38,6 +38,8 @@ import androidx.compose.material3.TabRowDefaults
 import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.res.stringResource
+import dam_A51811.filmroulette.R
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -52,16 +54,22 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import dam_A51811.filmroulette.data.ui.aiguide.AiGuideUiState
-import dam_A51811.filmroulette.data.ui.aiguide.AiGuideViewModel
+import dam_A51811.filmroulette.ui.screens.aiguide.AiGuideUiState
+import dam_A51811.filmroulette.ui.screens.aiguide.AiGuideViewModel
 import dam_A51811.filmroulette.ui.components.GlassCard
 import dam_A51811.filmroulette.ui.theme.NeonRed
 import dam_A51811.filmroulette.ui.theme.SplineSans
 
-// ─────────────────────────────────────────────────────────────────────────────
-// AI Guide Screen
-// ─────────────────────────────────────────────────────────────────────────────
 
+
+
+
+/**
+ * Displays the AI Guide screen, allowing the user to search for movies by description or get smart recommendations based on mood.
+ *
+ * @param viewModel The view model managing the state and logic for the AI guide.
+ * @param modifier The modifier to be applied to the layout.
+ */
 @Composable
 fun AiGuideScreen(
     viewModel: AiGuideViewModel,
@@ -75,7 +83,7 @@ fun AiGuideScreen(
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
     ) {
-        // Background glow
+        
         Box(
             modifier = Modifier
                 .fillMaxSize()
@@ -89,7 +97,7 @@ fun AiGuideScreen(
 
         Column(modifier = Modifier.fillMaxSize()) {
 
-            // ── Header ──────────────────────────────────────────────────────
+            
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -104,7 +112,7 @@ fun AiGuideScreen(
                 )
                 Spacer(Modifier.height(8.dp))
                 Text(
-                    text = "AI GUIDE",
+                    text = stringResource(R.string.title_ai_guide),
                     fontFamily = SplineSans,
                     fontWeight = FontWeight.Black,
                     fontSize = 22.sp,
@@ -112,14 +120,14 @@ fun AiGuideScreen(
                     color = MaterialTheme.colorScheme.onBackground
                 )
                 Text(
-                    text = "Powered by Gemini",
+                    text = stringResource(R.string.subtitle_powered_by_gemini),
                     style = MaterialTheme.typography.labelSmall,
                     color = Color(0xFF9C6FFF).copy(alpha = 0.80f),
                     letterSpacing = 1.sp
                 )
             }
 
-            // ── Tab Row ─────────────────────────────────────────────────────
+            
             TabRow(
                 selectedTabIndex = selectedTab,
                 containerColor   = Color.Transparent,
@@ -149,7 +157,7 @@ fun AiGuideScreen(
                 }
             }
 
-            // ── Tab Content ─────────────────────────────────────────────────
+            
             AnimatedContent(
                 targetState = selectedTab,
                 transitionSpec = {
@@ -167,10 +175,15 @@ fun AiGuideScreen(
     }
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Tab 1 – Movie Describer
-// ─────────────────────────────────────────────────────────────────────────────
 
+
+
+
+/**
+ * Displays the Movie Describer tab, enabling the user to query the AI for movie descriptions.
+ *
+ * @param viewModel The view model managing the AI guide state.
+ */
 @Composable
 private fun MovieDescriberTab(viewModel: AiGuideViewModel) {
     val state by viewModel.describeState.collectAsState()
@@ -184,7 +197,7 @@ private fun MovieDescriberTab(viewModel: AiGuideViewModel) {
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         Text(
-            text = "Enter any movie title and let the AI craft a rich description for you.",
+            text = stringResource(R.string.desc_movie_title_prompt),
             style = MaterialTheme.typography.bodySmall,
             color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.55f),
             textAlign = TextAlign.Center,
@@ -199,7 +212,7 @@ private fun MovieDescriberTab(viewModel: AiGuideViewModel) {
         )
 
         AiButton(
-            text = "DESCRIBE MOVIE",
+            text = stringResource(R.string.btn_describe_movie),
             enabled = query.isNotBlank() && state !is AiGuideUiState.Loading,
             onClick = { viewModel.describeMovie(query) }
         )
@@ -208,10 +221,15 @@ private fun MovieDescriberTab(viewModel: AiGuideViewModel) {
     }
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Tab 2 – Smart Picks
-// ─────────────────────────────────────────────────────────────────────────────
 
+
+
+
+/**
+ * Displays the Smart Picks tab, enabling the user to input a mood to receive AI-driven movie recommendations.
+ *
+ * @param viewModel The view model managing the AI guide state.
+ */
 @Composable
 private fun SmartPicksTab(viewModel: AiGuideViewModel) {
     val state by viewModel.recommendState.collectAsState()
@@ -225,7 +243,7 @@ private fun SmartPicksTab(viewModel: AiGuideViewModel) {
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         Text(
-            text = "Describe your mood or what you're in the mood for — the AI will suggest 3 perfect films.",
+            text = stringResource(R.string.desc_mood_prompt),
             style = MaterialTheme.typography.bodySmall,
             color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.55f),
             textAlign = TextAlign.Center,
@@ -240,7 +258,7 @@ private fun SmartPicksTab(viewModel: AiGuideViewModel) {
         )
 
         AiButton(
-            text = "GET RECOMMENDATIONS",
+            text = stringResource(R.string.btn_get_recommendations),
             enabled = mood.isNotBlank() && state !is AiGuideUiState.Loading,
             onClick = { viewModel.recommendMovies(mood) }
         )
@@ -249,9 +267,9 @@ private fun SmartPicksTab(viewModel: AiGuideViewModel) {
     }
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Shared UI Components
-// ─────────────────────────────────────────────────────────────────────────────
+
+
+
 
 @Composable
 private fun AiTextField(
@@ -347,7 +365,7 @@ private fun AiResultPanel(state: AiGuideUiState, onReset: () -> Unit) {
                                     modifier = Modifier.size(16.dp)
                                 )
                                 Text(
-                                    "AI RESPONSE",
+                                    stringResource(R.string.title_ai_response),
                                     fontFamily = SplineSans,
                                     fontWeight = FontWeight.Black,
                                     fontSize   = 10.sp,
@@ -355,9 +373,9 @@ private fun AiResultPanel(state: AiGuideUiState, onReset: () -> Unit) {
                                     color = Color(0xFF9C6FFF)
                                 )
                             }
-                            // Clear button
+                            
                             androidx.compose.material3.TextButton(onClick = onReset) {
-                                Text("Clear", color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.40f), fontSize = 12.sp)
+                                Text(stringResource(R.string.btn_clear), color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.40f), fontSize = 12.sp)
                             }
                         }
 
@@ -382,7 +400,7 @@ private fun AiResultPanel(state: AiGuideUiState, onReset: () -> Unit) {
                 GlassCard(modifier = Modifier.fillMaxWidth()) {
                     Column(modifier = Modifier.padding(20.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
                         Text(
-                            "AI ERROR",
+                            stringResource(R.string.title_ai_error),
                             fontFamily = SplineSans,
                             fontWeight = FontWeight.Black,
                             fontSize   = 10.sp,
@@ -395,7 +413,7 @@ private fun AiResultPanel(state: AiGuideUiState, onReset: () -> Unit) {
                             color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.65f)
                         )
                         androidx.compose.material3.TextButton(onClick = onReset) {
-                            Text("Dismiss", color = NeonRed.copy(alpha = 0.80f), fontSize = 12.sp)
+                            Text(stringResource(R.string.btn_dismiss), color = NeonRed.copy(alpha = 0.80f), fontSize = 12.sp)
                         }
                     }
                 }

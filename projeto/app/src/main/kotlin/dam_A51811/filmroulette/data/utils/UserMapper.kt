@@ -3,17 +3,18 @@ package dam_A51811.filmroulette.data.utils
 import dam_A51811.filmroulette.data.local.User as LocalUser
 import dam_A51811.filmroulette.data.model.User as DomainUser
 
+
 /**
- * Extension functions to convert between the local Room [LocalUser] entity
- * and the domain [DomainUser] model.
- *
- * ### Firebase note
- * When reading a Firestore `UserDocument`, map its fields to [DomainUser] directly
- * (bypassing the local entity) using the same field names.
+ * Mapper object for user entity conversions.
  */
 object UserMapper {
+    /**
+     * Converts a local database user into a domain user.
+     *
+     * @return A mapped domain user object.
+     */
     fun LocalUser.toDomainUser(): DomainUser = DomainUser(
-        id           = this.id,
+        id           = this.id.toString(),
         username     = this.username,
         email        = this.email,
         registryDate = this.registryDate,

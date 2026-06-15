@@ -83,8 +83,12 @@ private val FilmRouletteLightColorScheme = lightColorScheme(
     surfaceTint          = LightPrimary,
 )
 
+
 /**
- * Top-level theme composable for the entire FilmRoulette app.
+ * Applies the FilmRoulette design system theme to the provided composable content.
+ *
+ * @param themePreference The preferred theme mode (light, dark, or system default).
+ * @param content The composable content to be displayed within the theme.
  */
 @Composable
 fun FilmRouletteTheme(

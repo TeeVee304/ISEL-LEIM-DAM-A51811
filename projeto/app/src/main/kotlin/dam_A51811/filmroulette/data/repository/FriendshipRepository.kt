@@ -1,75 +1,95 @@
 package dam_A51811.filmroulette.data.repository
 
-import dam_A51811.filmroulette.data.local.Friendship
+import dam_A51811.filmroulette.data.model.Friendship
 import dam_A51811.filmroulette.data.model.User
 import kotlinx.coroutines.flow.Flow
 
 /**
- * Contract for managing bilateral friendships.
- *
- * All methods that receive two user IDs accept them in any order —
- * implementations must canonicalise (smaller first) before hitting the DAO.
- *
- * ### Firebase note
- * When Firebase is introduced, create a [FriendshipRepository] implementation
- * that writes to Firestore in addition to (or instead of) Room, keeping the
- * interface identical so ViewModels need no changes.
+ * Repository interface for managing friendships and user-related data.
  */
 interface FriendshipRepository {
 
     /**
-     * Sends a friend request from [requesterId] to [receiverId].
-     * Creates a PENDING row.  No-ops if a row already exists.
+     * Sends a friend request from one user to another.
+     *
+     * @param requesterId The unique identifier of the user sending the request.
+     * @param receiverId The unique identifier of the user receiving the request.
      */
-    suspend fun sendFriendRequest(requesterId: Long, receiverId: Long)
+    suspend fun sendFriendRequest(requesterId: String, receiverId: String)
 
     /**
-     * Accepts a PENDING request between the two users.
-     * Idempotent: calling on an already-ACCEPTED pair is safe.
+     * Accepts a pending friend request between two users.
+     *
+     * @param userId The unique identifier of the user accepting the request.
+     * @param otherUserId The unique identifier of the user who sent the request.
      */
-    suspend fun acceptFriendRequest(userId: Long, otherUserId: Long)
+    suspend fun acceptFriendRequest(userId: String, otherUserId: String)
 
     /**
-     * Removes a friendship or declines / cancels a pending request.
+     * Removes an existing friendship or cancels a pending friend request between two users.
+     *
+     * @param userId The unique identifier of the current user.
+     * @param otherUserId The unique identifier of the other user.
      */
-    suspend fun removeFriendOrRequest(userId: Long, otherUserId: Long)
+    suspend fun removeFriendOrRequest(userId: String, otherUserId: String)
 
     /**
-     * Reactive stream of all accepted friends of [userId].
-     * Emits a new list whenever the friendships table changes.
+     * Retrieves a continuous flow of the user's friends.
+     *
+     * @param userId The unique identifier of the user.
+     * @return A [Flow] emitting a list of friends as [User] objects.
      */
-    fun getFriends(userId: Long): Flow<List<User>>
+    fun getFriends(userId: String): Flow<List<User>>
 
     /**
-     * Reactive stream of pending requests involving [userId].
-     * Use [Friendship.requesterId] to distinguish sent vs. received.
+     * Retrieves a continuous flow of pending friend requests for the user.
+     *
+     * @param userId The unique identifier of the user.
+     * @return A [Flow] emitting a list of pending [Friendship] requests.
      */
-    fun getPendingRequests(userId: Long): Flow<List<Friendship>>
+    fun getPendingRequests(userId: String): Flow<List<Friendship>>
 
     /**
-     * Returns the current [Friendship] row between the two users, or null
-     * if they are not connected at all.
+     * Retrieves the friendship status between two users.
+     *
+     * @param userId The unique identifier of the first user.
+     * @param otherUserId The unique identifier of the second user.
+     * @return The [Friendship] details if it exists, otherwise null.
      */
-    suspend fun getFriendship(userId: Long, otherUserId: Long): Friendship?
+    suspend fun getFriendship(userId: String, otherUserId: String): Friendship?
 
     /**
-     * Returns a snapshot list of accepted friend IDs for [userId].
-     * Lightweight — does not load full [User] objects.
+     * Retrieves the list of friend IDs for a specific user.
+     *
+     * @param userId The unique identifier of the user.
+     * @return A list containing the IDs of the user's friends.
      */
-    suspend fun getFriendIds(userId: Long): List<Long>
+    suspend fun getFriendIds(userId: String): List<String>
 
     /**
-     * Gets or creates a local Room user matching [email].
+     * Retrieves an existing user by email, or creates a new one if it does not exist.
+     * Updates the username and avatar URL if they differ from the existing values.
+     *
+     * @param email The email address of the user.
+     * @param username The optional username of the user.
+     * @param avatarUrl The optional avatar URL of the user.
+     * @return The retrieved or newly created [User].
      */
     suspend fun getOrCreateUser(email: String, username: String? = null, avatarUrl: String? = null): User
 
     /**
-     * Finds a local Room user by their [email].
+     * Retrieves a user by their email address.
+     *
+     * @param email The email address of the user.
+     * @return The corresponding [User] if found, otherwise null.
      */
     suspend fun getUserByEmail(email: String): User?
 
     /**
-     * Finds a local Room user by their [id].
+     * Retrieves a user by their unique identifier.
+     *
+     * @param id The unique identifier of the user.
+     * @return The corresponding [User] if found, otherwise null.
      */
-    suspend fun getUserById(id: Long): User?
+    suspend fun getUserById(id: String): User?
 }

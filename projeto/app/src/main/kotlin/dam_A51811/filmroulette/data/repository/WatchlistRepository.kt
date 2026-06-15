@@ -4,63 +4,89 @@ import dam_A51811.filmroulette.data.model.MovieList
 import dam_A51811.filmroulette.data.model.Visibility
 import kotlinx.coroutines.flow.Flow
 
+
 /**
- * Contract for managing [MovieList] (watchlists), including visibility-aware access.
- *
- * ### Visibility rules (enforced by this repository, not by the DAO alone)
- *
- * | Viewer role        | Lists returned                           |
- * |--------------------|------------------------------------------|
- * | Owner              | ALL (PRIVATE + FRIENDS_ONLY + PUBLIC)    |
- * | Accepted friend    | FRIENDS_ONLY + PUBLIC of that owner      |
- * | Anyone else        | PUBLIC only                              |
- *
- * ### Firebase note
- * When Firebase is introduced, Firestore Security Rules will enforce
- * these same tiers server-side. The repository implementation will
- * delegate to Firestore queries and keep Room as an offline cache.
+ * Repository interface for managing custom movie watchlists.
  */
 interface WatchlistRepository {
 
-    /** Creates a new watchlist for [userId] with the given [name] and [visibility]. */
-    suspend fun createList(userId: Long, name: String, visibility: Visibility): Long
-
-    /** Permanently deletes list [listId]. */
-    suspend fun deleteList(listId: Long)
-
-    /** Changes the visibility of [listId] to [visibility]. */
-    suspend fun updateVisibility(listId: Long, visibility: Visibility)
-
-    /** Adds movie [movieId] to list [listId]. */
-    suspend fun addMovieToList(listId: Long, movieId: Long)
-
-    /** Removes movie [movieId] from list [listId]. */
-    suspend fun removeMovieFromList(listId: Long, movieId: Long)
-
-    // ─── Visibility-aware read operations ──────────────────────────────────
-
     /**
-     * Returns ALL lists of [userId] (owner view).
-     * Should only be called when the viewer IS [userId].
-     */
-    fun getOwnLists(userId: Long): Flow<List<MovieList>>
-
-    /**
-     * Returns lists of [ownerId] visible to an **accepted friend**.
-     * Includes FRIENDS_ONLY and PUBLIC.
+     * Creates a new movie watchlist.
      *
-     * The caller must have already confirmed the friendship before invoking this.
+     * @param userId The ID of the user creating the list.
+     * @param name The name of the new list.
+     * @param visibility The visibility level of the list.
+     * @return The unique identifier of the newly created list.
      */
-    fun getFriendLists(ownerId: Long): Flow<List<MovieList>>
+    suspend fun createList(userId: String, name: String, visibility: Visibility): String
 
     /**
-     * Returns only PUBLIC lists of [ownerId].
-     * Safe to call for any viewer, including non-friends.
+     * Deletes an existing movie watchlist.
+     *
+     * @param listId The ID of the list to delete.
      */
-    fun getPublicLists(ownerId: Long): Flow<List<MovieList>>
+    suspend fun deleteList(listId: String)
 
     /**
-     * Returns all PUBLIC lists across the entire app — for a discovery feed.
+     * Updates the visibility of an existing watchlist.
+     *
+     * @param listId The ID of the list to update.
+     * @param visibility The new visibility level.
+     */
+    suspend fun updateVisibility(listId: String, visibility: Visibility)
+
+    /**
+     * Adds a movie to a specific watchlist.
+     *
+     * @param listId The ID of the watchlist.
+     * @param movieId The ID of the movie to add.
+     */
+    suspend fun addMovieToList(listId: String, movieId: Long)
+
+    /**
+     * Removes a movie from a specific watchlist.
+     *
+     * @param listId The ID of the watchlist.
+     * @param movieId The ID of the movie to remove.
+     */
+    suspend fun removeMovieFromList(listId: String, movieId: Long)
+
+    /**
+     * Retrieves all watchlists owned by a specific user.
+     *
+     * @param userId The ID of the user.
+     * @return A flow emitting the user's lists.
+     */
+    fun getOwnLists(userId: String): Flow<List<MovieList>>
+
+    /**
+     * Retrieves watchlists owned by a friend, typically excluding private lists.
+     *
+     * @param ownerId The ID of the friend.
+     * @return A flow emitting the friend's visible lists.
+     */
+    fun getFriendLists(ownerId: String): Flow<List<MovieList>>
+
+    /**
+     * Retrieves purely public watchlists owned by a specific user.
+     *
+     * @param ownerId The ID of the user.
+     * @return A flow emitting the public lists.
+     */
+    fun getPublicLists(ownerId: String): Flow<List<MovieList>>
+
+    /**
+     * Retrieves all public watchlists across the application.
+     *
+     * @return A flow emitting all public lists.
      */
     fun getAllPublicLists(): Flow<List<MovieList>>
+
+    /**
+     * Retrieves all movies belonging to a specific watchlist.
+     *
+     * @param listId The ID of the watchlist.
+     * @return A flow emitting the movies in the list.
+     */
+    fun getMoviesForList(listId: String): Flow<List<dam_A51811.filmroulette.data.model.Movie>>
 }

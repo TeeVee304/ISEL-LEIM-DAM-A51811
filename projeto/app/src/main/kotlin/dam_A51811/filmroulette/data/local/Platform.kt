@@ -4,22 +4,23 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
+
 /**
- * Room entity representing a streaming platform (e.g. Netflix, HBO Max).
+ * Represents a streaming or media platform entity in the local database.
  *
- * The [id] is supplied by the remote API.
- * The relationship between platforms and movies is N:M and is modelled
- * via the [MoviePlatformCrossRef] junction table.
+ * @property id The unique identifier of the platform.
+ * @property name The display name of the platform.
+ * @property logoUrl The URL pointing to the platform's logo image.
  */
 @Entity(tableName = "platforms")
 data class Platform(
     @PrimaryKey
     val id: Long,
 
-    /** Display name of the platform. */
+    
     val name: String,
 
-    /** URL of the platform's logo image. */
+    
     @ColumnInfo(name = "logo_url")
     val logoUrl: String
 )

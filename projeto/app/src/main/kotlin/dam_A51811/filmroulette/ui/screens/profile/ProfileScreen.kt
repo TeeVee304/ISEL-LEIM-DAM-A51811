@@ -20,9 +20,13 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.automirrored.filled.Logout
 import androidx.compose.material.icons.filled.PersonAdd
 import androidx.compose.material.icons.filled.PersonRemove
+import androidx.compose.material.icons.automirrored.filled.Send
+import androidx.compose.foundation.clickable
 import androidx.compose.material.icons.automirrored.filled.Send
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -50,6 +54,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -64,6 +70,13 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
+/**
+ * A composable screen that displays the user's profile, manages friend requests,
+ * and allows for account deletion or profile editing.
+ *
+ * @param viewModel The view model responsible for providing profile and friend request data.
+ * @param modifier The modifier to apply to the screen's layout.
+ */
 @Composable
 fun ProfileScreen(
     viewModel: ProfileViewModel,
@@ -78,10 +91,21 @@ fun ProfileScreen(
 
     var emailInput by remember { mutableStateOf("") }
     var selectedTab by remember { mutableIntStateOf(0) }
+    var showEditProfileDialog by remember { mutableStateOf(false) }
+    var showDeleteConfirmationDialog by remember { mutableStateOf(false) }
 
-    // Clear messages when user types or screen changes
-    LaunchedEffect(emailInput) {
-        viewModel.clearMessages()
+    var newImageUri by remember { mutableStateOf<android.net.Uri?>(null) }
+    val photoPickerLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.PickVisualMedia(),
+        onResult = { uri -> newImageUri = uri }
+    )
+
+    // Messages are now cleared in onValueChange when the user types
+    
+    LaunchedEffect(successMessage) {
+        if (successMessage == "success") {
+            emailInput = ""
+        }
     }
 
     Column(
@@ -92,7 +116,7 @@ fun ProfileScreen(
             .padding(top = 80.dp, bottom = 120.dp, start = 20.dp, end = 20.dp),
         verticalArrangement = Arrangement.spacedBy(24.dp)
     ) {
-        // ── Header (User Info) ──────────────────────────────────────────────
+        
         currentUser?.let { user ->
             GlassCard(modifier = Modifier.fillMaxWidth(), cornerRadius = 24.dp) {
                 Column(
@@ -100,9 +124,12 @@ fun ProfileScreen(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
-                    // Avatar bubble
+                    
                     Box(
-                        modifier = Modifier.size(90.dp),
+                        modifier = Modifier
+                            .size(90.dp)
+                            .clip(CircleShape)
+                            .clickable { showEditProfileDialog = true },
                         contentAlignment = Alignment.Center
                     ) {
                         if (user.avatarUrl != null) {
@@ -136,13 +163,25 @@ fun ProfileScreen(
                     }
 
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        Text(
-                            text = user.username,
-                            fontFamily = SplineSans,
-                            fontWeight = FontWeight.Bold,
-                            fontSize = 24.sp,
-                            color = MaterialTheme.colorScheme.onBackground
-                        )
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            modifier = Modifier.clip(RoundedCornerShape(8.dp)).clickable { showEditProfileDialog = true }.padding(horizontal = 8.dp, vertical = 4.dp)
+                        ) {
+                            Text(
+                                text = user.username,
+                                fontFamily = SplineSans,
+                                fontWeight = FontWeight.Bold,
+                                fontSize = 24.sp,
+                                color = MaterialTheme.colorScheme.onBackground
+                            )
+                            Spacer(Modifier.width(8.dp))
+                            Icon(
+                                imageVector = androidx.compose.material.icons.Icons.Default.Edit,
+                                contentDescription = stringResource(R.string.profile_title),
+                                modifier = Modifier.size(20.dp),
+                                tint = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.60f)
+                            )
+                        }
                         Spacer(Modifier.height(4.dp))
                         Text(
                             text = user.email,
@@ -181,7 +220,7 @@ fun ProfileScreen(
             }
         }
 
-        // ── Add Friend Section ──────────────────────────────────────────────
+        
         GlassCard(modifier = Modifier.fillMaxWidth(), cornerRadius = 20.dp) {
             Column(
                 modifier = Modifier.padding(20.dp),
@@ -202,7 +241,10 @@ fun ProfileScreen(
                 ) {
                     OutlinedTextField(
                         value = emailInput,
-                        onValueChange = { emailInput = it },
+                        onValueChange = { 
+                            emailInput = it
+                            viewModel.clearMessages()
+                        },
                         placeholder = { Text(stringResource(R.string.friends_add_hint), color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.4f)) },
                         singleLine = true,
                         colors = OutlinedTextFieldDefaults.colors(
@@ -235,7 +277,7 @@ fun ProfileScreen(
                     }
                 }
 
-                // Status messages
+                
                 errorMessage?.let { error ->
                     val errorText = when (error) {
                         "self_error" -> stringResource(R.string.friends_error_self)
@@ -267,7 +309,7 @@ fun ProfileScreen(
             }
         }
 
-        // ── Friend Requests Hub ─────────────────────────────────────────────
+        
         GlassCard(modifier = Modifier.fillMaxWidth(), cornerRadius = 20.dp) {
             Column(modifier = Modifier.fillMaxWidth()) {
                 TabRow(
@@ -289,7 +331,7 @@ fun ProfileScreen(
                         onClick = { selectedTab = 0 },
                         text = {
                             Text(
-                                text = "${stringResource(R.string.friends_requests_received)} (${receivedRequests.size})",
+                                text = "${stringResource(R.string.friends_req_received)} (${receivedRequests.size})",
                                 fontFamily = SplineSans,
                                 fontWeight = FontWeight.Bold,
                                 fontSize = 12.sp,
@@ -302,7 +344,7 @@ fun ProfileScreen(
                         onClick = { selectedTab = 1 },
                         text = {
                             Text(
-                                text = "${stringResource(R.string.friends_requests_sent)} (${sentRequests.size})",
+                                text = "${stringResource(R.string.friends_req_sent)} (${sentRequests.size})",
                                 fontFamily = SplineSans,
                                 fontWeight = FontWeight.Bold,
                                 fontSize = 12.sp,
@@ -319,10 +361,10 @@ fun ProfileScreen(
                     verticalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
                     if (selectedTab == 0) {
-                        // Received
+                        
                         if (receivedRequests.isEmpty()) {
                             Text(
-                                text = stringResource(R.string.friends_requests_empty_received),
+                                text = stringResource(R.string.friends_req_empty_received),
                                 style = MaterialTheme.typography.bodyMedium,
                                 color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.40f),
                                 textAlign = TextAlign.Center,
@@ -339,10 +381,10 @@ fun ProfileScreen(
                             }
                         }
                     } else {
-                        // Sent
+                        
                         if (sentRequests.isEmpty()) {
                             Text(
-                                text = stringResource(R.string.friends_requests_empty_sent),
+                                text = stringResource(R.string.friends_req_empty_sent),
                                 style = MaterialTheme.typography.bodyMedium,
                                 color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.40f),
                                 textAlign = TextAlign.Center,
@@ -362,7 +404,7 @@ fun ProfileScreen(
             }
         }
 
-        // ── Friends List ────────────────────────────────────────────────────
+        
         GlassCard(modifier = Modifier.fillMaxWidth(), cornerRadius = 20.dp) {
             Column(
                 modifier = Modifier.padding(20.dp),
@@ -374,14 +416,14 @@ fun ProfileScreen(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
-                        text = stringResource(R.string.friends_section_title),
+                        text = stringResource(R.string.friends_title),
                         fontFamily = SplineSans,
                         fontWeight = FontWeight.Bold,
                         fontSize = 18.sp,
                         color = MaterialTheme.colorScheme.onBackground
                     )
                     Text(
-                        text = "${friendsList.size} Total",
+                        text = stringResource(R.string.friends_total_count, friendsList.size),
                         style = MaterialTheme.typography.labelMedium,
                         color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.45f)
                     )
@@ -405,6 +447,122 @@ fun ProfileScreen(
                 }
             }
         }
+
+        
+        Spacer(Modifier.height(16.dp))
+        OutlinedButton(
+            onClick = { showDeleteConfirmationDialog = true },
+            modifier = Modifier.fillMaxWidth().height(48.dp),
+            shape = RoundedCornerShape(12.dp),
+            border = androidx.compose.foundation.BorderStroke(1.dp, Color.Red),
+            colors = ButtonDefaults.outlinedButtonColors(contentColor = Color.Red)
+        ) {
+            Icon(Icons.Default.Delete, contentDescription = stringResource(R.string.profile_delete_account), modifier = Modifier.size(18.dp))
+            Spacer(Modifier.width(8.dp))
+            Text(
+                text = stringResource(R.string.profile_delete_account),
+                fontFamily = dam_A51811.filmroulette.ui.theme.SplineSans,
+                fontWeight = FontWeight.Bold
+            )
+        }
+    }
+
+    if (showEditProfileDialog && currentUser != null) {
+        var newUsername by remember { mutableStateOf(currentUser!!.username) }
+
+        androidx.compose.material3.AlertDialog(
+            onDismissRequest = { showEditProfileDialog = false },
+            title = { 
+                Text(
+                    text = stringResource(R.string.profile_title),
+                    fontFamily = SplineSans,
+                    fontWeight = FontWeight.Bold
+                ) 
+            },
+            text = {
+                Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                    OutlinedTextField(
+                        value = newUsername,
+                        onValueChange = { newUsername = it },
+                        label = { Text(stringResource(R.string.profile_username)) }
+                    )
+                    Spacer(Modifier.height(8.dp))
+                    OutlinedButton(
+                        onClick = { 
+                            photoPickerLauncher.launch(
+                                androidx.activity.result.PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
+                            ) 
+                        },
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Text(stringResource(R.string.profile_select_image))
+                    }
+                    if (newImageUri != null) {
+                        Text(stringResource(R.string.msg_image_selected), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.primary)
+                    }
+                }
+            },
+            confirmButton = {
+                androidx.compose.material3.TextButton(
+                    onClick = {
+                        viewModel.updateProfileWithImage(
+                            newUsername = newUsername.takeIf { it.isNotBlank() },
+                            newImageUri = newImageUri
+                        )
+                        showEditProfileDialog = false
+                        newImageUri = null
+                    }
+                ) {
+                    Text(stringResource(R.string.profile_save), color = NeonRed, fontWeight = FontWeight.Bold)
+                }
+            },
+            dismissButton = {
+                androidx.compose.material3.TextButton(
+                    onClick = { 
+                        showEditProfileDialog = false 
+                        newImageUri = null
+                    }
+                ) {
+                    Text(stringResource(R.string.profile_cancel), color = MaterialTheme.colorScheme.onSurface)
+                }
+            }
+        )
+    }
+
+    if (showDeleteConfirmationDialog) {
+        androidx.compose.material3.AlertDialog(
+            onDismissRequest = { showDeleteConfirmationDialog = false },
+            title = {
+                Text(
+                    text = stringResource(R.string.profile_del_title),
+                    fontFamily = dam_A51811.filmroulette.ui.theme.SplineSans,
+                    fontWeight = FontWeight.Bold
+                )
+            },
+            text = {
+                Text(
+                    text = stringResource(R.string.profile_del_msg),
+                    style = MaterialTheme.typography.bodyMedium
+                )
+            },
+            confirmButton = {
+                androidx.compose.material3.TextButton(
+                    onClick = {
+                        viewModel.deleteAccount()
+                        showDeleteConfirmationDialog = false
+                    }
+                ) {
+                    Text(stringResource(R.string.profile_del_yes), color = Color.Red, fontWeight = FontWeight.Bold)
+                }
+            },
+            dismissButton = {
+                androidx.compose.material3.TextButton(
+                    onClick = { showDeleteConfirmationDialog = false }
+                ) {
+                    Text(stringResource(R.string.profile_cancel), color = MaterialTheme.colorScheme.onSurface)
+                }
+            }
+        )
     }
 }
 

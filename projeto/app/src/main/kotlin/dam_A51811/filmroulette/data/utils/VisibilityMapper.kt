@@ -2,33 +2,32 @@ package dam_A51811.filmroulette.data.utils
 
 import dam_A51811.filmroulette.data.model.Visibility
 
+
 /**
- * Converts between the domain [Visibility] enum and the raw String stored
- * in the Room database (and eventually Firestore).
- *
- * Using a plain String column — instead of a TypeConverter on the enum — keeps
- * the database schema readable and makes Firebase integration straightforward.
- *
- * ### Firebase note
- * Firestore documents will store the same String values
- * ("PRIVATE", "FRIENDS_ONLY", "PUBLIC"). Reuse [fromString] when reading
- * Firestore documents to obtain the domain enum.
+ * Mapper object for visibility state conversions.
  */
 object VisibilityMapper {
 
-    /** Converts a [Visibility] enum value to the database/Firestore String. */
+    
+    /**
+     * Converts a visibility enum to its string representation.
+     *
+     * @param visibility The visibility enum to convert.
+     * @return The string representation of the given visibility state.
+     */
     fun toString(visibility: Visibility): String = visibility.name
 
+    
     /**
-     * Converts a raw String from the database/Firestore back to a [Visibility].
+     * Converts a string value to a visibility enum.
      *
-     * Falls back to [Visibility.PRIVATE] for unknown/missing values to avoid
-     * accidental data exposure.
+     * @param value The string representation of the visibility state.
+     * @return The corresponding visibility enum, defaulting to PRIVATE if the value is unrecognized.
      */
     fun fromString(value: String?): Visibility =
         when (value) {
             "PUBLIC"       -> Visibility.PUBLIC
             "FRIENDS_ONLY" -> Visibility.FRIENDS_ONLY
-            else           -> Visibility.PRIVATE   // safe default
+            else           -> Visibility.PRIVATE   
         }
 }

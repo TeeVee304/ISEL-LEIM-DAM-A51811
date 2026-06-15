@@ -5,14 +5,11 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 
 /**
- * Junction table for the N:M relationship between [MovieList] and [Movie].
+ * Cross-reference entity associating movies with movie lists.
  *
- * Each row records that a given movie belongs to a given list.
- * The composite primary key `(listId, movieId)` prevents a movie from
- * being added to the same list twice.
- *
- * Deleting either a [MovieList] or a [Movie] cascades and cleans up
- * the corresponding cross-reference rows automatically.
+ * @property listId The unique identifier of the movie list.
+ * @property movieId The unique identifier of the movie.
+ * @property addedAt The timestamp indicating when the movie was added to the list.
  */
 @Entity(
     tableName = "movie_list_entries",
@@ -39,10 +36,6 @@ data class MovieListCrossRef(
     @ColumnInfo(name = "movie_id", index = true)
     val movieId: Long,
 
-    /**
-     * Unix timestamp (milliseconds) of when the movie was added to the list.
-     * Useful for sorting entries by insertion order.
-     */
     @ColumnInfo(name = "added_at")
     val addedAt: Long
 )

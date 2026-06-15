@@ -5,54 +5,51 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import dam_A51811.filmroulette.data.model.Genre
 
+
 /**
- * Room database entity representing a movie.
+ * Represents a movie entity in the local database.
  *
- * The [id] is provided by the remote API and is never auto-generated locally.
- * The [genres] field is persisted as a comma-separated [String] via [GenreConverter].
+ * @property id The unique identifier of the movie.
+ * @property title The title of the movie.
+ * @property duration The duration of the movie in minutes.
+ * @property synopsys A brief summary or synopsis of the movie.
+ * @property imgUrl The URL of the movie's poster or cover image.
+ * @property avgRating The average rating of the movie.
+ * @property releaseDate The release date of the movie, if available.
+ * @property originalLanguage The original language of the movie, if available.
+ * @property genres The list of genres associated with the movie.
  */
 @Entity(tableName = "movies")
 data class Movie(
-    // SEM autoGenerate. O ID que a API fornecer será inserido manualmente aqui.
+    
     @PrimaryKey
     val id: Long,
 
-    /** Título da obra. */
+    
     val title: String,
 
-    /** Duração em minutos. */
+    
     val duration: Int,
 
-    /** Resumo do enredo. */
+    
     val synopsys: String,
 
-    /** URL do cartaz. */
+    
     @ColumnInfo(name = "img_url")
     val imgUrl: String,
 
-    /** Classificação média global. */
+    
     @ColumnInfo(name = "avg_rating")
     val avgRating: Double,
 
-    /**
-     * Data de lançamento no formato ISO 8601 ("YYYY-MM-DD").
-     * Corresponde ao campo `release_date` da API TMDb.
-     */
+    
     @ColumnInfo(name = "release_date")
     val releaseDate: String?,
 
-    /**
-     * Código ISO 639-1 do idioma original (e.g. "en", "pt", "fr").
-     * Corresponde ao campo `original_language` da API TMDb.
-     */
+    
     @ColumnInfo(name = "original_language")
     val originalLanguage: String?,
 
-    /**
-     * Géneros cinematográficos da obra.
-     *
-     * Armazenado como uma String com valores separados por vírgula na base de dados (ver [GenreConverter]).
-     * Exemplo: "ACTION,COMEDY"
-     */
+    
     val genres: List<Genre>
 )

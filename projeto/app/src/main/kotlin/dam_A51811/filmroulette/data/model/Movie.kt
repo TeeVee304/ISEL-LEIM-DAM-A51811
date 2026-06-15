@@ -1,29 +1,27 @@
 package dam_A51811.filmroulette.data.model
 
+
 /**
- * Domain model representing a movie.
+ * Represents a movie entity.
  *
- * This is a plain Kotlin class used throughout the application layer (ViewModel, UI).
- * It is decoupled from Room — the persistence counterpart is [dam_A51811.filmroulette.data.local.Movie].
- *
- * @property id               Unique identifier supplied by the remote API.
- * @property title            Title of the movie.
- * @property duration         Duration in minutes.
- * @property synopsys         Plot summary.
- * @property imgUrl           URL of the movie poster.
- * @property avgRating        Global average rating (0.0–10.0).
- * @property releaseDate      Release date in ISO 8601 format ("YYYY-MM-DD"), or null if unknown.
- * @property originalLanguage ISO 639-1 language code (e.g. "en", "pt"), or null if unknown.
- * @property genres           List of genres that describe this movie.
+ * @param id The unique identifier of the movie.
+ * @param title The title of the movie.
+ * @param duration The duration of the movie in minutes.
+ * @param synopsys A brief summary of the movie's plot.
+ * @param imgUrl The URL of the movie's poster image.
+ * @param avgRating The average user rating of the movie.
+ * @param releaseDate The release date of the movie, if available.
+ * @param originalLanguage The original language code of the movie, if available.
+ * @param genres The list of genres associated with the movie.
  */
 data class Movie(
-    val id: Long,
-    val title: String,
-    val duration: Int,
-    val synopsys: String,
-    val imgUrl: String,
-    val avgRating: Double,
-    val releaseDate: String?,
-    val originalLanguage: String?,
-    val genres: List<Genre>
+    val id: Long = 0L,
+    val title: String = "",
+    val duration: Int = 0,
+    val synopsys: String = "",
+    val imgUrl: String = "",
+    val avgRating: Double = 0.0,
+    val releaseDate: String? = null,
+    val originalLanguage: String? = null,
+    val genres: List<Genre> = emptyList()
 )

@@ -5,6 +5,16 @@ import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
 
+/**
+ * Represents a user entity in the local database.
+ *
+ * @property id The unique identifier of the user.
+ * @property username The display name of the user.
+ * @property email The unique email address associated with the user.
+ * @property passwordHash The hashed password of the user.
+ * @property registryDate The timestamp indicating when the user registered.
+ * @property avatarUrl The optional URL pointing to the user's avatar image.
+ */
 @Entity(
     tableName = "users",
     indices = [Index(value = ["email"], unique = true)]

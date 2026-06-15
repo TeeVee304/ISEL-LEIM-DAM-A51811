@@ -17,6 +17,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
+import androidx.compose.ui.res.stringResource
+import dam_A51811.filmroulette.R
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -31,6 +33,15 @@ import dam_A51811.filmroulette.data.repository.ThemePreference
 import dam_A51811.filmroulette.ui.theme.NeonRed
 import dam_A51811.filmroulette.ui.theme.SplineSans
 
+/**
+ * Displays the settings screen, allowing the user to configure the app's appearance,
+ * language preferences, and account actions such as logging out.
+ *
+ * @param viewModel The ViewModel responsible for managing settings state and preferences.
+ * @param onLogout Callback invoked when the user selects the logout option.
+ * @param onBack Callback invoked when the user applies settings and exits the screen.
+ * @param modifier The modifier to be applied to the layout.
+ */
 @Composable
 fun SettingsScreen(
     viewModel: SettingsViewModel,
@@ -47,9 +58,9 @@ fun SettingsScreen(
             .verticalScroll(rememberScrollState())
             .padding(horizontal = 24.dp, vertical = 16.dp)
     ) {
-        // ── Appearance ──────────────────────────────────────────────────────
+        
         Text(
-            text = "Appearance",
+            text = stringResource(R.string.title_appearance),
             style = MaterialTheme.typography.titleLarge,
             fontWeight = FontWeight.Bold,
             color = MaterialTheme.colorScheme.onBackground
@@ -58,26 +69,26 @@ fun SettingsScreen(
         Spacer(modifier = Modifier.height(8.dp))
 
         ThemeOptionRow(
-            text = "System Default",
+            text = stringResource(R.string.setting_system_default),
             selected = themePreference == ThemePreference.SYSTEM,
             onClick = { viewModel.setThemePreference(ThemePreference.SYSTEM) }
         )
         ThemeOptionRow(
-            text = "Light Mode",
+            text = stringResource(R.string.setting_light_mode),
             selected = themePreference == ThemePreference.LIGHT,
             onClick = { viewModel.setThemePreference(ThemePreference.LIGHT) }
         )
         ThemeOptionRow(
-            text = "Dark Mode",
+            text = stringResource(R.string.setting_dark_mode),
             selected = themePreference == ThemePreference.DARK,
             onClick = { viewModel.setThemePreference(ThemePreference.DARK) }
         )
 
         Spacer(modifier = Modifier.height(32.dp))
 
-        // ── Language ────────────────────────────────────────────────────────
+        
         Text(
-            text = "Language",
+            text = stringResource(R.string.title_language),
             style = MaterialTheme.typography.titleLarge,
             fontWeight = FontWeight.Bold,
             color = MaterialTheme.colorScheme.onBackground
@@ -86,26 +97,26 @@ fun SettingsScreen(
         Spacer(modifier = Modifier.height(8.dp))
 
         ThemeOptionRow(
-            text = "System Default",
+            text = stringResource(R.string.setting_system_default),
             selected = languagePreference == LanguagePreference.SYSTEM,
             onClick = { viewModel.setLanguagePreference(LanguagePreference.SYSTEM) }
         )
         ThemeOptionRow(
-            text = "English",
+            text = stringResource(R.string.lang_english),
             selected = languagePreference == LanguagePreference.EN,
             onClick = { viewModel.setLanguagePreference(LanguagePreference.EN) }
         )
         ThemeOptionRow(
-            text = "Português",
+            text = stringResource(R.string.lang_portuguese),
             selected = languagePreference == LanguagePreference.PT,
             onClick = { viewModel.setLanguagePreference(LanguagePreference.PT) }
         )
 
         Spacer(modifier = Modifier.height(32.dp))
 
-        // ── Account ─────────────────────────────────────────────────────────
+        
         Text(
-            text = "Account",
+            text = stringResource(R.string.title_account),
             style = MaterialTheme.typography.titleLarge,
             fontWeight = FontWeight.Bold,
             color = MaterialTheme.colorScheme.onBackground
@@ -115,13 +126,13 @@ fun SettingsScreen(
             onClick = onLogout,
             modifier = Modifier.padding(top = 4.dp)
         ) {
-            Text("Log Out", color = NeonRed, style = MaterialTheme.typography.bodyLarge)
+            Text(stringResource(R.string.btn_log_out), color = NeonRed, style = MaterialTheme.typography.bodyLarge)
         }
 
         Spacer(modifier = Modifier.weight(1f))
         Spacer(modifier = Modifier.height(24.dp))
 
-        // ── Apply button ─────────────────────────────────────────────────────
+        
         Button(
             onClick = onBack,
             modifier = Modifier
@@ -134,7 +145,7 @@ fun SettingsScreen(
             )
         ) {
             Text(
-                text = "Apply & Leave",
+                text = stringResource(R.string.btn_apply_and_leave),
                 fontFamily = SplineSans,
                 fontWeight = FontWeight.Bold,
                 fontSize = 16.sp,
@@ -146,6 +157,13 @@ fun SettingsScreen(
     }
 }
 
+/**
+ * Displays a selectable row for configuring a specific settings option.
+ *
+ * @param text The display text for the option.
+ * @param selected True if the option is currently selected, false otherwise.
+ * @param onClick Callback invoked when the row is clicked.
+ */
 @Composable
 private fun ThemeOptionRow(
     text: String,

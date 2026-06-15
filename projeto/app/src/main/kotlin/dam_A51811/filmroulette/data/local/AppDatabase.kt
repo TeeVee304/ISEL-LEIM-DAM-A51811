@@ -12,30 +12,10 @@ import dam_A51811.filmroulette.data.local.dao.PlatformDAO
 import dam_A51811.filmroulette.data.local.dao.RatingDAO
 import dam_A51811.filmroulette.data.local.dao.UserDAO
 
+
 /**
- * Room database for the FilmRoulette application.
- *
- * ### Entities
- * | Entity               | Table                | Notes                          |
- * |----------------------|----------------------|--------------------------------|
- * | [Movie]              | `movies`             | API-supplied PK                |
- * | [Platform]           | `platforms`          | API-supplied PK                |
- * | [MoviePlatformCrossRef] | `movie_platform`  | N:M Movie ↔ Platform           |
- * | [User]               | `users`              | Auto-generated PK              |
- * | [Rating]             | `ratings`            | Composite PK (userId, movieId) |
- * | [MovieList]          | `movie_lists`        | Auto-generated PK; has `visibility` column |
- * | [MovieListCrossRef]  | `movie_list_entries` | N:M MovieList ↔ Movie          |
- * | [Friendship]         | `friendships`        | Composite PK (user_id_1, user_id_2) |
- *
- * ### Type converters
- * - [GenreConverter] — `List<Genre>` ↔ comma-separated String
- *
- * ### Firebase note
- * This database acts as the local cache / offline store.
- * When Firebase is introduced, [Friendship] maps to a Firestore
- * collection and [MovieList] maps to a user sub-collection.
- * The repository layer will be the single point responsible for
- * keeping both in sync.
+ * The main Room database class for the application.
+ * Defines the database configuration and serves as the main access point to the persisted data.
  */
 @Database(
     entities = [
@@ -46,25 +26,67 @@ import dam_A51811.filmroulette.data.local.dao.UserDAO
         Rating::class,
         MovieList::class,
         MovieListCrossRef::class,
-        Friendship::class        // ← NEW
+        Friendship::class        
     ],
-    version = 3,                 // bumped from 2 → 3 (added release_date, original_language to movies)
+    version = 4,                 
     exportSchema = false
 )
 @TypeConverters(GenreConverter::class)
 abstract class AppDatabase : RoomDatabase() {
 
+    /**
+     * Retrieves the Data Access Object for Movie entities.
+     *
+     * @return The MovieDAO instance.
+     */
     abstract fun movieDao(): MovieDAO
+
+    /**
+     * Retrieves the Data Access Object for Platform entities.
+     *
+     * @return The PlatformDAO instance.
+     */
     abstract fun platformDao(): PlatformDAO
+
+    /**
+     * Retrieves the Data Access Object for User entities.
+     *
+     * @return The UserDAO instance.
+     */
     abstract fun userDao(): UserDAO
+
+    /**
+     * Retrieves the Data Access Object for Rating entities.
+     *
+     * @return The RatingDAO instance.
+     */
     abstract fun ratingDao(): RatingDAO
+
+    /**
+     * Retrieves the Data Access Object for MovieList entities.
+     *
+     * @return The MovieListDAO instance.
+     */
     abstract fun movieListDao(): MovieListDAO
-    abstract fun friendshipDao(): FriendshipDAO   // ← NEW
+
+    /**
+     * Retrieves the Data Access Object for Friendship entities.
+     *
+     * @return The FriendshipDAO instance.
+     */
+    abstract fun friendshipDao(): FriendshipDAO   
 
     companion object {
         @Volatile
         private var INSTANCE: AppDatabase? = null
 
+        /**
+         * Returns the singleton instance of the AppDatabase.
+         * Creates the database if it does not exist.
+         *
+         * @param context The application context used to create or access the database.
+         * @return The singleton instance of AppDatabase.
+         */
         fun getDatabase(context: Context): AppDatabase {
             return INSTANCE ?: synchronized(this) {
                 val instance = Room.databaseBuilder(
@@ -72,9 +94,9 @@ abstract class AppDatabase : RoomDatabase() {
                     AppDatabase::class.java,
                     "filmroulette_database"
                 )
-                // Destructive migration is acceptable during development.
-                // Replace with a proper Migration object before shipping to production.
-                // `dropAllTables = true` silences the deprecation warning on the new Room API.
+                
+                
+                
                 .fallbackToDestructiveMigration(dropAllTables = true)
                 .build()
                 INSTANCE = instance

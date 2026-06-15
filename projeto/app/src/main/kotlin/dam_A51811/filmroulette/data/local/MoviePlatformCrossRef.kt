@@ -5,12 +5,10 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 
 /**
- * Junction table for the N:M relationship between [Movie] and [Platform].
+ * Cross-reference entity associating movies with streaming platforms.
  *
- * Each row records that a given movie is available on a given platform.
- * The composite primary key `(movieId, platformId)` prevents duplicates.
- *
- * Foreign keys cascade deletions so orphan rows are never left behind.
+ * @property movieId The unique identifier of the movie.
+ * @property platformId The unique identifier of the platform.
  */
 @Entity(
     tableName = "movie_platform",

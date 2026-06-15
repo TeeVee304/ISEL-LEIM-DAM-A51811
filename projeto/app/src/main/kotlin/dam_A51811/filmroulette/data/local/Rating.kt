@@ -4,18 +4,14 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
 
+
 /**
- * Room entity representing a user's rating of a movie.
+ * Represents a user's rating for a specific movie in the local database.
  *
- * The composite primary key `(userId, movieId)` enforces that each user
- * can rate any given movie only once. To update a rating, use `INSERT OR REPLACE`.
- *
- * [rating] is constrained to [0, 10] at the application layer — Room does not
- * support CHECK constraints directly, so validation must be enforced in the DAO
- * or repository before insertion.
- *
- * Foreign keys cascade deletions: if a user or movie is deleted, their ratings
- * are removed automatically.
+ * @property userId The unique identifier of the user who submitted the rating.
+ * @property movieId The unique identifier of the movie being rated.
+ * @property rating The integer value of the rating given by the user.
+ * @property ratedAt The timestamp indicating when the rating was submitted.
  */
 @Entity(
     tableName = "ratings",
@@ -42,15 +38,10 @@ data class Rating(
     @ColumnInfo(name = "movie_id", index = true)
     val movieId: Long,
 
-    /**
-     * User rating for the movie, in the range [0, 10].
-     * Validated at the repository level before insertion.
-     */
+    
     val rating: Int,
 
-    /**
-     * Unix timestamp (milliseconds) of when the rating was last submitted or updated.
-     */
+    
     @ColumnInfo(name = "rated_at")
     val ratedAt: Long
 )

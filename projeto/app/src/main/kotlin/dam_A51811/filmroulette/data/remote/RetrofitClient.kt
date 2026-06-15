@@ -7,9 +7,15 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
+/**
+ * Provides a configured Retrofit instance for communicating with the TMDB API.
+ */
 object RetrofitClient {
     private const val BASE_URL = "https://api.themoviedb.org/3/"
 
+    /**
+     * A pre-configured [OkHttpClient] with logging and TMDB API key interception.
+     */
     private val okHttpClient: OkHttpClient by lazy {
         val loggingInterceptor = HttpLoggingInterceptor().apply {
             level = HttpLoggingInterceptor.Level.BODY
@@ -34,6 +40,9 @@ object RetrofitClient {
             .build()
     }
 
+    /**
+     * The lazily instantiated service used to execute TMDB API calls.
+     */
     val tmdbApiService: TmdbApiService by lazy {
         Retrofit.Builder()
             .baseUrl(BASE_URL)

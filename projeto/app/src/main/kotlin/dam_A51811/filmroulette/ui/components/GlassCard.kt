@@ -12,10 +12,13 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
+
 /**
- * Glassmorphism-style card used throughout FilmRoulette.
+ * A reusable composable that provides a glassmorphism card effect.
  *
- * Renders a near-transparent surface adapting to the light/dark theme with a subtle border.
+ * @param modifier The modifier to be applied to the card.
+ * @param cornerRadius The radius for the card's rounded corners.
+ * @param content The composable content to be displayed inside the card.
  */
 @Composable
 fun GlassCard(

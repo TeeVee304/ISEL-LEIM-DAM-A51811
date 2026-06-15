@@ -1,15 +1,12 @@
 <resources>
-    <string name="app_name">Film Roulette</string>
-    <string name="app_logo">FilmRoulette</string>
-
     <!-- Navigation -->
     <string name="nav_roulette">Roleta</string>
     <string name="nav_filters">Filtros</string>
     <string name="nav_groups">Grupos</string>
     <string name="nav_watchlist">Listas</string>
+    <string name="nav_profile">Perfil</string>
 
     <!-- Accessibility / Content Descriptions -->
-    <string name="desc_menu">Menu</string>
     <string name="desc_profile">Perfil</string>
     <string name="desc_dislike">Não Gosto</string>
     <string name="desc_like">Gosto</string>
@@ -20,37 +17,65 @@
     <string name="desc_add_person">Adicionar pessoa</string>
 
     <!-- General UI -->
-    <string name="coming_soon">Brevemente</string>
+    <string name="app_name">Film Roulette</string>
+    <string name="app_logo">FilmRoulette</string>
     <string name="error_title">OCORREU UM ERRO</string>
     <string name="error_no_movies">Não foram encontrados filmes que correspondam a estes filtros.</string>
     <string name="error_unexpected">Ocorreu um erro inesperado.</string>
     <string name="btn_retry">TENTAR NOVAMENTE</string>
-    <string name="duration_mins_format">%1$d MIN</string>
+    <string name="duration_mins">%1$d MIN</string>
     <string name="label_swipe">DESLIZAR</string>
-    <string name="tap_poster_synopsis">Toque no póster para ver a sinopse</string>
+    <string name="poster_synopsis">Toca no póster para ver a sinopse</string>
+    <string name="loading">A carregar...</string>
+    <string name="msg_image_selected">Imagem selecionada</string>
+    <string name="btn_clear">Limpar</string>
+    <string name="btn_dismiss">Dispensar</string>
+    <string name="btn_cancel">Cancelar</string>
+    <string name="btn_apply_and_leave">Aplicar e Sair</string>
+
+    <!-- Authentication -->
+    <string name="label_email">Email</string>
+    <string name="label_password">Palavra-passe</string>
+    <string name="btn_login">Entrar</string>
+    <string name="prompt_sign_up">Não tens uma conta? Regista-te.</string>
+    <string name="label_username">Nome de utilizador</string>
+    <string name="label_confirm_password">Confirmar Palavra-passe</string>
+    <string name="btn_sign_up">Registar</string>
+    <string name="prompt_log_in">Já tens uma conta? Entra.</string>
+    <string name="title_create_account">Criar Conta</string>
+    <string name="err_pwd_mismatch">As palavras-passe não coincidem</string>
 
     <!-- Filters Screen -->
-    <string name="banner_title">O seu ritual de hoje.</string>
-    <string name="banner_subtitle">Evite a indecisão. Deixe que o projetor decida a sua próxima viagem cinematográfica com base no seu estado de espírito e tempo disponível.</string>
-    <string name="time_section_title">Tempo Disponível</string>
-    <string name="time_minutes_format">%1$d min</string>
-    <string name="time_quick_pick_format">%1$dm</string>
-    <string name="time_quick_pick_plus">150m+</string>
-    <string name="genres_section_title">Géneros Favoritos</string>
-    <string name="platforms_section_title">Plataformas Ativas</string>
-    <string name="cta_ai_match">Ajuste Inteligente</string>
-    <string name="cta_ai_match_subtitle">Roleta personalizada com base no seu humor</string>
-    <string name="btn_start_roulette">INICIAR A ROLETA</string>
+    <string name="time_title">Tempo Disponível</string>
+    <string name="time_minutes">%1$d min</string>
+    <string name="time_quick_pick">%1$dm</string>
+    <string name="platforms_title">Plataformas Ativas</string>
+    <string name="filter_selected_count">%1$d selecionados</string>
+    <string name="filter_title_genres">Géneros</string>
+    <string name="filter_title_language">Idioma</string>
+    <string name="filter_title_era">Época</string>
+    <string name="filter_no_language">Sem filtro de idioma</string>
 
     <!-- Genres -->
     <string name="genre_scifi">Ficção Científica</string>
-    <string name="genre_neonoir">Neo-Noir</string>
-    <string name="genre_cyberpunk">Cyberpunk</string>
-    <string name="genre_psychological_thriller">Thriller Psicológico</string>
     <string name="genre_documentary">Documentário</string>
     <string name="genre_horror">Terror</string>
-    <string name="genre_independent_cinema">Cinema Independente</string>
     <string name="genre_animation">Animação</string>
+    <string name="genre_action">Ação</string>
+    <string name="genre_adventure">Aventura</string>
+    <string name="genre_comedy">Comédia</string>
+    <string name="genre_crime">Crime</string>
+    <string name="genre_drama">Drama</string>
+    <string name="genre_family">Família</string>
+    <string name="genre_fantasy">Fantasia</string>
+    <string name="genre_history">História</string>
+    <string name="genre_music">Música</string>
+    <string name="genre_mystery">Mistério</string>
+    <string name="genre_romance">Romance</string>
+    <string name="genre_thriller">Thriller</string>
+    <string name="genre_tv_movie">Filme de TV</string>
+    <string name="genre_war">Guerra</string>
+    <string name="genre_western">Faroeste</string>
 
     <!-- Platforms -->
     <string name="platform_netflix">Netflix</string>
@@ -58,40 +83,50 @@
     <string name="platform_max">Max</string>
     <string name="platform_primevideo">Prime Video</string>
 
-    <!-- Group Session Screen -->
-    <string name="group_session_title">Sessão de Grupo</string>
-    <string name="group_session_subtitle">Organize uma sessão sincronizada ou escolha o filme perfeito com amigos usando filtros conjuntos.</string>
-    <string name="group_session_invite_title">CONVIDAR AMIGOS</string>
-    <string name="group_session_or_share_link">OU PARTILHAR LINK</string>
-    <string name="group_session_copy_link">Copiar Link da Sessão</string>
-    <string name="group_session_joined_title">Amigos no Grupo</string>
-    <string name="group_session_active_members_format">%1$d Membros Ativos</string>
-    <string name="group_session_combine">Combinar Filtros</string>
-    <string name="group_session_syncing_preferences_format">A sincronizar preferências com %1$d amigos</string>
-    <string name="group_session_combine_subtitle">Encontraremos a interseção dos géneros e moods favoritos de todos.</string>
-    <string name="group_session_live">EM DIRETO</string>
-    <string name="group_session_status_host">Anfitrião</string>
-    <string name="group_session_status_ready">Pronto</string>
-    <string name="group_session_status_filtering">A filtrar…</string>
-    <string name="group_session_waiting">A aguardar…</string>
-    <string name="group_session_member_you">Tu</string>
+    <!-- Eras & Decades -->
+    <string name="decade_recent">Recente</string>
+
+    <!-- Group Session -->
+    <string name="group_title">Sessão de Grupo</string>
+    <string name="group_invite_title">CONVIDAR AMIGOS</string>
+    <string name="group_joined_title">Amigos no Grupo</string>
+    <string name="group_active_members">%1$d Membros Ativos</string>
+    <string name="group_live">EM DIRETO</string>
+    <string name="group_status_host">Anfitrião</string>
+    <string name="group_status_ready">Pronto</string>
+    <string name="group_status_filtering">A filtrar…</string>
+    <string name="group_waiting">A aguardar…</string>
+    <string name="group_member_you">Tu</string>
+    <string name="hint_enter_room_code">Código da Sala</string>
+    <string name="btn_join">Aderir</string>
+    <string name="label_or_join_existing">ou aderir a uma existente</string>
+    <string name="group_watch_together_desc">Sincroniza as tuas preferências com os teus amigos em tempo real e descobre o filme perfeito para a noite.</string>
+    <string name="group_create_new">Criar Nova Sessão</string>
+    <string name="group_share_intent">Junta-te à minha sessão do FilmRoulette! https://filmroulette.com/join/%1$s</string>
+    <string name="group_spin_roulette">Girar Roleta!</string>
+    <string name="group_waiting_for_host">A aguardar que o Anfitrião gire...</string>
+    <string name="group_resume_roulette">Retomar Roleta</string>
+    <string name="group_invite_tap">Convidar Amigo</string>
+    <string name="group_invite_friends_title">Convidar Amigos</string>
+    <string name="group_invite_done">Feito</string>
+    <string name="group_invite_btn">Convidar</string>
+    <string name="group_invite_sent">Convidado</string>
+    <string name="group_invite_no_friends">Ainda não tens amigos.\nAdiciona amigos no separador Perfil.</string>
+    <string name="group_invite_banner_title">%1$s convidou-te para uma sessão!</string>
 
     <!-- Profile & Friends -->
-    <string name="nav_profile">Perfil</string>
-    <string name="profile_title">Perfil</string>
     <string name="profile_member_since">Membro desde %1$s</string>
     <string name="profile_sign_out">Sair</string>
-    <string name="friends_section_title">Os Meus Amigos</string>
+    <string name="friends_title">Os Meus Amigos</string>
     <string name="friends_empty">A tua lista de amigos está vazia. Adiciona amigos para iniciar sessões de grupo!</string>
     <string name="friends_remove">Remover</string>
     <string name="friends_add_title">Adicionar Amigo</string>
     <string name="friends_add_hint">Endereço de Email do Amigo</string>
     <string name="friends_add_button">Enviar Pedido</string>
-    <string name="friends_requests_title">Pedidos de Amizade</string>
-    <string name="friends_requests_received">Recebidos</string>
-    <string name="friends_requests_sent">Enviados</string>
-    <string name="friends_requests_empty_received">Sem pedidos recebidos.</string>
-    <string name="friends_requests_empty_sent">Sem pedidos enviados.</string>
+    <string name="friends_req_received">Recebidos</string>
+    <string name="friends_req_sent">Enviados</string>
+    <string name="friends_req_empty_received">Sem pedidos recebidos.</string>
+    <string name="friends_req_empty_sent">Sem pedidos enviados.</string>
     <string name="friends_accept">Aceitar</string>
     <string name="friends_decline">Recusar</string>
     <string name="friends_cancel">Cancelar</string>
@@ -100,4 +135,66 @@
     <string name="friends_error_already_friends">Já és amigo deste utilizador.</string>
     <string name="friends_error_already_requested">Já existe um pedido de amizade pendente.</string>
     <string name="friends_success_sent">Pedido de amizade enviado com sucesso!</string>
+    <string name="profile_title">Editar Perfil</string>
+    <string name="profile_username">Nome de utilizador</string>
+    <string name="profile_save">Guardar</string>
+    <string name="profile_cancel">Cancelar</string>
+    <string name="profile_delete_account">Apagar Conta</string>
+    <string name="profile_del_title">Apagar Conta</string>
+    <string name="profile_del_msg">Tens a certeza que pretendes apagar a tua conta? Esta ação não pode ser desfeita.</string>
+    <string name="profile_del_yes">Sim, apagar</string>
+    <string name="profile_select_image">Selecionar Imagem</string>
+    <string name="friends_total_count">%1$d Total</string>
+    <string name="btn_log_out">Terminar Sessão</string>
+
+    <!-- Watchlists -->
+    <string name="title_new_watchlist">Nova Lista</string>
+    <string name="label_name">Nome</string>
+    <string name="label_visibility">Visibilidade</string>
+    <string name="btn_create">Criar</string>
+    <string name="btn_add_to_watchlist">Adicionar à Lista</string>
+    <string name="empty_watchlists">Ainda não tens nenhuma lista de filmes.</string>
+    <string name="no_watchlist_title">Sem Listas Ainda</string>
+    <string name="no_watchlist_desc">Cria uma lista para guardar filmes para mais tarde.</string>
+    <string name="watchlist_movies_count">%1$d filmes</string>
+    <string name="watchlist_liked_name">Gostos</string>
+    <string name="desc_create_watchlist">Criar Lista</string>
+    <string name="desc_delete_watchlist">Apagar Lista</string>
+    <string name="desc_remove_movie">Remover filme</string>
+    <string name="visibility_private">Privada</string>
+    <string name="visibility_friends_only">Apenas Amigos</string>
+    <string name="visibility_public">Pública</string>
+    <string name="watchlist_delete_title">Apagar Lista</string>
+    <string name="watchlist_delete_msg">Tens a certeza que pretendes apagar a lista \"%1$s\"? Esta ação não pode ser desfeita.</string>
+    <string name="btn_delete">Apagar</string>
+    <string name="watchlist_empty_movies">Esta lista ainda não tem filmes.</string>
+    <string name="watchlist_detail_title">%1$s</string>
+
+    <!-- AI Features -->
+    <string name="title_ai_response">RESPOSTA IA</string>
+    <string name="title_ai_error">ERRO IA</string>
+    <string name="error_load_ai_insights">Não foi possível carregar os factos IA.</string>
+    <string name="roulette_ai_insights">FACTOS IA</string>
+    <string name="title_ai_guide">GUIA IA</string>
+    <string name="subtitle_powered_by_gemini">Desenvolvido por Gemini</string>
+    <string name="desc_movie_title_prompt">Introduz o título de um filme e deixa a IA criar uma descrição rica para ti.</string>
+    <string name="btn_describe_movie">DESCREVER FILME</string>
+    <string name="desc_mood_prompt">Descreve o teu humor ou o que te apetece - a IA irá sugerir 3 filmes perfeitos.</string>
+    <string name="btn_get_recommendations">OBTER RECOMENDAÇÕES</string>
+    <string name="consulting_ai">A Consultar a IA…</string>
+
+    <!-- Roulette & Match -->
+    <string name="title_its_a_match">É UM MATCH!</string>
+    <string name="match_everyone_swiped">Todos deslizaram para a direita!</string>
+
+    <!-- Settings & Appearance -->
+    <string name="title_appearance">Aparência</string>
+    <string name="setting_system_default">Padrão do Sistema</string>
+    <string name="setting_light_mode">Modo Claro</string>
+    <string name="setting_dark_mode">Modo Escuro</string>
+    <string name="title_language">Idioma</string>
+    <string name="lang_english">Inglês</string>
+    <string name="lang_portuguese">Português</string>
+    <string name="title_account">Conta</string>
+
 </resources>

@@ -13,25 +13,45 @@ import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.withContext
 import kotlin.random.Random
 
+/**
+ * Implementation of the MovieRepository interface.
+ * Responsible for fetching movie recommendations either from the TMDB API or from a local database cache.
+ *
+ * @param apiService The TMDB API service for fetching remote movies.
+ * @param movieDao The Data Access Object for local movie storage.
+ */
 class MovieRepositoryImpl(
     private val apiService: TmdbApiService,
     private val movieDao: MovieDAO
 ) : MovieRepository {
 
     companion object {
-        // Quality gates applied to every API call
+        
         private const val MIN_VOTE_COUNT   = 150
         private const val MIN_VOTE_AVERAGE = 5.5
 
-        // The random page is picked within [1, MAX_PAGE_WINDOW].
-        // TMDb discover returns ~20 results per page, so 8 pages ≈ top 160 titles.
+        
+        
         private const val MAX_PAGE_WINDOW  = 8
 
-        // How many random-weight points a movie can earn on top of its rating score.
-        // 0.5 means a 7.0 film can occasionally beat an 8.0, but a 5.0 can never beat a 9.0.
+        
+        
         private const val RANDOM_WEIGHT    = 0.5
     }
 
+    /**
+     * Retrieves a list of recommended movies based on user-defined criteria.
+     * Fetches from the network and caches the results, falling back to local cache on error.
+     *
+     * @param maxDuration The maximum duration of the movie in minutes.
+     * @param genres A list of preferred genres.
+     * @param languages A list of preferred languages.
+     * @param releaseDateGte The earliest release date in YYYY-MM-DD format.
+     * @param releaseDateLte The latest release date in YYYY-MM-DD format.
+     * @param providerIds Comma-separated list of watch provider IDs.
+     * @param seenMovieIds A set of movie IDs that the user has already seen and should be excluded.
+     * @return A randomized list of movies matching the criteria.
+     */
     override suspend fun getRecommendations(
         maxDuration: Int,
         genres: List<Genre>,
@@ -47,7 +67,7 @@ class MovieRepositoryImpl(
             val withLanguages = if (languages.isEmpty()) null else languages.joinToString("|")
             val maxRuntime   = if (maxDuration == Int.MAX_VALUE) null else maxDuration
 
-            // ── Step 1: probe page 1 to learn total_pages ─────────────────
+            
             val probe = apiService.discoverMovies(
                 genreIds       = withGenres,
                 maxRuntime     = maxRuntime,
@@ -61,10 +81,10 @@ class MovieRepositoryImpl(
             )
 
             val totalPages  = probe.totalPages.coerceAtMost(MAX_PAGE_WINDOW).coerceAtLeast(1)
-            val startPage   = Random.nextInt(1, totalPages + 1)   // random page within window
+            val startPage   = Random.nextInt(1, totalPages + 1)   
             val secondPage  = if (startPage < totalPages) startPage + 1 else 1
 
-            // ── Step 2: fetch the chosen page (and optionally the next one) ─
+            
             val rawResults = probe.results.toMutableList()
 
             if (startPage != 1) {
@@ -98,11 +118,11 @@ class MovieRepositoryImpl(
                 rawResults.addAll(page2.results)
             }
 
-            // ── Step 3: resolve details & build domain movie list ──────────
+            
             val pool = mutableListOf<Movie>()
 
             for (movieDto in rawResults) {
-                // Skip titles the user already saw this session
+                
                 if (movieDto.id in seenMovieIds) continue
 
                 var localMovie = movieDao.getMovieById(movieDto.id)
@@ -120,9 +140,9 @@ class MovieRepositoryImpl(
                 }
             }
 
-            // ── Step 4: rating-biased shuffle ─────────────────────────────
-            // score = (rating / 10.0) + random(0, RANDOM_WEIGHT)
-            // Higher-rated films float to the top on average, but variance keeps it fresh.
+            
+            
+            
             val shuffled = pool.sortedByDescending { movie ->
                 (movie.avgRating / 10.0) + Random.nextDouble(0.0, RANDOM_WEIGHT)
             }
@@ -133,7 +153,7 @@ class MovieRepositoryImpl(
             Log.e("MovieRepository", "API Error, falling back to local cache", e)
         }
 
-        // ── Fallback: local cache ──────────────────────────────────────────
+        
         val cachedMovies = movieDao.getAllMovies().firstOrNull() ?: emptyList()
         val filtered = cachedMovies.filter { movie ->
             val durationOk = movie.duration == 0 || movie.duration <= maxDuration

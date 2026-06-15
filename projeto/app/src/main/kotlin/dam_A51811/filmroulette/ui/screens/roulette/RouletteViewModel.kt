@@ -1,4 +1,4 @@
-package dam_A51811.filmroulette.data.ui.roulette
+package dam_A51811.filmroulette.ui.screens.roulette
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -12,6 +12,9 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
+/**
+ * Represents the various states of the roulette UI.
+ */
 sealed class RouletteUiState {
     object Idle    : RouletteUiState()
     object Loading : RouletteUiState()
@@ -19,12 +22,18 @@ sealed class RouletteUiState {
     data class Error(val message: String? = null, val messageResId: Int? = null) : RouletteUiState()
 }
 
+/**
+ * ViewModel responsible for managing the state and logic of the movie roulette screen,
+ * including fetching recommendations and navigating through them.
+ *
+ * @param movieRepository The repository handling movie data operations.
+ */
 class RouletteViewModel(private val movieRepository: MovieRepository) : ViewModel() {
 
     private val _uiState = MutableStateFlow<RouletteUiState>(RouletteUiState.Idle)
     val uiState: StateFlow<RouletteUiState> = _uiState.asStateFlow()
 
-    // Last-used filter params — replayed when the pool runs out
+    
     private var lastMaxDuration:    Int          = 120
     private var lastGenres:         List<Genre>  = emptyList()
     private var lastLanguages:      List<String> = emptyList()
@@ -32,9 +41,20 @@ class RouletteViewModel(private val movieRepository: MovieRepository) : ViewMode
     private var lastReleaseDateLte: String?      = null
     private var lastProviderIds:    String?      = null
 
-    // Seen-movie deduplication: cleared on every new filter session
+    
     private val seenMovieIds = mutableSetOf<Long>()
 
+    /**
+     * Loads movie recommendations based on the specified filters.
+     *
+     * @param maxDuration The maximum duration of the movies in minutes.
+     * @param genres A list of genres to filter by.
+     * @param languages A list of language codes to filter by.
+     * @param releaseDateGte The minimum release date (e.g., "YYYY-MM-DD").
+     * @param releaseDateLte The maximum release date (e.g., "YYYY-MM-DD").
+     * @param providerIds A comma-separated string of streaming provider IDs.
+     * @param isNewSession Whether this request starts a new recommendation session.
+     */
     fun loadRecommendations(
         maxDuration: Int,
         genres: List<Genre>,
@@ -42,10 +62,10 @@ class RouletteViewModel(private val movieRepository: MovieRepository) : ViewMode
         releaseDateGte: String? = null,
         releaseDateLte: String? = null,
         providerIds: String? = null,
-        isNewSession: Boolean = true   // true when called from Filters, false when refilling pool
+        isNewSession: Boolean = true   
     ) {
         if (isNewSession) {
-            // New filter session — reset everything so the user starts fresh
+            
             seenMovieIds.clear()
             lastMaxDuration    = maxDuration
             lastGenres         = genres
@@ -70,7 +90,7 @@ class RouletteViewModel(private val movieRepository: MovieRepository) : ViewMode
                 if (movies.isEmpty()) {
                     _uiState.value = RouletteUiState.Error(messageResId = R.string.error_no_movies)
                 } else {
-                    // Record every returned movie as seen for this session
+                    
                     movies.forEach { seenMovieIds.add(it.id) }
                     _uiState.value = RouletteUiState.Success(movies, 0)
                 }
@@ -83,6 +103,10 @@ class RouletteViewModel(private val movieRepository: MovieRepository) : ViewMode
         }
     }
 
+    /**
+     * Advances to the next movie in the current list of recommendations.
+     * If the end of the list is reached, it loads more recommendations.
+     */
     fun nextMovie() {
         val currentState = _uiState.value
         if (currentState is RouletteUiState.Success) {
@@ -90,7 +114,7 @@ class RouletteViewModel(private val movieRepository: MovieRepository) : ViewMode
             if (nextIndex < currentState.movies.size) {
                 _uiState.value = currentState.copy(currentIndex = nextIndex)
             } else {
-                // Pool exhausted — refill without resetting the seen-list
+                
                 loadRecommendations(
                     maxDuration = lastMaxDuration,
                     genres      = lastGenres,
@@ -100,6 +124,9 @@ class RouletteViewModel(private val movieRepository: MovieRepository) : ViewMode
         }
     }
 
+    /**
+     * Returns to the previous movie in the current list of recommendations.
+     */
     fun previousMovie() {
         val currentState = _uiState.value
         if (currentState is RouletteUiState.Success) {
@@ -110,7 +137,18 @@ class RouletteViewModel(private val movieRepository: MovieRepository) : ViewMode
         }
     }
 
+    /**
+     * Factory class for creating instances of RouletteViewModel.
+     *
+     * @param repository The repository handling movie data operations.
+     */
     class Factory(private val repository: MovieRepository) : ViewModelProvider.Factory {
+        /**
+         * Creates a new instance of the given ViewModel class.
+         *
+         * @param modelClass The class of the ViewModel to create.
+         * @return A newly created ViewModel instance.
+         */
         @Suppress("UNCHECKED_CAST")
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             return RouletteViewModel(repository) as T

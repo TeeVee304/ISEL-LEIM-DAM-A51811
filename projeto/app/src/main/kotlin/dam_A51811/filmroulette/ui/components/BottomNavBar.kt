@@ -52,10 +52,13 @@ private val navItems = listOf(
     NavItem(Screen.Profile,   Icons.Filled.Person,         Icons.Outlined.Person,        R.string.nav_profile),
 )
 
+
 /**
- * Bottom navigation bar shared across all top-level screens.
+ * A bottom navigation bar for the FilmRoulette application.
  *
- * Active item glows in neon red; inactive items adapt to the theme color scheme.
+ * @param currentRoute The currently active navigation route.
+ * @param onNavigate Callback invoked when a navigation item is selected.
+ * @param modifier The modifier to be applied to the navigation bar.
  */
 @Composable
 fun FilmRouletteBottomBar(

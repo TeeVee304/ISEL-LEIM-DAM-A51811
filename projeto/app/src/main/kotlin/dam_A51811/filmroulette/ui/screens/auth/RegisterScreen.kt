@@ -6,6 +6,8 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.foundation.background
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
@@ -14,7 +16,16 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import dam_A51811.filmroulette.ui.theme.NeonRed
 import dam_A51811.filmroulette.ui.theme.SplineSans
+import androidx.compose.ui.res.stringResource
+import dam_A51811.filmroulette.R
 
+/**
+ * Displays the registration screen, allowing new users to create an account.
+ *
+ * @param viewModel The [AuthViewModel] managing the authentication state and logic.
+ * @param onNavigateToLogin Callback invoked when the user requests to navigate to the login screen.
+ * @param modifier The [Modifier] to be applied to this composable.
+ */
 @Composable
 fun RegisterScreen(
     viewModel: AuthViewModel,
@@ -23,21 +34,22 @@ fun RegisterScreen(
 ) {
     var email by remember { mutableStateOf("") }
     var username by remember { mutableStateOf("") }
-    var avatarUrl by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var confirmPassword by remember { mutableStateOf("") }
     var errorMsg by remember { mutableStateOf<String?>(null) }
     val authState by viewModel.authState.collectAsState()
+    val pwdMismatchError = stringResource(R.string.err_pwd_mismatch)
 
     Column(
         modifier = modifier
             .fillMaxSize()
+            .background(MaterialTheme.colorScheme.background)
             .padding(24.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
         Text(
-            text = "Create Account",
+            text = stringResource(R.string.title_create_account),
             style = MaterialTheme.typography.headlineLarge,
             fontWeight = FontWeight.Bold,
             modifier = Modifier.padding(bottom = 32.dp)
@@ -46,9 +58,15 @@ fun RegisterScreen(
         OutlinedTextField(
             value = email,
             onValueChange = { email = it },
-            label = { Text("Email") },
+            label = { Text(stringResource(R.string.label_email)) },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
+                .onFocusChanged { focusState ->
+                    if (!focusState.isFocused) {
+                        email = email.trim()
+                    }
+                }
         )
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -56,7 +74,7 @@ fun RegisterScreen(
         OutlinedTextField(
             value = username,
             onValueChange = { username = it },
-            label = { Text("Username") },
+            label = { Text(stringResource(R.string.label_username)) },
             modifier = Modifier.fillMaxWidth()
         )
 
@@ -65,7 +83,7 @@ fun RegisterScreen(
         OutlinedTextField(
             value = password,
             onValueChange = { password = it },
-            label = { Text("Password") },
+            label = { Text(stringResource(R.string.label_password)) },
             visualTransformation = PasswordVisualTransformation(),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
             modifier = Modifier.fillMaxWidth()
@@ -76,20 +94,13 @@ fun RegisterScreen(
         OutlinedTextField(
             value = confirmPassword,
             onValueChange = { confirmPassword = it },
-            label = { Text("Confirm Password") },
+            label = { Text(stringResource(R.string.label_confirm_password)) },
             visualTransformation = PasswordVisualTransformation(),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
             modifier = Modifier.fillMaxWidth()
         )
 
-        Spacer(modifier = Modifier.height(16.dp))
 
-        OutlinedTextField(
-            value = avatarUrl,
-            onValueChange = { avatarUrl = it },
-            label = { Text("Profile Image URL (Optional)") },
-            modifier = Modifier.fillMaxWidth()
-        )
 
         Spacer(modifier = Modifier.height(24.dp))
 
@@ -98,18 +109,18 @@ fun RegisterScreen(
         } else {
             Button(
                 onClick = { 
-                    if (username.isBlank()) {
-                        errorMsg = "Username cannot be empty"
-                    } else if (password != confirmPassword) {
-                        errorMsg = "Passwords do not match"
+                    if (password != confirmPassword) {
+                        errorMsg = pwdMismatchError
                     } else {
                         errorMsg = null
-                        viewModel.register(email, password, username, avatarUrl.takeIf { it.isNotBlank() })
+                        val finalEmail = email.trim()
+                        val finalUsername = if (username.isBlank()) finalEmail.substringBefore("@") else username
+                        viewModel.register(finalEmail, password, finalUsername, null)
                     }
                 },
                 modifier = Modifier.fillMaxWidth().height(50.dp)
             ) {
-                Text("Sign Up", fontSize = 18.sp)
+                Text(stringResource(R.string.btn_sign_up), fontSize = 18.sp)
             }
         }
 
@@ -128,7 +139,7 @@ fun RegisterScreen(
             viewModel.resetState()
             onNavigateToLogin()
         }) {
-            Text("Already have an account? Log in")
+            Text(stringResource(R.string.prompt_log_in))
         }
     }
 }

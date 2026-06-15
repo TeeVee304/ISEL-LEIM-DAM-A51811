@@ -11,7 +11,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.automirrored.filled.Logout
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Icon
@@ -34,20 +34,19 @@ import dam_A51811.filmroulette.R
 import dam_A51811.filmroulette.ui.theme.NeonRed
 import dam_A51811.filmroulette.ui.theme.SplineSans
 
+
 /**
- * The app-wide top bar rendered on every screen.
+ * A top app bar for the FilmRoulette application.
  *
- * Styled to match the HTML mockup: translucent background adapting to themes, bold italic red logo,
- * hamburger icon on the left, and a circular user avatar on the right.
- *
- * @param avatarUrl URL of the current user's avatar image (optional).
- * @param onMenuClick Callback for the hamburger icon.
- * @param onSettingsClick Callback for the settings icon.
+ * @param avatarUrl The URL of the user's avatar to be displayed.
+ * @param onExitClick Callback invoked when the exit/logout button is clicked.
+ * @param onSettingsClick Callback invoked when the settings button is clicked.
+ * @param modifier The modifier to be applied to the top bar.
  */
 @Composable
 fun FilmRouletteTopBar(
     avatarUrl: String? = null,
-    onMenuClick: () -> Unit = {},
+    onExitClick: () -> Unit = {},
     onSettingsClick: () -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
@@ -61,16 +60,16 @@ fun FilmRouletteTopBar(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween,
     ) {
-        // ── Left: hamburger ───────────────────────────────────────────────
-        IconButton(onClick = onMenuClick) {
+        
+        IconButton(onClick = onExitClick) {
             Icon(
-                imageVector = Icons.Default.Menu,
-                contentDescription = stringResource(id = R.string.desc_menu),
+                imageVector = Icons.AutoMirrored.Filled.Logout,
+                contentDescription = "Logout",
                 tint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.70f),
             )
         }
 
-        // ── Centre: logo ──────────────────────────────────────────────────
+        
         Text(
             text = stringResource(id = R.string.app_logo),
             fontFamily = SplineSans,
@@ -81,7 +80,7 @@ fun FilmRouletteTopBar(
             color = NeonRed,
         )
 
-        // ── Right: avatar & settings ──────────────────────────────────────
+        
         Row(verticalAlignment = Alignment.CenterVertically) {
             if (avatarUrl != null) {
                 AsyncImage(
