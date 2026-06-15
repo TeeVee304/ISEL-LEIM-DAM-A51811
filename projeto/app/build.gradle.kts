@@ -17,9 +17,17 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        
-        val tmdbApiKey = project.findProperty("TMDB_API_KEY") as? String ?: "\"\""
+        val localProperties = java.util.Properties()
+        val localPropertiesFile = rootProject.file("local.properties")
+        if (localPropertiesFile.exists()) {
+            localProperties.load(localPropertiesFile.inputStream())
+        }
+
+        val tmdbApiKey = localProperties.getProperty("TMDB_API_KEY") ?: "\"\""
         buildConfigField("String", "TMDB_API_KEY", tmdbApiKey)
+
+        val nimApiKey = localProperties.getProperty("NIM_API_KEY") ?: "\"\""
+        buildConfigField("String", "NIM_API_KEY", nimApiKey)
     }
 
     buildTypes {

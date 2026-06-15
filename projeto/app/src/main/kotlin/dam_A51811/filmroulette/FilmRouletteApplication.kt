@@ -86,6 +86,11 @@ class FilmRouletteApplication : Application() {
         } catch (e: Exception) {
             android.util.Log.e("FilmRoulette", "Could not load AI config.properties: ${e.message}")
         }
+        
+        if (BuildConfig.NIM_API_KEY.isNotEmpty()) {
+            aiProperties.setProperty("NIM_API_KEY", BuildConfig.NIM_API_KEY)
+        }
+
         aiAssistant = AIAssistantFactory.create(aiProperties)
     }
 }
